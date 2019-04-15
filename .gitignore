@@ -1,0 +1,28 @@
+# JS Projects
+*.py[co]
+__pycache__*
+
+# Packages
+*.egg
+*.egg-info
+.cache
+eggs
+parts
+bin
+var
+sdist
+develop-eggs
+.installed.cfg
+MANIFEST
+.idea/*
+.idea
+.idea/libraries/sass_stdlib.xml
+.sass-cache
+.vscode
+.DS_Store
+node_modules/
+package-lock.json
+
+site/
+dev/
+
