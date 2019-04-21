@@ -1,0 +1,29 @@
+---
+title: Contact Us
+description: This is the page description
+---
+
+
+<div class="wrapper">
+    <section class="container">
+        <h3 class="title">{{ page.title }}</h3>
+        <p>
+          <form>
+            <fieldset>
+              <label for="nameField">Name</label>
+              <input type="text" placeholder="Name" id="nameField">
+              <label for="emailField">Email</label>
+              <input type="text" placeholder="Email" id="emailField">
+              <label for="commentField">Comment</label>
+              <textarea placeholder="" id="commentField"></textarea>
+              <div class="float-right">
+                <input type="checkbox" id="confirmField">
+                <label class="label-inline" for="confirmField">Send a copy to yourself</label>
+              </div>
+              <input class="button-primary" type="submit" value="Send">
+            </fieldset>
+          </form>
+        </p>
+        {{ Kolibri.page_link('index', text='Home') }}
+    </section>
+</div>

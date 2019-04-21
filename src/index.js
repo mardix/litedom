@@ -1,108 +1,112 @@
 /**
  * reLift
  * A view library,
- * Template literal + State Manager
+ * Template literal + State Management
  */
-import bindDom from './dom.js';
-import reStated from './restated.js';
+import { onChange, memoize, isFn } from './utils.js';
+import { tokenizeEvents, parseDom, parseLit, bindEvents, htmlToDom, patchDom } from './dom-utils.js';
+import reLiftState from './relift-state.js';
+export { reLiftState };
 
-export { reStated };
+/**
+ *
+ * @param {*} el
+ * @param {*} context
+ * @param {*} template
+ */
+function dom(el, context = {}, template = null) {
+  if (template) el.innerHTML = template;
+  const node = el.cloneNode(true);
+  tokenizeEvents(node);
+  parseDom(node);
+  el.innerHTML = node.innerHTML;
+  bindEvents(el, context);
+  const tpl = node.outerHTML;
+  return state => {
+    const newHtml = parseLit(tpl, state);
+    const newNode = htmlToDom(newHtml);
+    return patchDom(newNode, el);
+  };
+}
 
-export function reLift(opt = {}) {
+export default function reLiftHTML(opt = {}) {
+  const reservedKeys = ['data', 'el', 'template', 'store', 'mounted', 'updated'];
   const conf = {
-    /** @type {Element} The dom element to bind */
-    el: document.body,
-
-    /** @type {object} For global state. Must have subscribe() and getState() */
-    store: {},
-
-    /** @type {object} local state data */
-    data: {},
-
-    /** @type {object} object of function */
-    methods: {},
-
-    /** @type {function} triggered on initialization */
-    created: () => {},
-
-    /** @type {function} triggered on mount */
-    mounted: () => {},
-
-    /** @type {function} triggered on update */
-    updated: () => {},
-
+    data: {} /** @type {object} local state data */,
+    el: document.body /** @type {HTMLElement} The dom element to bind */,
+    template: null /** @type {string} */,
+    store: {} /** @type {reStated} For global state. Must have subscribe() and getState() */,
+    mounted: () => {} /** @type {function} triggered on initialization */,
+    updated: () => {} /** @type {function} triggered on update */,
     ...opt,
   };
 
-  const store = conf.store;
+  const el = typeof conf.el === 'string' ? document.querySelector(conf.el) : conf.el;
+  if (!(el instanceof HTMLElement))
+    throw new Error(`reLiftHTML setup error: 'el' is not a DOM Element. >> el: ${conf.el}`);
+
+  const template = conf.template ? conf.template : el.innerHTML;
+
+  /** Extract all methods to be used in the context */
+  const methods = Object.keys(conf)
+    .filter(k => !reservedKeys.includes(k))
+    .filter(k => !k.startsWith('$'))
+    .filter(k => isFn(conf, k))
+    .reduce((pV, cK) => ({ ...pV, [cK]: conf[cK] }), {});
+
+  /** initialState */
+  const initialState = Object.keys(conf.data)
+    .filter(k => !isFn(conf.data, k))
+    .reduce((pV, cK) => ({ ...pV, [cK]: conf.data[cK] }), {});
+
+  /** computedState */
+  const computedState = Object.keys(conf.data)
+    .filter(k => isFn(conf.data, k))
+    .map(key => memoize(key, conf.data[key]));
+
+  function updateComputedState(state) {
+    computedState.forEach(s => s(state));
+  }
 
   /** @type {object} the application state */
-  let state = { $store: {}, ...conf.data };
-  if (conf.store) {
+  let state = { $store: {}, ...initialState };
+
+  /** @type {reStated} */
+  let store = undefined;
+  if (Object.keys(conf.store).length) {
+    store = conf.store;
     state.$store = conf.store.$getState();
     conf.store.$subscribe(data => {
       state.$store = conf.store.$getState();
+      updateComputedState(state);
       render();
     });
   }
 
-  /** @type {object} application scope to be accessed inside of callbacks via this.data, this.store */
-  const self = {
-    data: new Proxy(state, {
-      get: (target, prop) => target[prop],
-      set: (target, prop, value) => {
-        target[prop] = value;
-        render();
-        return true;
-      },
-    }),
-    render,
-    $store: conf.store, // Use via this.$store and in the html ${this.$store}
-    $emit: eventBusPub,
-    $on: eventBusSub,
-  };
+  /** data proxy */
+  const data = onChange(state, () => {
+    updateComputedState(state);
+    render();
+  });
 
-  // Set scope in the actions, so the can be accessed via diff
-  conf.methods = { ...conf.methods, ...self };
+  /** @type {object} context (events action methods) to be used in the  template */
+  const context = { ...methods, el, data, render, store };
 
-  // Bind the dom and attach the method context
-  const updateDom = bindDom(conf.el, conf.methods);
-
+  /** To re-render and run updated() */
   function render() {
-    const updated = updateDom(state);
-    // lifecycle: udpated
-    if (updated) {
-      conf.updated.call(self);
+    if (updateDom(state)) {
+      conf.updated.call(context); // lifecycle: udpated
     }
   }
 
-  // lifecycle: created
-  conf.created.call(self);
+  /** Bind the dom and attach the method context */
+  const updateDom = dom(el, context, template);
 
-  // LoDom is ready
+  /** DOM Ready */
   document.addEventListener('DOMContentLoaded', () => {
-    // lifecycle: mounted
-    conf.mounted.call(self);
-
-    // initial rendering
-    updateDom(state);
-
-    // if the element is hidden, let's show it now
-    conf.el.style.display = 'block';
+    updateComputedState(state);
+    updateDom(state); // initial rendering
+    conf.mounted.call(context); // lifecycle: created
+    el.style.display = 'block'; // if the element is hidden, let's show it now
   });
-}
-
-/**
- * Event Bus, for simple communication between
- * component without touching the store
- */
-const eventBusSubscribers = {};
-function eventBusSub(eventType, listener) {
-  if (!eventBusSubscribers[eventType]) eventBusSubscribers[eventType] = [];
-  eventBusSubscribers[eventType].push(listener);
-  return () => eventBusSubscribers[eventType].splice(eventBusSubscribers[eventType].indexOf(listener), 1);
-}
-function eventBusPub(eventType, arg) {
-  if (!eventBusSubscribers[eventType]) return;
-  eventBusSubscribers[eventType].forEach(s => s(arg));
 }

@@ -1,9 +1,12 @@
 {
   "name": "relift",
-  "version": "1.0.0",
+  "pkgName": "reLift",
+  "version": "0.0.1",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
+    "deploy-docs": "gh-pages -d docs/build",
+    "build": "node build.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,5 +18,16 @@
   "bugs": {
     "url": "https://github.com/mardix/relift/issues"
   },
-  "homepage": "https://github.com/mardix/relift#readme"
+  "homepage": "https://github.com/mardix/relift",
+  "devDependencies": {
+    "@babel/core": "^7.4.3",
+    "@babel/preset-env": "^7.4.3",
+    "@babel/preset-es2015": "^7.0.0-beta.53",
+    "gh-pages": "^2.0.1",
+    "gzip-size": "^5.0.0",
+    "jest": "^24.6.0",
+    "rollup": "^1.8.0",
+    "rollup-plugin-babel": "^4.3.2",
+    "uglify-js": "^3.5.3"
+  }
 }

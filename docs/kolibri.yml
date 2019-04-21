@@ -1,0 +1,70 @@
+# ------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
+#                              Kolibri
+#                      The Elegant Static Site Generator
+# mardix.github.io/kolibri
+#
+# kolibri v=1.0.0
+# ------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
+# Site: Global site context
+# Variables under [site] will be available in the page as ie: {{ site.name }}
+site:
+
+  # layout: **REQUIRED - The default site layout
+  layout: "layouts/default.html"
+
+  # base_url: **REQUIRED - Site base url, the canonical url to build
+  base_url: /
+
+  # Site name
+  name: "relift.io"
+
+  # The site url
+  url:
+
+  # Google Analytics code
+  google_analytics:
+
+  # Site Favicon
+  favicon:
+
+  # Global meta tags. They can be overwritten by page meta tags
+  meta:
+    keywords:
+    language: en-us
+    rating: General
+    robots: index, follow
+
+  # Social
+  social:
+    facebook:
+    twitter:
+    github:
+
+# ------------------------------------------------------------------------------
+# For local server development
+local_server:
+  port: 8000
+  livereload: True
+  openwindow: True
+
+# ------------------------------------------------------------------------------
+# Build configuration 
+build:
+  # Bool: Create sitemap.xml
+  make_sitemap: True
+
+  # Bool: Create feed.xml
+  make_rss: True
+
+  # Bool: Create robots.txt
+  make_robots: True
+
+  # Bool: Debug
+  debug: True
+
+  # Bool: To compress HTML when built
+  compress_html: False 

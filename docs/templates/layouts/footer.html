@@ -1,0 +1,17 @@
+{# **REQUIRED** #}
+{% import "kolibri.macros" as Kolibri with context %}
+    
+{# footer #}
+    <div class="wrapper">
+      <hr />
+      <footer class="footer">
+        <section class="container">
+          &copy; {{ _env.year }} {{ site.name }}
+        </section>
+      </footer>
+    </div>
+
+    {{ Kolibri.script_tag('/static/main.js') }}
+    {% block __PAGE_COMPONENT_SCRIPT__ %}{% endblock %}
+  </body>
+</html>

@@ -1,0 +1,53 @@
+---
+title: Welcome to my site
+---
+
+<template>
+    <div class="wrapper">
+
+        <header class="header">
+            <div class="container">
+                <img src="{{ Kolibri.static_url('/static/images/kolibri.png') }}">
+                <h1 class="title">Kolibri</h1>
+                <p class="description">The elegant static site generator<br>
+                    <i><small>Currently {{ _env.version }}</small></i>
+                </p>
+                <a class="button" target="_blank" href="https://mardix.github.com/kolibri" title="Getting Started">Documentation</a>
+        
+            </div>
+        </header>
+
+        <section class="container">
+            <h3 class="title">Simple and Elegant</h3>
+            <p><strong>Kolibri</strong> is an elegant static site generator built in Python. 
+            It doesn't lock you in any framework way, instead it lets you have it your way. 
+            Create pages in HTML or Markdown; write HTML, JS & CSS in a single file component; 
+            build your pages; deploy to your host; Kolibri keeps it simple and elegant!
+            </p>
+
+            <h4 class="title">Link examples</h4>
+
+            {{ Kolibri.page_link('about') }} - 
+            {{ Kolibri.page_link('contact') }} - 
+            {{ Kolibri.page_link('advanced') }}
+
+        </section>
+    </div>
+</template>
+
+<script>
+    console.log('Hello Kolibri!');
+</script>
+
+<style>
+.main-title {
+    text-align: center
+}
+</style>
+
+
+
+
+
+
+

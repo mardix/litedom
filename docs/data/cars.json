@@ -1,0 +1,11 @@
+
+{
+  "title": "List of cars",
+  "my_list": [
+    "Mercedes",
+    "BMW",
+    "Tesla",
+    "Lambo",
+    "Corvette"
+  ]
+}

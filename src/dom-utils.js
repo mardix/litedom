@@ -1,7 +1,47 @@
 const ELEMENT_NODE = 1;
 const TEXT_NODE = 3;
 const COMMENT_NODE = 8;
-const regexForMatch = /(.*)\s+(in)\s+(.*)$/;
+const EVENTS_LIST = [
+  'keydown',
+  'keypress',
+  'keyup',
+  'focus',
+  'blur',
+  'hover',
+  'change',
+  'input',
+  'reset',
+  'submit',
+  'click',
+  'dblclick',
+  'mouseenter',
+  'mouseleave',
+  'mousedown',
+  'mousemove',
+  'mouseout',
+  'mouseover',
+  'mouseup',
+  'contextmenu',
+  'select',
+  'drag',
+  'dragend',
+  'dragenter',
+  'dragstart',
+  'dragleave',
+  'drop',
+  'cut',
+  'copy',
+  'paste',
+];
+const ATTR_EVENTS_LIST = 'r-on_events';
+// to prevent conflict, name that may clash prefix them with $
+const DIRECTIVES_LIST = {
+  $for: r_for,
+  $if: r_if,
+  disabled: r_disabled,
+  $class: r_class,
+};
+
 const md = dir => `r-${dir}`;
 const has_d = (el, dir) => el.hasAttribute(md(dir));
 const get_d = (el, dir) => el.getAttribute(md(dir));
@@ -14,73 +54,52 @@ const wrapAround = (el, before, after) => {
   beforeText(el, before);
   afterText(el, after);
 };
+const replaceChild = (newEl, el) => el.parentNode.replaceChild(newEl, el);
+const mkEventName = e => `r-on-${e}`;
 
-const directives = {
-  for: directive_for,
-  if: directive_if,
-  disabled: directive_disabled,
-};
-
-export function parseDom(el) {
-  for (const dir in directives) {
-    for (const el2 of qall_d(el, dir)) {
-      directives[dir](el2);
-    }
-  }
-  return el;
-}
-
-function directive_if(el) {
-  if (has_d(el, 'if')) {
-    const val = get_d(el, 'if');
-    rm_d(el, 'if');
-    beforeText(el, `\${${val} ? `);
-    const rElse = el.nextElementSibling;
-    if (rElse && has_d(rElse, 'else')) {
-      wrapAround(el, `\``, `\``);
-      rm_d(rElse, 'else');
-      wrapAround(rElse, `:\``, `\`}`);
-    } else {
-      wrapAround(el, `\``, `\`:\`\`}`);
-    }
+function r_if(el, value, directive) {
+  rm_d(el, directive);
+  beforeText(el, `\${${value} ? `);
+  const rElse = el.nextElementSibling;
+  if (rElse && has_d(rElse, 'else')) {
+    wrapAround(el, `\``, `\``);
+    rm_d(rElse, 'else');
+    wrapAround(rElse, `:\``, `\`}`);
+  } else {
+    wrapAround(el, `\``, `\`:\`\`}`);
   }
 }
 
-function directive_for(el) {
-  if (has_d(el, 'for')) {
-    const val = get_d(el, 'for');
-    const groups = regexForMatch.exec(val);
-    if (groups.length === 4) {
-      const sel = groups[1];
-      const query = groups[3];
-      wrapAround(el, `\${${query}.map(function(${sel}) { return \``, `\`}.bind(this)).join('')}`);
-      rm_d(el, 'for');
-    }
+function r_for(el, value, directive) {
+  const groups = /(.*)\s+(in)\s+(.*)$/.exec(value);
+  if (groups.length === 4) {
+    const sel = groups[1].replace('(', '').replace(')', '');
+    const query = groups[3];
+    wrapAround(el, `\${${query}.map(function(${sel}) { return \``, `\`}.bind(this)).join('')}`);
+    rm_d(el, directive);
   }
 }
 
-function directive_disabled(el) {
+function r_disabled(el, value, directive) {
+  // /r\-disable\s*=(.*)\s*"/m
   const dir = 'disabled';
-  if (has_d(el, dir)) {
-    const query = get_d(el, dir);
-    rm_d(el, dir);
-    el.setAttribute(dir, `\${ ${query} ? true : false}`);
-  }
+  //rm_d(el, dir);
+  el.setAttribute(dir, `\${ ${value} ? true : false}`);
 }
 
-//----------
+function r_class(el, value, directive) {
+  if (!el.hasAttribute('class')) el.setAttribute('class', '');
+  let cValue = el.getAttribute('class');
+  // parse the value to make the condition
+  el.setAttribute('class', cValue);
+  rm_d(el, directive);
+}
+
+// ==================
+
 /**
  * Patch baseTree with newTree
  */
-
-/**
- *
- * @returns {boolean} true for any changes
- */
-export function patchDom(newTree, baseTree = null) {
-  [mergeAttrs(baseTree, newTree), walkNode(newTree, baseTree)].some(v => !v);
-  return false;
-}
 
 const isProxy = node => node && node.dataset && node.dataset.proxy !== undefined;
 
@@ -264,3 +283,123 @@ const walkNode = (newNode, baseNode) => {
   updateNode(newNode, baseNode);
   return baseNode;
 };
+
+// ==== EXPORTS ====
+
+export const htmlToDom = html => new DOMParser().parseFromString(html, 'text/html').body.firstChild;
+/**
+ * Get a string and turn it into template literal
+ * @param {string} tpl
+ * @param {object} state
+ */
+export const parseLit = (tpl, state) => new Function(`return \`${tpl}\``).call(state);
+
+export function parseDom(el, customDirectives = {}) {
+  const directives = { ...customDirectives, ...DIRECTIVES_LIST };
+  for (const $dir in directives) {
+    const directive = $dir.replace('$', '');
+    for (const el2 of qall_d(el, directive)) {
+      if (has_d(el2, directive)) {
+        const value = get_d(el2, directive);
+        directives[$dir](el2, value, directive);
+      }
+    }
+  }
+  return el;
+}
+
+export function tokenizeEvents(selector) {
+  /**
+   * '@call'
+   * Wildcard events, base of the type of the element it will assign the right event name
+   * ie: on input element, '@call' will turn into 'r-on-input' and 'r-on-paste'
+   * on AHREF, '@call' will turn into 'r-on-click'
+   */
+  for (const el of selector.querySelectorAll('[\\@call]')) {
+    const method = el.getAttribute('@call');
+    el.removeAttribute('@call');
+    let evnts = ['click'];
+    if (el instanceof HTMLInputElement || el instanceof HTMLTextAreaElement) evnts = ['input', 'paste'];
+    else if (el instanceof HTMLInputElement) evnts = ['change'];
+    else if (el instanceof HTMLFormElement) evnts = ['submit'];
+    else if (el instanceof HTMLAnchorElement) el.setAttribute('href', 'javascript:void(0);');
+    let eventsList = (el.getAttribute(ATTR_EVENTS_LIST) || '').split(',').filter(v => v);
+    eventsList = eventsList.concat(evnts);
+    el.setAttribute(ATTR_EVENTS_LIST, eventsList.join(','));
+    for (const e of evnts) {
+      el.setAttribute(mkEventName(e), method);
+    }
+  }
+  // Regular event list
+  for (const e of EVENTS_LIST) {
+    for (const el of selector.querySelectorAll(`[\\@${e}]`)) {
+      const eventsList = (el.getAttribute(ATTR_EVENTS_LIST) || '').split(',').filter(v => v);
+      eventsList.push(e);
+      el.setAttribute(ATTR_EVENTS_LIST, eventsList.join(','));
+      el.setAttribute(mkEventName(e), el.getAttribute(`@${e}`));
+      el.removeAttribute(`@${e}`);
+      if (el instanceof HTMLAnchorElement) el.setAttribute('href', 'javascript:void(0);');
+    }
+  }
+}
+
+export function bindEvents(selector, context) {
+  function mapEvents(selector) {
+    Array.from(selector.querySelectorAll(`[${ATTR_EVENTS_LIST}]`)).map(el => applyEvents(el));
+  }
+
+  function observer(mutations) {
+    for (const mutation of mutations) {
+      for (const el of mutation.removedNodes) {
+        applyEvents(el, true);
+      }
+      if (mutation.addedNodes.length > 0) {
+        mapEvents(mutation.target);
+      }
+    }
+  }
+
+  function handler(method) {
+    const e = arguments[1];
+    const eType = e.type;
+    try {
+      e.preventDefault();
+      context[method].call(context, e);
+    } catch (err) {
+      console.error(`Events Handler Error: '${method}()' on '${eType}'`, err);
+    }
+  }
+
+  function applyEvents(el, remove = false) {
+    if (!el || !el.getAttribute) return;
+    (el.getAttribute('r-on_events') || '')
+      .split(',')
+      .filter(v => v)
+      .map(e => {
+        el[`on${e}`] = remove ? undefined : handler.bind(this, el.getAttribute(mkEventName(e)));
+      });
+  }
+
+  const options = {
+    attributes: true,
+    characterData: true,
+    childList: true,
+    subtree: true,
+    attributeOldValue: true,
+    characterDataOldValue: true,
+  };
+  const mutationsObserver = new MutationObserver(observer);
+  mutationsObserver.observe(selector, options);
+  mapEvents(selector);
+  return mutationsObserver;
+}
+
+/**
+ *
+ * @returns {boolean} true for any changes
+ */
+export function patchDom(newTree, baseTree = null) {
+  walkNode(newTree, baseTree);
+  //[mergeAttrs(baseTree, newTree), ].some(v => !v);
+  return false;
+}
