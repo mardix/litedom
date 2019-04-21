@@ -20,14 +20,11 @@
   },
   "homepage": "https://github.com/mardix/relift",
   "devDependencies": {
-    "@babel/core": "^7.4.3",
-    "@babel/preset-env": "^7.4.3",
-    "@babel/preset-es2015": "^7.0.0-beta.53",
     "gh-pages": "^2.0.1",
-    "gzip-size": "^5.0.0",
     "jest": "^24.6.0",
     "rollup": "^1.8.0",
-    "rollup-plugin-babel": "^4.3.2",
-    "uglify-js": "^3.5.3"
-  }
+    "rollup-plugin-banner": "^0.2.0",
+    "rollup-plugin-terser": "^4.0.4"
+  },
+  "dependencies": {}
 }
