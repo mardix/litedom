@@ -1,9 +1,9 @@
 {
-  "name": "relift",
-  "pkgName": "reLiftHTML",
+  "name": "relift-html",
+  "pkgName": "reLift-HTML",
   "version": "0.0.1",
-  "description": "",
-  "main": "dist/relift.min.js",
+  "description": "A super easy, fast and modern templating library for HTML that uses Javascript template literals in HTML",
+  "main": "dist/relift-html.esm.js",
   "scripts": {
     "deploy-docs": "gh-pages -d docs/build",
     "test": "jest --verbose ./test/"
@@ -13,14 +13,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mardix/relift.git"
+    "url": "git+https://github.com/mardix/relift-html.git"
   },
   "author": "Mardix",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/mardix/relift/issues"
+    "url": "https://github.com/mardix/relift-html/issues"
   },
-  "homepage": "https://github.com/mardix/relift",
+  "homepage": "https://github.com/mardix/relift-html",
   "devDependencies": {
     "@babel/core": "^7.4.3",
     "@babel/preset-env": "^7.4.3",

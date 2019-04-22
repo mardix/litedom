@@ -48,17 +48,8 @@
             <input type="text" r-value="this.count">
             <textarea r-value="this.countNum"></textarea>
             <input type="checkbox"  r-value="5">
-            
-            <select 
-              r-select="items"
-              r-opt-text="${$item.key} ${$item.value}"
-              r-opt-value="$item.id"
-              r-opt-title="Choose your destiny"
-              r-opt-title-value="0000"
-            >
-            ${(this.something).map(($item, $index) => {
-              return `<option r></option>`
-            })}
+            Date:  ${new Date().toISOString().slice(0, 10)}
+
           </select>
 
             <button @click="down" class="button-outline">DOWN</button>
