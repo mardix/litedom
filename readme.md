@@ -22,7 +22,7 @@ Behind the scene, reLift-HTML will turn the html section into a modern template 
 </div>
 
 <script type="module">
-  import reLiftHTML from '//unpkg.com/relift-html?module';
+  import reLiftHTML from '//unpkg.com/relift-html';
 
   reLiftHTML({
     el: '#helloWidget',
@@ -61,7 +61,7 @@ Make sure `type="module"` exists in the script tag.
 ```html
 
 <script type="module">
-  import reLiftHTML from '//unpkg.com/relift-html?module';
+  import reLiftHTML from '//unpkg.com/relift-html';
   
   ...
 
@@ -106,7 +106,7 @@ We will be using the ESM way, but the same applied if you were to install it via
 
 
 <script type="module">
-  import reLiftHTML from '//unpkg.com/relift-html?module';
+  import reLiftHTML from '//unpkg.com/relift-html';
   
   reLiftHTML({
     el: '#counterWidget',
@@ -125,7 +125,7 @@ We will be using the ESM way, but the same applied if you were to install it via
 
 ```
 
-The script above shows how easy it is to create a counter that goes UP or DOWN each time is clicked. You can try it yourself: 
+The script above shows how easy it is to create a counter that goes UP or DOWN each time is clicked. You can try it yourself: https://jsfiddle.net/hdfup3cg/ 
 
 
 ##### So what did we do?

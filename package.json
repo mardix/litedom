@@ -1,9 +1,10 @@
 {
   "name": "relift-html",
   "pkgName": "reLift-HTML",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "A super easy, fast and modern templating library for HTML that uses Javascript template literals in HTML",
   "main": "dist/relift-html.esm.js",
+  "module": "dist/relift-html.esm.js",
   "scripts": {
     "deploy-docs": "gh-pages -d docs/build",
     "test": "jest --verbose ./test/"
