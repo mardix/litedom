@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-  <title>reLiftHTML Demo</title>
+  <title>reLift Demo</title>
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic" />
   <link rel="stylesheet" href="//cdn.rawgit.com/necolas/normalize.css/master/normalize.css" />
   <link rel="stylesheet" href="//cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css" />
@@ -28,6 +28,7 @@
     </header>
   </div>
 
+
   <!-- COUNTER -->
   <div>
     <div class="container">
@@ -41,10 +42,28 @@
           <script src="https://gist.github.com/mardix/eb3d611c3306f32bc45f51fedfa6b7ac.js"></script>
         </div>
         <div class="column center" id="counterWidget">
-          <div><h4>${this.count} with ${this.countNum}</h4></div>
+
+          <div><h4>${this.count} with ${this.countNum} / ${this.$store.count} -> ${this.$store.counter}</h4></div>
           <div>
+            <input type="text" r-value="this.count">
+            <textarea r-value="this.countNum"></textarea>
+            <input type="checkbox"  r-value="5">
+            
+            <select 
+              r-select="items"
+              r-opt-text="${$item.key} ${$item.value}"
+              r-opt-value="$item.id"
+              r-opt-title="Choose your destiny"
+              r-opt-title-value="0000"
+            >
+            ${(this.something).map(($item, $index) => {
+              return `<option r></option>`
+            })}
+          </select>
+
             <button @click="down" class="button-outline">DOWN</button>
             <button @click="up" class="button-outline">UP</button>
+            <button @click="set5" class="button-outline">5</button>
           </div>
         </div>
       </div>
@@ -110,25 +129,41 @@
     </div>
 
   <script type="module">
-    import reLiftHTML, { reLiftState } from '../src/index.js';
+    import reLift, { reLiftState } from '../src/index.js';
 
+    const store = reLiftState({
+      count: 1,
+      counter:(state) => `counting x 2 = ${state.count}`
+    },{
+      setCount(state) {
+        state.count++;
+      },
+      set5(state) {
+        state.count = 5;
+      }
+    })
     // COUNTER
-    reLiftHTML({
+    reLift({
       el: '#counterWidget',
+      store,
       data: {
         count: 0,
         countNum: state => `We are now counting ${state.count}`,
       },
       up() {
         this.data.count++;
+        this.store.setCount();
       },
       down() {
         this.data.count--;
+      },
+      set5() {
+        this.store.set5();
       }
     });
 
     // TODO APP
-    reLiftHTML({
+    reLift({
       el: '#todoAppWidget',
       data: {
         count: 0,
@@ -149,7 +184,7 @@
     // STAR WARS
     const STARS_WARS_BASE_API = 'https://swapi.co/api';
     const delay = ms => new Promise(res => setTimeout(res, ms))
-    reLiftHTML({
+    reLift({
       el: '#starWarsWidget',
       data: {
         peopleList: [],

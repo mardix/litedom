@@ -1,13 +1,15 @@
 {
   "name": "relift",
-  "pkgName": "reLift",
+  "pkgName": "reLiftHTML",
   "version": "0.0.1",
   "description": "",
-  "main": "src/index.js",
+  "main": "dist/relift.min.js",
   "scripts": {
     "deploy-docs": "gh-pages -d docs/build",
-    "build": "node build.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --verbose ./test/"
+  },
+  "jest": {
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.jsx?$"
   },
   "repository": {
     "type": "git",
@@ -20,8 +22,11 @@
   },
   "homepage": "https://github.com/mardix/relift",
   "devDependencies": {
+    "@babel/core": "^7.4.3",
+    "@babel/preset-env": "^7.4.3",
     "gh-pages": "^2.0.1",
     "jest": "^24.6.0",
+    "mutationobserver-shim": "^0.3.3",
     "rollup": "^1.8.0",
     "rollup-plugin-banner": "^0.2.0",
     "rollup-plugin-terser": "^4.0.4"

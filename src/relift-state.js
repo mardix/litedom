@@ -1,6 +1,7 @@
 // reLiftState
 
-import { onChange, memoize, isFn } from './utils.js';
+import { selectorMemoizer, isFn } from './utils.js';
+import onChange from './onchange.js';
 
 /**
  * reLiftState
@@ -17,7 +18,7 @@ export default function reLiftState(initialState = {}, mutators = {}) {
   /** Selectors, computed functions that accept the state as arg. Must return value */
   const selectors = Object.keys(initialState)
     .filter(v => isFn(initialState, v))
-    .map(k => memoize(k, initialState[k]));
+    .map(k => selectorMemoizer(k, initialState[k]));
 
   const actions = Object.keys(mutators)
     .filter(v => isFn(mutators, v))

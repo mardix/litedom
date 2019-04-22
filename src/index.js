@@ -3,8 +3,11 @@
  * A view library,
  * Template literal + State Management
  */
-import { onChange, memoize, isFn } from './utils.js';
-import { tokenizeEvents, parseDom, parseLit, bindEvents, htmlToDom, patchDom } from './dom-utils.js';
+import emerj from './emerj.js';
+import onChange from './onchange.js';
+import { tokenizeEvents, bindEvents } from './events.js';
+import { parseDirectives } from './directives.js';
+import { selectorMemoizer, isFn, parseLit, htmlToDom } from './utils.js';
 import reLiftState from './relift-state.js';
 export { reLiftState };
 
@@ -18,14 +21,13 @@ function dom(el, context = {}, template = null) {
   if (template) el.innerHTML = template;
   const node = el.cloneNode(true);
   tokenizeEvents(node);
-  parseDom(node);
+  parseDirectives(node);
   el.innerHTML = node.innerHTML;
   bindEvents(el, context);
-  const tpl = node.outerHTML;
+  const lit = parseLit(node.outerHTML);
   return state => {
-    const newHtml = parseLit(tpl, state);
-    const newNode = htmlToDom(newHtml);
-    return patchDom(newNode, el);
+    const newNode = htmlToDom(lit(state));
+    return emerj.merge(el, newNode);
   };
 }
 
@@ -62,7 +64,7 @@ export default function reLiftHTML(opt = {}) {
   /** computedState */
   const computedState = Object.keys(conf.data)
     .filter(k => isFn(conf.data, k))
-    .map(key => memoize(key, conf.data[key]));
+    .map(key => selectorMemoizer(key, conf.data[key]));
 
   function updateComputedState(state) {
     computedState.forEach(s => s(state));

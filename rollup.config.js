@@ -1,6 +1,14 @@
 /**
  * Rollup config
- * run: rollup -c
+ *
+ * This script config allows us to create a bundle of the library
+ * the library is meant to be used at ES module, or <script type="module" src"">
+ *
+ * intall:
+ * > npm install -g rollup
+ *
+ * run
+ * > rollup -c
  */
 const terser = require('rollup-plugin-terser');
 import banner from 'rollup-plugin-banner';
