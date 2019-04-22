@@ -1,5 +1,8 @@
 # reLift-HTML
 
+
+[![gzip bundle size](http://img.badgesize.io/https://unpkg.com/relift-html@latest/dist/relift-html.esm.js?compression=gzip&style=flat-square)](https://unpkg.com/relift-html)
+
 **reLift-HTML** is a super easy, modern, micro and fast HTML templating library for HTML that uses Javascript template literals in HTML, (yup! you read that right!). 
 
 Inspired by, but unlike lit-html and hyperhtml, reLift-HTML makes it easy to write javascript in your HTML template using template literals. 
@@ -181,10 +184,10 @@ https://mardix.github.com/relift-html
 
 #### How big is reLift-HTML?
 
-Relatively small.
+reLift-HTML is very small.
 
-Gzip: ~3.1kb
-Minified: 7kb
+Gzip: **~3.1kb**
+
 
 
 #### Why yet another Javascript library?
@@ -197,7 +200,6 @@ That's where reLift-HTML comes into play. When you want big things in a small pa
 
 #### Who would use it?
 
-If you 
 
 - Simple Site page
 - Or static site 
