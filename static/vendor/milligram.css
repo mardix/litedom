@@ -180,7 +180,7 @@
  
  pre {
    background: #f4f5f6;
-   border-left: 0.3rem solid #9b4dca;
+   /* border-left: 0.3rem solid #9b4dca; */
    overflow-y: hidden;
  }
  

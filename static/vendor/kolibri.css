@@ -17,7 +17,7 @@
   width: 100%
 }
 .wrapper .container {
-  max-width: 80rem
+  max-width: 100rem
 }
 .wrapper > .container {
   padding-bottom: 7.5rem;
@@ -35,32 +35,31 @@
 .header + section {
   border-top: 0
 }
+
 .header .container {
   border-top: 0;
-  padding-bottom: 7.5rem;
+  padding-bottom: 1.5rem;
   padding-top: 7.5rem;
   position: relative;
   text-align: center
 }
+
+
 .header .title {
   font-family: Gotham Rounded A, Gotham Rounded B, Helvetica Neue, Arial, sans-serif
 }
-.header .img {
-  height: 15rem;
-  margin-bottom: 2rem
-}
-.header .img path {
-  animation: 7s a forwards;
-  fill: #9b4dca;
-  stroke: #9b4dca;
-  stroke-dasharray: 38321;
-  stroke-miterlimit: 10;
-  stroke-width: 15px
-}
+
 .header .button {
   margin-bottom: 4rem;
   margin-top: 2rem
 }
+
+body {
+  color: #606c76;
+  font-family: Gotham Rounded A, Gotham Rounded B, Helvetica Neue, Arial, sans-serif;
+
+}
+
 @media(min-width:40rem) {
   .header .button {
       margin-bottom: 4rem;
@@ -83,7 +82,7 @@
 }
 .navigation {
   background: #f4f5f6;
-  border-bottom: .1rem solid #d1d1d1;
+  border-bottom: .1rem dotted #d1d1d1;
   display: block;
   height: 5.2rem;
   left: 0;
@@ -122,18 +121,19 @@
 }
 .navigation .navigation-title,
 .navigation .title {
-  color: #606c76;
+  color: #2a3238;
   font-family: Gotham Rounded A, Gotham Rounded B, Helvetica Neue, Arial, sans-serif;
-  position: relative
+  position: relative;
+  font-size: 2.6rem;
+  font-weight: bold;
 }
 .navigation .navigation-link,
 .navigation .navigation-title,
 .navigation .title {
   display: inline;
-  font-size: 1.6rem;
   line-height: 5.2rem;
   padding: 0;
-  text-decoration: none
+  text-decoration: none;
 }
 .navigation .navigation-link.active {
   color: #606c76
