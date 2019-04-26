@@ -17,12 +17,12 @@
             title: h2.innerText,
             url: slug ,
             subsections: [...s.querySelectorAll('h3')].map(h3 => {
-              const slug = this.slugify(h2.innerText + '-' + h3.innerText)
+              /*const slug = this.slugify(h2.innerText + '-' + h3.innerText)
               h3.setAttribute('id', `${slug}`)
               return {
                 title: h3.innerText,
                 url: slug
-              }
+              }*/
             })
           })
         }
