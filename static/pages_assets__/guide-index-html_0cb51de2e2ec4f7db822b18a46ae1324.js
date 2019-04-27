@@ -5,25 +5,39 @@
       data: {
         menu: []
       },
-      mounted() {
-
+      created() {
         const sections = [];
         for (const s of document.querySelectorAll('.guides section')) {
           const subsections = [];
           const h2 = s.querySelector('h2');
           const slug = this.slugify(h2.innerText);
+
           h2.setAttribute('id', `${slug}`)
           sections.push({
             title: h2.innerText,
-            url: slug ,
-            subsections: [...s.querySelectorAll('h3')].map(h3 => {
-              /*const slug = this.slugify(h2.innerText + '-' + h3.innerText)
-              h3.setAttribute('id', `${slug}`)
-              return {
-                title: h3.innerText,
-                url: slug
-              }*/
-            })
+            url: slug
+          })
+
+          /** 
+            Fix the anchoring problem with all the MDs
+            It will remap href and if;
+          **/
+          s.querySelectorAll('.toc ul li a').forEach(el => {
+            const href = el.getAttribute('href').replace('#', '');
+            if (slug !== href) {
+              const id = `${slug}__${href}`;
+              el.setAttribute('href', `#${id}`);
+              el.addEventListener('click', e => {
+                e.preventDefault();
+                this.scrollTo(document.querySelector(`#${id}`));
+              })
+            }
+          })
+          s.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach(el => {
+            const id = el.getAttribute('id');
+            if (id && id !== slug) {
+              el.setAttribute('id', `${slug}__${id}`)
+            }
           })
         }
         this.data.menu = sections;
@@ -46,7 +60,7 @@
           [...el.querySelectorAll('[data-affix-link]')].map(e => {
             e.addEventListener('click', (ev) => {
               ev.preventDefault();
-              document.querySelector(e.getAttribute('data-affix-link')).scrollIntoView({behavior: 'smooth'});
+              this.scrollTo(document.querySelector(e.getAttribute('data-affix-link')));
               setTimeout(() => {
                 scroll();
               }, 300)
@@ -59,7 +73,11 @@
       .replace(/[^\w\s-]/g, '') // remove non-word [a-z0-9_], non-whitespace, non-hyphen characters
       .replace(/[\s_-]+/g, '-') // swap any length of whitespace, underscore, hyphen characters with a single -
       .replace(/^-+|-+$/g, ''), // remove leading, trailing -
-      
+      scrollTo: (el) => {
+        const id = el.id;
+        history.replaceState(undefined, undefined,`#${id}`);
+        el.scrollIntoView({behavior: 'smooth'})
+      }
     });
 
 
