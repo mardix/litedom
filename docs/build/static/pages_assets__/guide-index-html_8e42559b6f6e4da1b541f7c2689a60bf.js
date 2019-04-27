@@ -1,98 +1,3 @@
----
-title: Guide
-description: This is the page description
-docs:
-  - introduction.md
-  - installation.md
-  - instance.md
-  - lifecycle.md
-  - data.md
-  - methods.md
-  - directives.md
-  - events.md
-  - syntax.md
-  
----
-
-<template>
-  <div class="wrapper">
-    <header class="header header-dark">
-        <div class="container">
-          <h2 class="title">Guide</h2>
-        </div>
-      </header>
-      
-      <div class="container">
-        <div class="row">
-          <div class="column column-25" id="sideMenu">
-            <div class="" id="content-side-affix">
-                <ul class="side-nav">
-                  <li r-for="item in this.menu">
-                    <a href="#${item.url}" data-affix-link="#${item.url}">${item.title}</a>
-                  </li>
-                </ul>
-            </div>
-
-          </div>
-          <div class="column guides">
-            {% for doc in this.docs %} 
-            <a name="{{ doc }}" id="{{ doc }}"></a>
-            <section class="doc">
-                {% include 'guide-docs/%s' % doc %}
-            </section>
-            <hr>
-            {% endfor %}
-          </div>
-        </div>
-      </div>
-    </div>
-</template>
-
-<style scss>
-  .guides {
-    margin-bottom: 40px;
-    h2 {
-      display: block;
-      border-bottom: 2px dotted #663399;
-      margin: auto 0;
-      margin-bottom: 40px;
-      font-weight: bold;
-      padding-bottom: 10px;
-      font-size: 5.5rem
-    }
-    h3 {
-      border-top: 1px dotted #ccc;
-      padding-top: 10px;
-      padding-bottom: 10px;
-      font-size: 3.5rem
-    }
-  }
-  ul {
-    &.side-nav {
-      list-style: none;
-      li {
-        a {
-          color: #663399;
-          font-size: 20px;
-        }
-        ul {
-          list-style: none;
-          margin-left: 20px;
-          li {
-            a {
-              font-size: 20px;
-              color: #606c76;
-            }
-          }
-        }
-      }
-
-    }
-
-  }
-</style>
-
-<script type="module">
     import reLiftHTML from '//unpkg.com/relift-html';
   
     reLiftHTML({
@@ -144,10 +49,10 @@ docs:
             if( scrollTop > 100 ){
               el.style.top=`${top}px`;
               el.style.width=`200px`;
-              el.style.position="fixed";
+              el.style.position='fixed';
             } else {
-              el.style.position="relative";
-              el.style.top="0px";
+              el.style.position='relative';
+              el.style.top='0px';
             }
           };
     
@@ -171,7 +76,7 @@ docs:
       scrollTo: (el) => {
         const id = el.id;
         history.replaceState(undefined, undefined,`#${id}`);
-        el.scrollIntoView({behavior: "smooth"})
+        el.scrollIntoView({behavior: 'smooth'})
       }
     });
 
@@ -181,4 +86,3 @@ docs:
     
     
 
-</script>
