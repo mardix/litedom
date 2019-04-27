@@ -12,6 +12,7 @@
     "publish-docs": "cd ./docs && kolibri build && cp static/CNAME ./build && gh-pages -d build",
     "test": "jest --verbose ./test/",
     "mk-dist": "jest ./test/ && rollup -c && gzip-size ./dist/relift-html.esm.js",
+    "mk-dist0": "rollup -c && gzip-size ./dist/relift-html.esm.js",
     "npm-publish": "jest ./test/ && rollup -c && npm publish"
   },
   "jest": {

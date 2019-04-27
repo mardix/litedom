@@ -24,7 +24,7 @@ function dom(el, context = {}, template = null) {
   const lit = parseLit(node.outerHTML);
   return state => {
     const newNode = htmlToDom(lit(state));
-    return emerj.merge(el, newNode);
+    return emerj(el, newNode);
   };
 } 
 
