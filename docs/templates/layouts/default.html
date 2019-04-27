@@ -1,11 +1,28 @@
 {# **REQUIRED** #}
 {% import "kolibri.macros" as Kolibri with context %}
-
-{# This is the default layout #}
-
 {% include "layouts/header.html" %}
+{% block __PAGE_COMPONENT_STYLE__ %}{% endblock %}
+
+<div class="wrapper">
+    <nav class="navigation">
+      <section class="container">
+        <a class="navigation-title" href="{{ page_url('index')}}"><h1 class="title">reLift-HTML</h1></a>
+        <ul class="navigation-list float-right">
+          <li><a href="{{ page_url('guide') }}">Guide</a></li>
+          <li><a href="{{ page_url('examples') }}">Examples</a></li>
+          <li><a target="_blank" href="https://github.com/mardix/relift-html">Github</a></li>
+        </ul>
+      </section>
+    </nav>
+</div>
+
 
 {% block __MAIN_CONTENT__ %}{% endblock %}
 
-{% include "layouts/footer.html" %}
+{{ Kolibri.stylesheet_tag('vendor/highlight/styles/nord.css') }}
+{{ Kolibri.script_tag('vendor/highlight/highlight.pack.js') }}
+{{ Kolibri.script_tag('main.js') }}
 
+{% block __PAGE_COMPONENT_SCRIPT__ %}{% endblock %}
+
+{% include "layouts/footer.html" %}

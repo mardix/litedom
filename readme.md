@@ -3,16 +3,13 @@
 
 [![gzip bundle size](http://img.badgesize.io/https://unpkg.com/relift-html@latest/dist/relift-html.esm.js?compression=gzip&style=flat-square)](https://unpkg.com/relift-html)
 
-**reLift-HTML** is a super easy, modern, micro and fast HTML templating library for HTML that uses Javascript template literals in HTML, (yup! you read that right!). 
-
-Inspired by, but unlike lit-html and hyperhtml, reLift-HTML makes it easy to write javascript in your HTML template using template literals. 
+**reLift-HTML** is a blazing fast view library for HTML that let you put Javascript Template Literals in HTML. (yup! you read that right!). 
 
 No need to know special React/JSX syntax or some other templaty stuff, HTML is your template. Use it the way you've used it before.
 
 If you need some values to be reactive, just place them in the template literal `${...}`, otherwise, keep going with your plain old HTML.
 
-Behind the scene, reLift-HTML will turn the html section into a modern template string literal, and upon receive new data, it will will just render only sections that have updated.
-
+Underneath, reLift-HTML will turn the html section into a modern template string literal, and upon receive new data, it will will just re-render only sections need to be rendered.
 
 
 ### First Example
@@ -217,6 +214,23 @@ It follows the same paradigm as the big ones, just on a smaller scale.
 
 #### Features
 
+
+- Very small
+- Template literals
+- Directives
+- Data binding
+- Computed properties
+- Event Handling
+- Lifecycle
+- State management
+- HTML stays as is
+- No JSX 
+- No dependency
+- No virtual DOM
+- No need for CLI
+- No build, the real DOM does it!
+
+
 - Template literals in HTML
 - Directives, to make writing some complex template lit in a simpler way.
   - r-if
@@ -230,9 +244,9 @@ It follows the same paradigm as the big ones, just on a smaller scale.
   - mounted
   - updated
 - State management
-  - Simple/Local state with **data**
-  - Sharing data: **reLiftState**
-  - Computed state, and selectors
+  - Local State
+  - Share State
+  - Computed data
 - Events
   - @click, @mouseover etc....
 

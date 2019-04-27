@@ -1,15 +1,12 @@
 /**
- * reLift
- * A view library,
- * Template literal + State Management
+ * reLift-HTML
  */
+
 import emerj from './emerj.js';
 import onChange from './onchange.js';
 import { tokenizeEvents, bindEvents } from './events.js';
 import { parseDirectives } from './directives.js';
-import { selectorMemoizer, isFn, parseLit, htmlToDom } from './utils.js';
-import reLiftState from './relift-state.js';
-export { reLiftState };
+import { computeState, isFn, parseLit, htmlToDom } from './utils.js';
 
 /**
  *
@@ -29,16 +26,16 @@ function dom(el, context = {}, template = null) {
     const newNode = htmlToDom(lit(state));
     return emerj.merge(el, newNode);
   };
-}
+} 
 
 export default function reLiftHTML(opt = {}) {
-  const reservedKeys = ['data', 'el', 'template', 'store', 'mounted', 'updated'];
+  const reservedKeys = ['data', 'el', 'template', 'store', 'created', 'updated'];
   const conf = {
     data: {} /** @type {object} local state data */,
     el: document.body /** @type {HTMLElement} The dom element to bind */,
     template: null /** @type {string} */,
-    store: {} /** @type {reStated} For global state. Must have subscribe() and getState() */,
-    mounted: () => {} /** @type {function} triggered on initialization */,
+    store: {} /** @type {getState, subscribe} */,
+    created: () => {} /** @type {function} triggered on initialization */,
     updated: () => {} /** @type {function} triggered on update */,
     ...opt,
   };
@@ -64,22 +61,23 @@ export default function reLiftHTML(opt = {}) {
   /** computedState */
   const computedState = Object.keys(conf.data)
     .filter(k => isFn(conf.data, k))
-    .map(key => selectorMemoizer(key, conf.data[key]));
+    .map(k => computeState(k, conf.data[k]));
 
-  function updateComputedState(state) {
-    computedState.forEach(s => s(state));
-  }
+  const updateComputedState = state => computedState.forEach(s => s(state));
 
   /** @type {object} the application state */
   let state = { $store: {}, ...initialState };
 
-  /** @type {reStated} */
+  /**
+   * Shared state
+   * @type {getState(), subscribe()}
+   */
   let store = undefined;
   if (Object.keys(conf.store).length) {
     store = conf.store;
-    state.$store = conf.store.$getState();
-    conf.store.$subscribe(data => {
-      state.$store = conf.store.$getState();
+    state.$store = conf.store.getState();
+    conf.store.subscribe(data => {
+      state.$store = conf.store.getState();
       updateComputedState(state);
       render();
     });
@@ -106,9 +104,9 @@ export default function reLiftHTML(opt = {}) {
 
   /** DOM Ready */
   document.addEventListener('DOMContentLoaded', () => {
-    updateComputedState(state);
+    updateComputedState(state); // Make sure compurated state are available
     updateDom(state); // initial rendering
-    conf.mounted.call(context); // lifecycle: created
+    conf.created.call(context); // lifecycle: created
     el.style.display = 'block'; // if the element is hidden, let's show it now
   });
 }

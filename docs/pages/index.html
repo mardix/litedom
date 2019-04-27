@@ -1,53 +1,88 @@
 ---
-title: Welcome to my site
+title: reLift-HTML
 ---
 
 <template>
-    <div class="wrapper">
+  <div class="wrapper">
+    <header class="header">
+      <div class="container">
+        <h1 class="title">reLift-HTML</h1>
+        <div class="description">
+           A blazing fast view 
+           library that  lets you <br>  put Javascript Template Literals in HTML.<br>
+           2kb, no dependency, no virtual dom, no build tool.<br>
+           Lift HTML up again!<br>
+        </div>
 
-        <header class="header">
-            <div class="container">
-                <img src="{{ Kolibri.static_url('/static/images/kolibri.png') }}">
-                <h1 class="title">Kolibri</h1>
-                <p class="description">The elegant static site generator<br>
-                    <i><small>Currently {{ _env.version }}</small></i>
-                </p>
-                <a class="button" target="_blank" href="https://mardix.github.com/kolibri" title="Getting Started">Documentation</a>
-        
-            </div>
-        </header>
 
-        <section class="container">
-            <h3 class="title">Simple and Elegant</h3>
-            <p><strong>Kolibri</strong> is an elegant static site generator built in Python. 
-            It doesn't lock you in any framework way, instead it lets you have it your way. 
-            Create pages in HTML or Markdown; write HTML, JS & CSS in a single file component; 
-            build your pages; deploy to your host; Kolibri keeps it simple and elegant!
+        <a class="button button-large" href="{{ page_url('guide') }}" title="Getting Started"
+          ><strong>Get Started</strong></a>
+        <a class="button button-large button-clear" href="{{ page_url('examples') }}" title="Examples">Examples</a>
+        <a
+          class="button button-large button-clear"
+          target="_blank"
+          href="https://github.com/mardix/relift-html"
+          title="Github repo"
+          >Github</a>
+      </div>
+    </header>
+
+    <section>
+      <div class="container">
+        <div class="row">
+          <div class="column">
+            <p
+              class="codepen"
+              data-height="800"
+              data-theme-id="0"
+              data-default-tab="html,result"
+              data-user="mardix"
+              data-slug-hash="VNVyze"
+              style="height: 800px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid black; margin: 1em 0; padding: 1em;"
+              data-pen-title="VNVyze"
+            >
+              <span
+                >See the Pen <a href="https://codepen.io/mardix/pen/VNVyze/"> VNVyze</a> by Mardix (<a
+                  href="https://codepen.io/mardix"
+                  >@mardix</a
+                >) on <a href="https://codepen.io">CodePen</a>.</span
+              >
             </p>
+            <script async src="https://static.codepen.io/assets/embed/ei.js"></script>
+          </div>
+        </div>
+      </div>
+    </section>
 
-            <h4 class="title">Link examples</h4>
+    <section class="container">
+      <h3 class="title">Simple and Elegant</h3>
+      <p>
+        <strong>Kolibri</strong> is an elegant static site generator built in Python. It doesn't lock you in any
+        framework way, instead it lets you have it your way. Create pages in HTML or Markdown; write HTML, JS & CSS in a
+        single file component; build your pages; deploy to your host; Kolibri keeps it simple and elegant!
+      </p>
 
-            {{ Kolibri.page_link('about') }} - 
-            {{ Kolibri.page_link('contact') }} - 
-            {{ Kolibri.page_link('advanced') }}
 
-        </section>
-    </div>
+
+      <div class="description">
+          A blazing fast, declarative, expressive, zero dependency, no virtual dom, view library that lets you write Javascript Template Literals in your HTML.<br>
+          Efficiently it re-renders parts that should be rendered on the DOM.<br>
+          Also provides a simple state management<br>
+          At the end, it gives you back your HTML. No transpilation, compilation
+   
+       </div>
+
+      <h4 class="title">Link examples</h4>
+    </section>
+  </div>
 </template>
 
 <script>
-    console.log('Hello Kolibri!');
+  console.log('Hello Kolibri!');
 </script>
 
 <style>
-.main-title {
-    text-align: center
-}
+  .main-title {
+    text-align: center;
+  }
 </style>
-
-
-
-
-
-
-

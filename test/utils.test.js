@@ -1,12 +1,19 @@
-import { isFn, htmlToDom, parseLit, selectorMemoizer } from '../src/utils.js';
+import { isFn, htmlToDom, parseLit, computeState } from '../src/utils.js';
 
 describe('isFn', () => {
-  test('isFn returns a bool', () => {
+  test('is a function', () => {
     const o = {
       fn: () => {},
     };
     expect(isFn(o, 'fn')).toBe(true);
   });
+
+  test('not a function', () => {
+    const o = {
+      fn: 1
+    };
+    expect(isFn(o, 'fn')).toBe(false)
+  })
 });
 
 describe('parseLit', () => {
@@ -32,16 +39,16 @@ describe('htmlToDom', () => {
   })
 });
 
-describe('selectorMemoizer', () => {
+describe('computeState', () => {
   test('instantialize must return a function', () => {
-    expect(selectorMemoizer('name', (state) => {})).toBeInstanceOf(Function)
+    expect(computeState('name', (state) => {})).toBeInstanceOf(Function)
   });
 
-  test('selectorMemoizer should mutate the state', () => {
+  test('computeState should mutate the state via returned value', () => {
     const data = {
       name: 'HTML',
     };
-    const m = selectorMemoizer('value', (state) => { return `OK ${state.name}`});
+    const m = computeState('value', (state) => { return `OK ${state.name}`});
     m(data);
     expect(data.value).toBe('OK HTML')
   });  

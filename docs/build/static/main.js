@@ -1,1 +1,1 @@
-console.log('Hello Kolibri!')
+hljs.initHighlightingOnLoad();

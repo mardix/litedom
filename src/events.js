@@ -1,3 +1,7 @@
+/**
+ * reLift-HTML
+ */
+
 const EVENTS_LIST = [
   'keydown',
   'keypress',
@@ -75,30 +79,14 @@ export function bindEvents(selector, context) {
         .split(',')
         .filter(v => v)
         .map(e => {
-          el[`on${e}`] = handler.bind(this, el.getAttribute(mkEventName(e)));
+          el[`on${e}`] = (evnt) => {
+            evnt.preventDefault();
+            const method = el.getAttribute(mkEventName(e)) 
+            context[method].call(context, evnt);
+          }
         });
     });
   }
-
-  function handler(method) {
-    const e = arguments[1];
-    const eType = e.type;
-    try {
-      e.preventDefault();
-      context[method].call(context, e);
-    } catch (err) {
-      console.error(`Events Handler Error: '${method}()' on '${eType}'`, err);
-    }
-  }
-
-  const options = {
-    attributes: true,
-    characterData: true,
-    childList: true,
-    subtree: true,
-    attributeOldValue: true,
-    characterDataOldValue: true,
-  };
 
   const mutationsObserver = new MutationObserver(mutations => {
     [...mutations]
@@ -106,7 +94,11 @@ export function bindEvents(selector, context) {
       .map(m2 => m2.target)
       .map(t => mapEvents(t));
   });
-  mutationsObserver.observe(selector, options);
+  mutationsObserver.observe(selector, {
+    attributes: true,
+    childList: true,
+    subtree: true
+  });
   mapEvents(selector);
   return mutationsObserver;
 }

@@ -15,9 +15,10 @@ import banner from 'rollup-plugin-banner';
 const pkg = require('./package.json');
 
 const topBanner = `${pkg.pkgName} v${pkg.version}
-Copyright ${new Date().getFullYear()} Mardix
-Released under the MIT License
+Copyright ${new Date().getFullYear()} Mardix mcx2082@gmail.com
+License: MIT
 ${pkg.homepage}
+Build date: ${new Date().toLocaleString()}
 `;
 
 export default {

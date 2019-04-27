@@ -1,13 +1,18 @@
 {
   "name": "relift-html",
   "pkgName": "reLift-HTML",
-  "version": "0.0.3",
-  "description": "A super easy, fast and modern templating library for HTML that uses Javascript template literals in HTML",
+  "version": "0.0.4",
+  "author": "Mardix",
+  "license": "MIT",
+  "description": "A blazing fast view library that lets  you put Javascript Template Literals in HTML",
   "main": "dist/relift-html.esm.js",
   "module": "dist/relift-html.esm.js",
   "scripts": {
-    "deploy-docs": "gh-pages -d docs/build",
-    "test": "jest --verbose ./test/"
+    "dry-publish-docs": "cd ./docs && kolibri build && cp ./static/CNAME ./build",
+    "publish-docs": "cd ./docs && kolibri build && cp static/CNAME ./build && gh-pages -d build",
+    "test": "jest --verbose ./test/",
+    "mk-dist": "jest ./test/ && rollup -c && gzip-size ./dist/relift-html.esm.js",
+    "npm-publish": "jest ./test/ && rollup -c && npm publish"
   },
   "jest": {
     "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.jsx?$"
@@ -16,8 +21,6 @@
     "type": "git",
     "url": "git+https://github.com/mardix/relift-html.git"
   },
-  "author": "Mardix",
-  "license": "MIT",
   "bugs": {
     "url": "https://github.com/mardix/relift-html/issues"
   },
@@ -26,6 +29,7 @@
     "@babel/core": "^7.4.3",
     "@babel/preset-env": "^7.4.3",
     "gh-pages": "^2.0.1",
+    "gzip-size-cli": "^3.0.0",
     "jest": "^24.6.0",
     "mutationobserver-shim": "^0.3.3",
     "rollup": "^1.8.0",

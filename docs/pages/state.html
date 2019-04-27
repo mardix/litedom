@@ -1,0 +1,38 @@
+---
+
+title: Advanced Paged
+description: This page mix and match some advanced concepts
+data:
+    title: Locations
+    locations:
+        - Charlotte
+        - Concord
+        - North Carolina
+---
+
+
+<div class="wrapper">
+    <section class="container">
+        <h3 class="title">{{ page.title }}</h3>
+        <p> {{ page.description }} </p>
+        <hr> 
+
+        <h4>Page level data</h4>
+        <h5>{{ page.data.title }}</h5>
+        <ul>
+            {% for loc in page.data.locations %}
+            <li>{{ loc }}</li>
+            {% endfor %}
+        </ul>
+
+        <hr>
+
+        
+        <hr>
+        <h4>Include Partials</h4>
+        {% include 'partials/my_table.html' %}
+        <hr>
+
+        {{ Kolibri.page_link('index', text='Home') }}
+    </section>
+</div>

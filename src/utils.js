@@ -1,3 +1,5 @@
+// reLift-HTML
+
 /**
  * isFn isFunction
  * @param {object} obj
@@ -6,6 +8,11 @@
  */
 export const isFn = (obj, key) => obj && typeof obj[key] === 'function';
 
+/**
+ * Turn an HTML string into HTMLElement
+ * @param {string} html 
+ * @return {HTMLElement}
+ */
 export const htmlToDom = html => new DOMParser().parseFromString(html, 'text/html').body.firstChild;
 
 /**
@@ -19,34 +26,12 @@ export const htmlToDom = html => new DOMParser().parseFromString(html, 'text/htm
 export const parseLit = tpl => state => new Function(`return \`${tpl}\``).call(state);
 
 /**
- * Compare two state
- * @param {object} s1
- * @param {object} s2
- * @returns {boolean}
+ * Create a function that receive data to create computed state
+ * @param {string} key 
+ * @param {function} fn 
+ * myCs = computeState(('fullName', (state) => return state.name) => )
+ * myCs({name: 'Mardix'})
+ * myCs.fullName -> Mardix
  */
-const compState = (s1, s2) => JSON.stringify(s1) === JSON.stringify(s2);
+export const computeState = (key, fn) => state => state[key] = fn({...state})
 
-/**
- * selectorMemoizer a Proxy selector
- * @param {string} key
- * @param {function} fn
- * @return {function onChangeProxy}
- * ie: myMem = selectorMemoizer(k, (state) => return value)
- * myMem(state)
- */
-export const selectorMemoizer = (key, fn) => {
-  let prevState = null;
-  let prevValue = undefined;
-  let value = undefined;
-  return state => {
-    const exportedState = state.___target___ ? { ...state.___target___ } : { ...state };
-    if (!prevState || !compState(prevState, exportedState)) {
-      prevState = exportedState;
-      value = fn(prevState);
-    }
-    if (prevValue !== value) {
-      prevValue = value;
-      state[key] = value;
-    }
-  };
-};

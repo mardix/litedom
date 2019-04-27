@@ -5,7 +5,7 @@
 #                      The Elegant Static Site Generator
 # mardix.github.io/kolibri
 #
-# kolibri v=1.0.0
+# kolibri v=1.2.0
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
@@ -13,17 +13,19 @@
 # Variables under [site] will be available in the page as ie: {{ site.name }}
 site:
 
-  # layout: **REQUIRED - The default site layout
-  layout: "layouts/default.html"
-
   # base_url: **REQUIRED - Site base url, the canonical url to build
   base_url: /
 
+  # static_url: **REQUIRE - Site static. If static files are placed somewhere else, you can put the path there
+  static_url: /static/
+
+  app_name: reLift-HTML
+  
   # Site name
-  name: "relift.io"
+  name: "reLift-HTML"
 
   # The site url
-  url:
+  url: 
 
   # Google Analytics code
   google_analytics:
@@ -44,27 +46,42 @@ site:
     twitter:
     github:
 
+# Site environment: environment data will be merged with the global site settings
+# ie: 'env.prod.base_url' will use the prod base_url
+# At build: 'kolibri build prod', or serve 'kolibri serve --env prod'
+env: 
+  prod:
+    base_url: 'https://relift-html.js.org/'
+    static_url: 'https://relift-html.js.org/static/'
+
 # ------------------------------------------------------------------------------
 # For local server development
-local_server:
+serve:
   port: 8000
   livereload: True
   openwindow: True
+  env:
+  make_sitemap: True
+  make_rss: True
+  make_robots: True
+  debug: True
+  compress_html: False 
 
 # ------------------------------------------------------------------------------
 # Build configuration 
 build:
-  # Bool: Create sitemap.xml
+  env: prod
   make_sitemap: True
-
-  # Bool: Create feed.xml
   make_rss: True
-
-  # Bool: Create robots.txt
   make_robots: True
-
-  # Bool: Debug
   debug: True
+  compress_html: True 
 
-  # Bool: To compress HTML when built
-  compress_html: False 
+#---
+
+globals:
+  # layout: **REQUIRED - The default site layout
+  layout: "layouts/default.html"
+
+plugins:
+  - copy_cname.py

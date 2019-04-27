@@ -43,7 +43,7 @@
         </div>
         <div class="column center" id="counterWidget">
 
-          <div><h4>${this.count} with ${this.countNum} / ${this.$store.count} -> ${this.$store.counter}</h4></div>
+          <div><h4>${this.count} with ${this.countNum}</h4></div>
           <div>
             <input type="text" r-value="this.count">
             <textarea r-value="this.countNum"></textarea>
@@ -120,41 +120,25 @@
     </div>
 
   <script type="module">
-    import reLift, { reLiftState } from '../src/index.js';
+    import reLiftHTML from '../src/index.js';
 
-    const store = reLiftState({
-      count: 1,
-      counter:(state) => `counting x 2 = ${state.count}`
-    },{
-      setCount(state) {
-        state.count++;
-      },
-      set5(state) {
-        state.count = 5;
-      }
-    })
     // COUNTER
-    reLift({
+    reLiftHTML({
       el: '#counterWidget',
-      store,
       data: {
         count: 0,
         countNum: state => `We are now counting ${state.count}`,
-      },
+      }, 
       up() {
         this.data.count++;
-        this.store.setCount();
       },
       down() {
         this.data.count--;
-      },
-      set5() {
-        this.store.set5();
       }
     });
 
     // TODO APP
-    reLift({
+    reLiftHTML({
       el: '#todoAppWidget',
       data: {
         count: 0,
@@ -175,7 +159,7 @@
     // STAR WARS
     const STARS_WARS_BASE_API = 'https://swapi.co/api';
     const delay = ms => new Promise(res => setTimeout(res, ms))
-    reLift({
+    reLiftHTML({
       el: '#starWarsWidget',
       data: {
         peopleList: [],
