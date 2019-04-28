@@ -148,7 +148,6 @@ body {
 .navigation ul.navigation-list {
   list-style: none;
   margin-bottom: 0;
-  margin-right: 5rem
 }
 @media(min-width:80rem) {
   .navigation ul.navigation-list {
@@ -161,12 +160,16 @@ body {
   margin-left: 2.5rem;
   position: relative
 }
-.navigation .img {
-  fill: #9b4dca;
-  height: 2rem;
-  position: relative;
-  top: .3rem
+
+@media(max-width:639px) {
+  .navigation ul.navigation-list li {
+    float: left;
+    margin-bottom: 0;
+    margin-left: 0.5rem;
+    position: relative
+  }
 }
+
 .navigation .navigation-title,
 .navigation .title {
   color: #2E3440;

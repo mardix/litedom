@@ -1,0 +1,71 @@
+#page-guide {
+  margin-bottom: 40px; }
+  #page-guide h2 {
+    display: block;
+    border-bottom: 2px dotted #663399;
+    margin: auto 0;
+    margin-bottom: 40px;
+    font-weight: bold;
+    padding-bottom: 10px;
+    font-size: 5.5rem; }
+    #page-guide h3 {
+      border-top: 1px dotted #ccc;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      font-size: 3.5rem; }
+
+#menu-toggler {
+  display: none; }
+
+  @media (min-width: 320px) and (max-width: 639px) {
+    #menu-toggler {
+      ;
+text-align: center;
+      background: #fff;
+      padding: 10px;
+      left: 0px;
+      top: 50px;
+      position: fixed;
+      z-index: 100;
+      display: block;
+      border: 1px solid #ccc;   }
+      #menu-toggler .fa-bars {
+        font-size: 40px;   }
+    #content-side-affix {
+      background: #fff;
+      position: fixed;
+      width: 110%;
+      margin-left: 0px;
+      left: -10px;
+      text-align: center;
+      top: 170px;
+      padding-top: 20px;
+      display: none;   }
+      #content-side-affix.show {
+        display: block;   }
+        #content-side-affix ul li {
+          margin-bottom: 15px;   }
+          #content-side-affix ul li a {
+            font-size: 24px;   }
+      #content-side-affix.top {
+        top: 0px;   }
+}
+
+ul.side-nav {
+  list-style: none; }
+  ul.side-nav li a {
+    color: #663399;
+    font-size: 20px; }
+    ul.side-nav li ul {
+      list-style: none;
+      margin-left: 10px;
+      margin-top: 5px;
+      display: none;
+      transition: all 0.3s ease-in-out 0s, visibility 0s linear 0.3s, z-index 0s linear 0.01s; }
+      ul.side-nav li ul li {
+        margin-top: 5px; }
+        ul.side-nav li ul li a {
+          font-size: 14px;
+          color: #606c76; }
+  ul.side-nav li.active ul {
+    display: block; }
