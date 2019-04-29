@@ -2,12 +2,11 @@
   margin-bottom: 40px; }
   #page-guide h2 {
     display: block;
-    border-bottom: 2px dotted #663399;
-    margin: auto 0;
+    border-bottom: 1px solid #312450;
     margin-bottom: 40px;
-    font-weight: bold;
     padding-bottom: 10px;
-    font-size: 4.5rem; }
+    font-size: 4rem;
+    color: #312450; }
     #page-guide h3 {
       border-top: 1px dotted #ccc;
       padding-top: 10px;
