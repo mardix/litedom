@@ -7,3 +7,5 @@ No need to know special React/JSX syntax or some other templaty stuff, HTML is y
 If you need some values to be reactive, just place them in the template literal `${...}`, otherwise, keep going with your plain old HTML.
 
 Underneath, reLift-HTML will turn the html section into a modern template string literal, and upon receiving new data, it will re-render only sections that need to be rendered.
+
+reLift-HTML doesn't have a virtual DOM, therefor it doesn't keep a DOM tree in memory. Instead it relies on the real DOM, and only mutates it in place whenever there is change. This tends to be memory efficient, and also reduces GC activities
