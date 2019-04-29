@@ -7,12 +7,12 @@
     margin-bottom: 40px;
     font-weight: bold;
     padding-bottom: 10px;
-    font-size: 5.5rem; }
+    font-size: 4.5rem; }
     #page-guide h3 {
       border-top: 1px dotted #ccc;
       padding-top: 10px;
       padding-bottom: 10px;
-      font-size: 3.5rem; }
+      font-size: 2.5rem; }
 
 #menu-toggler {
   display: none; }
@@ -23,30 +23,36 @@
 text-align: center;
       background: #fff;
       padding: 10px;
-      left: 0px;
-      top: 50px;
+      left: -20px;
+      top: 70px;
+      height: 50px;
+      width: 85px;
       position: fixed;
       z-index: 100;
       display: block;
-      border: 1px solid #ccc;   }
-      #menu-toggler .fa-bars {
-        font-size: 40px;   }
+      border: 1px solid #312450;
+      border-radius: 60px;   }
+      #menu-toggler .fas {
+        font-size: 25px;
+        color: #312450;
+        font-weight: bold;   }
     #content-side-affix {
       background: #fff;
+      height: 100%;
       position: fixed;
       width: 110%;
       margin-left: 0px;
       left: -10px;
       text-align: center;
-      top: 170px;
-      padding-top: 20px;
+      top: 190px;
+      padding-top: 60px;
       display: none;   }
       #content-side-affix.show {
         display: block;   }
         #content-side-affix ul li {
-          margin-bottom: 15px;   }
+          margin-bottom: 20px;   }
           #content-side-affix ul li a {
-            font-size: 24px;   }
+            font-size: 30px;   }
       #content-side-affix.top {
         top: 0px;   }
 }
@@ -54,14 +60,13 @@ text-align: center;
 ul.side-nav {
   list-style: none; }
   ul.side-nav li a {
-    color: #663399;
+    color: #312450;
     font-size: 20px; }
     ul.side-nav li ul {
       list-style: none;
       margin-left: 10px;
       margin-top: 5px;
-      display: none;
-      transition: all 0.3s ease-in-out 0s, visibility 0s linear 0.3s, z-index 0s linear 0.01s; }
+      display: none; }
       ul.side-nav li ul li {
         margin-top: 5px; }
         ul.side-nav li ul li a {

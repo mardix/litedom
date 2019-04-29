@@ -25,7 +25,13 @@
 }
 .header {
   background-color: #f4f5f6;
-  padding-top: 1rem
+  padding-top: 1rem;
+
+  padding-top: 1rem;
+  background-image: url(../images/bg.svg);
+  background-position: top right;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
 }
 @media(min-width:40rem) {
   .header {
@@ -39,9 +45,15 @@
 .header .container {
   border-top: 0;
   padding-bottom: 1.5rem;
-  padding-top: 7.5rem;
+  padding-top: 2.5rem;
   position: relative;
   text-align: center
+}
+
+@media(min-width:20rem) {
+  .header .container {
+    padding-top: 5.5rem;
+  }
 }
 
 .header.header-dark {
@@ -72,28 +84,28 @@
 
 @media(min-width:20rem) {
   .header .title {
-    font-size: 4rem;
+    font-size: 2.5rem;
     font-weight: bold;
     color: #2E3440
   }
 
   .header .description {
-    font-size: 1.8rem;
+    font-size: 1.3rem;
     width: 100%;
     margin: 0 auto;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
   }
 }
 
 @media(min-width:40rem) {
   .header .title {
-    font-size: 6rem;
+    font-size: 4rem;
     font-weight: bold;
     color: #2E3440
   }
   .header .description {
-    font-size: 2.5rem;
+    font-size: 2.0rem;
     width: 70%;
     margin: 0 auto;
     margin-top: 30px;
@@ -113,23 +125,10 @@ body {
       margin-top: 2rem
   }
 }
-@keyframes a {
-  0% {
-      fill-opacity: 0;
-      stroke-dashoffset: 38321
-  }
-  25% {
-      fill-opacity: 0;
-      stroke: #9b4dca
-  }
-  to {
-      fill-opacity: 1;
-      stroke-dashoffset: 0
-  }
-}
+
 .navigation {
-  background: #f4f5f6;
-  border-bottom: .1rem dotted #d1d1d1;
+  background:  #312450;
+  border-bottom: .3rem solid  #000;
   display: block;
   height: 5.2rem;
   left: 0;
@@ -157,11 +156,11 @@ body {
 .navigation ul.navigation-list li {
   float: left;
   margin-bottom: 0;
-  margin-left: 2.5rem;
+  margin-left: 1.5rem;
   position: relative
 }
 
-@media(max-width:639px) {
+@media(max-width:20rem) {
   .navigation ul.navigation-list li {
     float: left;
     margin-bottom: 0;
@@ -172,10 +171,10 @@ body {
 
 .navigation .navigation-title,
 .navigation .title {
-  color: #2E3440;
+  color: #663399;
   font-family: Gotham Rounded A, Gotham Rounded B, Helvetica Neue, Arial, sans-serif;
   position: relative;
-  font-size: 2.6rem;
+  font-size: 2.0rem;
   font-weight: bold;
 }
 .navigation ul.navigation-list li a,
@@ -185,7 +184,7 @@ body {
   line-height: 5.2rem;
   padding: 0;
   text-decoration: none;
-  color: #2E3440;
+  color: #fff;
 }
 
 
@@ -249,11 +248,3 @@ body {
   padding: 0 1.5rem
 }
 
-.example .container {
-  padding-left: 0;
-  padding-right: 0
-}
-.example.row,
-.example .row {
-  margin-bottom: 0
-}

@@ -83,7 +83,7 @@
             this.el.querySelector('#content-side-affix').classList.remove('show')
             scrollSpy();
           } else {
-            console.log('Small viewport');
+            
           }
 
           
