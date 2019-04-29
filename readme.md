@@ -3,6 +3,12 @@
 
 [![gzip bundle size](http://img.badgesize.io/https://unpkg.com/relift-html@latest/dist/relift-html.esm.js?compression=gzip&style=flat-square)](https://unpkg.com/relift-html)
 
+---
+
+Full Documentation: https://relift-html.js.org/ 
+
+---
+
 **reLift-HTML** is a blazing fast view library that lets you write Javascript Template Literals in HTML. (Yup! You've read that right!)
 
 Inspired by, but unlike *lit-html* and *hyperHTML*, **reLift-HTML** makes it easy to write javascript in your HTML template using template literals. 
