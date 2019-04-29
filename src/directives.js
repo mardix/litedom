@@ -6,7 +6,7 @@
 const DIRECTIVES_LIST = {
   $for: r_for,
   $if: r_if,
-  disabled: r_disabled,
+  //disabled: r_disabled,
   //$class: r_class,
   $value: r_value,
 };
@@ -108,6 +108,10 @@ function r_value(el, value, directive) {
 /** r-select */
 function r_select(el, value, directive) {
   //const optValue
+}
+
+function r_checked(el, value, directive) {
+  // <input type="radio" r-checked="this.something" value>
 }
 
 // function f(d) {

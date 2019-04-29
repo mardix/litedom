@@ -48,7 +48,7 @@ import reLiftHTML from 'relift-html';
 
 **reLift-HTML** is a modern library for moden browsers that support ES2015 (ES6), Template Literals, Proxy, and all the fun stuff.
 
-The library is written in ES2015, and will be delivered to you in such, and it wasn't found  necessary to make it compatible with older browsers, therefor it will not work with browsers that don't support ES6, Template Literals, Proxy.
+The library is written in ES2015, and will be delivered to you as such. To keep it small reLift-HTML doesn't have any polyfills nor extra code to make new ES20xx features available in non modern browsers, therefor it will not work with browsers that don't support ES6, Template Literals, Proxy, etc. 
 
 https://caniuse.com/#feat=es6
 

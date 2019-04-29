@@ -35,3 +35,4 @@ export const parseLit = tpl => state => new Function(`return \`${tpl}\``).call(s
  */
 export const computeState = (key, fn) => state => state[key] = fn({...state})
 
+export const debounce = (callback, time = 250, interval) => (...args) => clearTimeout(interval, interval = setTimeout(callback, time, ...args));

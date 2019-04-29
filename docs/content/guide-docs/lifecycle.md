@@ -7,10 +7,9 @@ For every instance that gets created, reLift-HTML provides two lifecycle methods
 
 All lifecycle methods have:
 
-**`this.el`**: The  
-**`this.render`**, 
-**`this.data`**, 
-**`...this.methods`** (instance's methods)
+#### Properties
+
+{% include "guide-docs/_method-properties.md" %}
 
 ### created
 

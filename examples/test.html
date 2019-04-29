@@ -128,12 +128,19 @@
       data: {
         count: 0,
         countNum: state => `We are now counting ${state.count}`,
+        dopeCounter: 0,
       }, 
       up() {
         this.data.count++;
       },
       down() {
         this.data.count--;
+      },
+      created() {
+        //setInterval(() => {
+         // this.data.dopeCounter++;
+          //console.log(this.data.dopeCounter)
+        //}, 20)
       }
     });
 

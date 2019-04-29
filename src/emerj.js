@@ -1,3 +1,8 @@
+/**
+ * emerj 
+ * https://github.com/bryhoyt/emerj
+ */
+
 
 const getAttrs = (el) => Array.from(el.attributes)
   .map(e => ({[e.name]: e.value}))

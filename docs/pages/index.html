@@ -4,22 +4,19 @@ title: reLift-HTML
 
 <template>
   <div class="wrapper">
-    <header class="header">
+    <header class="header ">
       <div class="container">
         <h1 class="title">reLift-HTML</h1>
         <div class="description">
            A blazing fast view 
-           library that  lets you <br>  put Javascript Template Literals in HTML.<br>
-           2kb, no dependency, no virtual dom, no build tool.<br>
-           Lift HTML up again!<br>
+           library that  lets you <br>write Javascript Template Literals in HTML.<br>
+           2kb, no dependency, no virtual dom, no build tool.
         </div>
-
 
         <a class="button button-large" href="{{ page_url('guide') }}" title="Getting Started"
           ><strong>Get Started</strong></a>
-        <a class="button button-large button-clear" href="{{ page_url('examples') }}" title="Examples">Examples</a>
         <a
-          class="button button-large button-clear"
+          class="button button-large button-outline"
           target="_blank"
           href="https://github.com/mardix/relift-html"
           title="Github repo"
@@ -52,34 +49,64 @@ title: reLift-HTML
           </div>
         </div>
       </div>
+      <hr>
     </section>
 
+
     <section class="container">
-      <h3 class="title">Simple and Elegant</h3>
+
+      {% markdown %}
+
+        {% include "guide-docs/faq.md" %}
+
+      {% endmarkdown %}
+
+      <h3 class="title">Contribution</h3>
       <p>
-        <strong>Kolibri</strong> is an elegant static site generator built in Python. It doesn't lock you in any
-        framework way, instead it lets you have it your way. Create pages in HTML or Markdown; write HTML, JS & CSS in a
-        single file component; build your pages; deploy to your host; Kolibri keeps it simple and elegant!
+        Every ideas, updates, fixes, changes, anything are welcome.
+      
+        Go to  <a target="_blank" href="https://github.com/mardix/relift-html">Github</a>, fork it and send your pull request. 
       </p>
 
+      <hr /> 
 
+      <h3> License</h3>
+      MIT 
 
-      <div class="description">
-          A blazing fast, declarative, expressive, zero dependency, no virtual dom, view library that lets you write Javascript Template Literals in your HTML.<br>
-          Efficiently it re-renders parts that should be rendered on the DOM.<br>
-          Also provides a simple state management<br>
-          At the end, it gives you back your HTML. No transpilation, compilation
-   
-       </div>
+      <hr/>
 
-      <h4 class="title">Link examples</h4>
+      <h3>About Mardix</h3>
+
+      {% markdown %}
+      I'm <a target="_blank" href="https://github.com/mardix">Mardix</a>, an inventor, a creator and a UI Tech Lead Application Engineer at Bank of America, NA, in Charlotte, NC, USA.  
+
+      I love to invent stuff. I love to make stuff. I love UI. I love Javascript. I love Python.
+
+      If you have any suggestions, questions or anything, please don't hesitate to reach out.
+
+      {% endmarkdown %}
+
+      <hr/>
+
+      <a class="button button-large" href="{{ page_url('guide') }}" title="Getting Started"
+      ><strong>Documentation</strong></a>
+      <a
+      class="button button-large button-outline"
+      href="{{ page_url('demo') }}"
+      title="Demo"
+      >Demo</a>
+    <a
+      class="button button-large button-outline"
+      target="_blank"
+      href="https://github.com/mardix/relift-html"
+      title="Github repo"
+      >Github</a>
+
     </section>
   </div>
 </template>
 
-<script>
-  console.log('Hello Kolibri!');
-</script>
+
 
 <style>
   .main-title {

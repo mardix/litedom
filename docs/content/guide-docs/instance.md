@@ -30,7 +30,7 @@ Setting up an instance starts by invoking `reLiftHTML` function, which accepts o
     updated() {
     },
     template: null,
-    store: null
+    $store: null
   })
 </script>
 ```
@@ -50,11 +50,11 @@ This can be html selector , ie `#someId`, `[some-data-attribute]`. Or a query se
 [object]
 Is the application state. All data in here are reactive. Whenever a property is added, updated or removed it will trigger the update of the DOM (if necessary).
 Values are expected to be the type string, number, plain object, boolean, null, undefined or *function*. 
-In the case of a function, it will become a computated value.
+In the case of a function, it will become a computated data.
 
 #### **`created`**
 [function]
-This is a lifecycle hook method. It runs once upon the instance is created. 
+This is a lifecycle hook method. It runs once the instance is created. 
 
 #### **`updated`**
 [function]
@@ -64,9 +64,9 @@ This is a lifecycle hook method. It runs each time the instance is updated.
 [string] 
 A string/text that will be rendered in the `el` instance. By default the innerHTML of `el` will be used, but setting `template` allows you to provide your own template, and will overwrite the default behavior.  
 
-#### **`store`**: 
+#### **`$store`**: 
 [state management interface]
-Unlike `data` store is where to hook an shared store manager, ie: reStated, Redux. The store instance must have the methods `getState()` and `subscribe`. 
+Unlike `data` store is where to hook a shared store manager, ie: reStated, Redux. The store instance must have the methods `getState()` and `subscribe(callback:function)`. 
 
 
 ### Methods
@@ -76,7 +76,7 @@ Along the lifecycle methods `created` and `mounted`, you have the ability to def
 The defined methods are set with the rest of the options.
 
 **WARNING**: 
-When creating methods don't use arrow functions such as `created: () => this.sayHello(),`. Since arrow funciton doesn't have a `this`, `this` will be treated as any other variable and will often resul in error such as `Uncaught TypeError: Cannot read property of undefined` or `Uncaught TypeError: this.myMethod is not a function` 
+When creating methods don't use arrow functions such as `created: () => this.sayHello(),`. Since arrow function doesn't have a `this`, `this` will be treated as any other variable and will often result in error such as `Uncaught TypeError: Cannot read property of undefined` or `Uncaught TypeError: this.myMethod is not a function` 
 
 ```
 <div id="root">
@@ -102,12 +102,12 @@ When creating methods don't use arrow functions such as `created: () => this.say
 
 ### Properties
 
-Inside of the lifecycle and defined methods, you have access to some properties
+Inside of the lifecycle and defined methods, you have access to the following properties:
 
 #### **`this.el`**
-Is the instance root element. It allows you to safely query, manipulate DOM element.
+Is the instance root element. It allows you to safely query, manipulate the instance's DOM elements.
 
-```
+```js
   reLiftHTML({
     el: '#root',
 
@@ -121,10 +121,10 @@ Is the instance root element. It allows you to safely query, manipulate DOM elem
 
 #### **`this.data`** 
 Gives you access to the reactive `data`. You can get, set and delete properties.
-Whenever a `data` is updated it will trigger re-render (if necessary). You don't have to preset a propety in `data` to make it reactive.
+Whenever a `data` is updated it will trigger re-render (if necessary). You don't have to pre define a property in `data` to make it reactive.
 
 
-```
+```js
   reLiftHTML({
     el: '#root',
     data: {
@@ -143,7 +143,7 @@ Whenever a `data` is updated it will trigger re-render (if necessary). You don't
 #### **`this.render`**
 A function to manually re-render.
 
-```
+```js
   reLiftHTML({
     el: '#root',
     methodA() {
@@ -155,7 +155,7 @@ A function to manually re-render.
 
 #### **`...this.$define-methods`** 
 
-```
+```js
   reLiftHTML({
     el: '#root',
     methodA() {

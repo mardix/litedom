@@ -3,20 +3,23 @@
 
 [TOC]
 
-reLift-HTML exposes the `@` to add an event listener to an element, which will be bound to functions created in the instance. ie: `@click`, `@input`, `@submit`.
+You can add event listener to elements by adding the `@` + the `$event-name` as attribute, and assign it the name of the method to bind it to: `<a @click="sayHello" href="#">Say Hello!</a>`
 
-In the reLift-HTML instance, create a method, and use that method name to set event listener. When an event is invoked, the `Event` object is passed to the method as the first and only argument. The `Event` object can be used to retrieve data attribute of the element, etc.
+The $event-name must be the name of the event without `on`, ie: `@click` is VALID but `@onclick` is INVALID.
+
+The method must be in the context of the instace that's created.
+
+When an event is invoked, the `Event` object is passed to the method as the first and only argument. The `Event` object can be used to retrieve data attribute of the element, etc.
 
 
 ```html
 
 <div id="root">
-  <button @click="sayHello">Say Hello!</button>
+  <a @click="sayHello" href="#">Say Hello!</a>
 </div>
 
 <script type="module">
-  import reLiftHTML from '//unpkg.com/relift-html';
-  
+
   reLiftHTML({
     el: '#root',
     data: {},
@@ -45,8 +48,7 @@ To pass values from the element to the event, we can use html attribute and retr
 </div>
 
 <script type="module">
-  import reLiftHTML from '//unpkg.com/relift-html';
-  
+
   reLiftHTML({
     el: '#root',
     data: {},
@@ -64,12 +66,12 @@ Will now show `Hello Mardix`
 
 ### @call
 
-`@call` is a shortcut key that will assign the right event based on the element.
+`@call` is a shorthand key that will assign the right event based on the element type.
 
 By default all `@call` will result into `@click`, except for the scenarios below:
 
 
-##### HTMLAnchorElement
+**HTMLAnchorElement**
 
 AHREF `@call` => `@click`
 
@@ -78,7 +80,7 @@ AHREF `@call` => `@click`
 <a href="javascript:void(0);" @click="something"></a>
 ```
 
-##### HTMLInputElement & HTMLTextAreaElement
+**HTMLInputElement & HTMLTextAreaElement**
 
 FORMS: Input & Textarea `@call` => `@input + @paste`
 
@@ -87,7 +89,7 @@ FORMS: Input & Textarea `@call` => `@input + @paste`
 <input type="text" @input="something" @paste="something">
 ```
 
-##### HTMLSelectElement
+**HTMLSelectElement**
 
 FORMS: Select `@call` => `@change`
 
@@ -96,7 +98,7 @@ FORMS: Select `@call` => `@change`
 <select @change="something"><options...></select>
 ```
 
-##### HTMLFormElement
+**HTMLFormElement**
 
 FORMS: Form `@call` => `@submit`
 
@@ -106,7 +108,7 @@ FORMS: Form `@call` => `@submit`
 ```
 
 
-### Event's list
+### Events Name List
 
 Here is the list of all the events accepted by reLift-HTML 
 

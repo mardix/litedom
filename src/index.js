@@ -6,15 +6,15 @@ import emerj from './emerj.js';
 import onChange from './onchange.js';
 import { tokenizeEvents, bindEvents } from './events.js';
 import { parseDirectives } from './directives.js';
-import { computeState, isFn, parseLit, htmlToDom } from './utils.js';
+import { computeState, isFn, parseLit, htmlToDom, debounce } from './utils.js';
 
 /**
  *
- * @param {*} el
- * @param {*} context
- * @param {*} template
+ * @param {HTMLElement} el
+ * @param {string|null} template
+ * @param {object} context
  */
-function dom(el, context = {}, template = null) {
+function dom(el, template = null, context = {}) {
   if (template) el.innerHTML = template;
   const node = el.cloneNode(true);
   tokenizeEvents(node);
@@ -29,27 +29,26 @@ function dom(el, context = {}, template = null) {
 } 
 
 export default function reLiftHTML(opt = {}) {
-  const reservedKeys = ['data', 'el', 'template', 'store', 'created', 'updated'];
+  const reservedKeys = ['data', 'el', 'template', 'created', 'updated', '$store'];
   const conf = {
+    el: null /** @type {HTMLElement} The dom element to bind */,
     data: {} /** @type {object} local state data */,
-    el: document.body /** @type {HTMLElement} The dom element to bind */,
     template: null /** @type {string} */,
-    store: {} /** @type {getState, subscribe} */,
     created: () => {} /** @type {function} triggered on initialization */,
     updated: () => {} /** @type {function} triggered on update */,
+    $store: {} /** @type {getState, subscribe} for global store/state manager */,
     ...opt,
   };
 
   const el = typeof conf.el === 'string' ? document.querySelector(conf.el) : conf.el;
   if (!(el instanceof HTMLElement))
-    throw new Error(`reLiftHTML setup error: 'el' is not a DOM Element. >> el: ${conf.el}`);
+    throw new Error(`reLift-HTML setup error: 'el' is not a DOM Element. >> el: ${conf.el}`);
 
   const template = conf.template ? conf.template : el.innerHTML;
 
   /** Extract all methods to be used in the context */
   const methods = Object.keys(conf)
     .filter(k => !reservedKeys.includes(k))
-    .filter(k => !k.startsWith('$'))
     .filter(k => isFn(conf, k))
     .reduce((pV, cK) => ({ ...pV, [cK]: conf[cK] }), {});
 
@@ -73,14 +72,23 @@ export default function reLiftHTML(opt = {}) {
    * @type {getState(), subscribe()}
    */
   let store = undefined;
-  if (Object.keys(conf.store).length) {
-    store = conf.store;
-    state.$store = conf.store.getState();
-    conf.store.subscribe(data => {
-      state.$store = conf.store.getState();
+  if (Object.keys(conf.$store).length) {
+    store = conf.$store;
+    state.$store = conf.$store.getState();
+    conf.$store.subscribe(x => {
+      state.$store = conf.$store.getState();
       updateComputedState(state);
       render();
     });
+  }
+
+  /** To re-render and run updated() */
+  // Exploring whether to debounce render or not
+  //const render = debounce((updated=true) => updateDom({...state}), 100)
+  function render(runUpdated=true) {
+    if (updateDom({...state}) && runUpdated) {
+      conf.updated.call(context); // lifecycle: udpated
+    }
   }
 
   /** data proxy */
@@ -92,20 +100,14 @@ export default function reLiftHTML(opt = {}) {
   /** @type {object} context (events action methods) to be used in the  template */
   const context = { ...methods, el, data, render, store };
 
-  /** To re-render and run updated() */
-  function render() {
-    if (updateDom(state)) {
-      conf.updated.call(context); // lifecycle: udpated
-    }
-  }
 
   /** Bind the dom and attach the method context */
-  const updateDom = dom(el, context, template);
+  const updateDom = dom(el, template, context);
 
   /** DOM Ready */
   document.addEventListener('DOMContentLoaded', () => {
-    updateComputedState(state); // Make sure compurated state are available
-    updateDom(state); // initial rendering
+    updateComputedState(state); // Make sure computed state are available
+    render(false); // initial rendering
     conf.created.call(context); // lifecycle: created
     el.style.display = 'block'; // if the element is hidden, let's show it now
   });

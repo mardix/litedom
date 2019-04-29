@@ -2,38 +2,12 @@
  * reLift-HTML
  */
 
-const EVENTS_LIST = [
-  'keydown',
-  'keypress',
-  'keyup',
-  'focus',
-  'blur',
-  'hover',
-  'change',
-  'input',
-  'reset',
-  'submit',
-  'click',
-  'dblclick',
-  'mouseenter',
-  'mouseleave',
-  'mousedown',
-  'mousemove',
-  'mouseout',
-  'mouseover',
-  'mouseup',
-  'contextmenu',
-  'select',
-  'drag',
-  'dragend',
-  'dragenter',
-  'dragstart',
-  'dragleave',
-  'drop',
-  'cut',
-  'copy',
-  'paste',
-];
+
+const EVENTS_LIST = []; 
+for (const key in document) {
+  const isEvent = document[key] === null || typeof document[key] === 'function';
+  if (key.startsWith('on') && isEvent) EVENTS_LIST.push(key.substring(2))
+}
 const ATTR_EVENTS_LIST = 'r-events-list';
 const mkEventName = e => `r-on-${e}`;
 

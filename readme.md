@@ -3,14 +3,17 @@
 
 [![gzip bundle size](http://img.badgesize.io/https://unpkg.com/relift-html@latest/dist/relift-html.esm.js?compression=gzip&style=flat-square)](https://unpkg.com/relift-html)
 
-**reLift-HTML** is a blazing fast view library for HTML that let you put Javascript Template Literals in HTML. (yup! you read that right!). 
+**reLift-HTML** is a blazing fast view library that lets you write Javascript Template Literals in HTML. (Yup! You've read that right!)
+
+Inspired by, but unlike *lit-html* and *hyperHTML*, **reLift-HTML** makes it easy to write javascript in your HTML template using template literals. 
 
 No need to know special React/JSX syntax or some other templaty stuff, HTML is your template. Use it the way you've used it before.
 
 If you need some values to be reactive, just place them in the template literal `${...}`, otherwise, keep going with your plain old HTML.
 
-Underneath, reLift-HTML will turn the html section into a modern template string literal, and upon receive new data, it will will just re-render only sections need to be rendered.
+Underneath, reLift-HTML will turn the html section into a modern template string literal, and upon receiving new data, it will re-render only sections that need to be rendered.
 
+---
 
 ### First Example
 
@@ -40,11 +43,9 @@ Please notice the `type="module"` in the script tag, it is required when using E
 
 ## Compatibility
 
-*(Let's get this out of the way before going further. IE sucks!)*
-
 **reLift-HTML** is a modern library for moden browsers that support ES2015 (ES6), Template Literals, Proxy, and all the fun stuff.
 
-The library is written in ES2015, and will be delivered to you in such, and it wasn't found  necessary to make it compatible with older browsers, therefor it will not work with browsers that don't support ES6, Template Literals, Proxy. (I'm talking mainly to you IE11--, please don't even bother).
+The library is written in ES2015, and will be delivered to you as such. To keep it small reLift-HTML doesn't have any polyfills nor extra code to make new ES20xx features available in non modern browsers, therefor it will not work with browsers that don't support ES6, Template Literals, Proxy, etc. 
 
 https://caniuse.com/#feat=es6
 
@@ -59,14 +60,11 @@ The best way to import **reLift-HTML** is via ESM javascript, where we specify t
 Make sure `type="module"` exists in the script tag.
 
 ```html
-
 <script type="module">
   import reLiftHTML from '//unpkg.com/relift-html';
   
   ...
-
 </script>
-
 ```
 
 Or by installing in your project
@@ -134,9 +132,9 @@ We created our HTML and create and id `div#counterWidget` which will be reactive
 
 Interpolation:
 
-`<h4>${this.count}</h4>` is the interactive that will be interpolated whenever the state changes
+`<h4>${this.count}</h4>` is reactive, it will be interpolated whenever the state changes
 
-Buttons:
+Buttons: assign events with `@click`
 
 ```
 <button @click="down" class="button-outline">DOWN</button>
@@ -181,33 +179,33 @@ https://mardix.github.com/relift-html
 
 #### How big is reLift-HTML?
 
-reLift-HTML is very small.
-
-Gzip: **~3.1kb**
-
+reLift-HTML is very small. Gzip: **~2kb**
 
 
 #### Why yet another Javascript library?
 
-(See how many days since the last javascript framework:  https://dayssincelastjavascriptframework.com/)
+I'm a UI Tech Lead Application Engineer at Bank of America, NA,  who deals with many static sites, and see how stuff can sometimes be frustrating for team members when it come to choices. 
 
-On a more serious note, we are living in the best web development time ever (my opinion), we have some great UI frameworks: React, Vuejs, Angular, etc (and JQuery sucks). They do amazing stuff, beautiful stuff. But sometimes, you just want something simple without bringing their complexity, but also something that follows the modern paradigm.  
+So, one week-end afternoon (4/20 weekend 2019 :), while working on a personal project using a static site generator, I thought it was way too much of an overhead to bring in something like Vuejs, React or Angular, just to make a small piece reactive on the personal static site. 
 
-That's where reLift-HTML comes into play. When you want big things in a small package.
+So I decided to create reLift-HTML, to just be a simple drop-in view library that can make any sections of the site reactive without the overhead. I wanted my HTML to stay as is. No React, No Vue, just me and my HTML.
 
-#### Who would use it?
+(BTW, See how many days since the last javascript framework:  https://dayssincelastjavascriptframework.com/)
 
+#### Who and when would someone use it?
 
-- Simple Site page
-- Or static site 
+- People who want something simple but still follow the paradigm of the major libraries
+- For people working on simple but dynamic static site
+- For Blogs site 
 - When having React/Vuejs/Angular/(etc) is too much
-- But still need simple reactivity 
-- To structure part of the page 
+- When you just want to progressively upgrade your site without changing too much.
 
 
-#### Is it there to replace or does it compete with React, Vuejs etc?
+#### Is it here to replace or does it compete with React, Vuejs etc?
 
-Not at all. **reLift-HTML** is targeting a different set of applications. reLift-HTML wants to be your gateway to more advanced frameworks.
+Not at all. **reLift-HTML** is targeting a different set of applications. Most of the time, specially when dealing with static site, you just want a little bit of stuff to be reactive, it could be something from or to an API, it could be something to manage application state or events.
+
+reLift-HTML wants to be your gateway to more advanced frameworks.
 
 It follows the same paradigm as the big ones, just on a smaller scale.  
 
@@ -230,30 +228,25 @@ It follows the same paradigm as the big ones, just on a smaller scale.
 - No need for CLI
 - No build, the real DOM does it!
 
+---
 
-- Template literals in HTML
-- Directives, to make writing some complex template lit in a simpler way.
-  - r-if
-    - r-else
-  - r-for
-  - r-class
-  - r-disabled
-  - r-value
-  - r-select
-- Application lifecycle
-  - mounted
-  - updated
-- State management
-  - Local State
-  - Share State
-  - Computed data
-- Events
-  - @click, @mouseover etc....
+### About Me
 
+I'm Mardix, an inventor, a creator and a UI Tech Lead Application Engineer at Bank of America, NA, in Charlotte, NC, USA.  
+
+I love to invent stuff. I love to make stuff. I love UI. I love Javascript. I love Python.
+
+If you have any suggestions, questions or anything, please don't hesitate to reach out.
 
 ---
 
-WIP
+### Shout Out!
+
+reLift-HTML is using some of the work of these great libraries:
+
+https://github.com/bryhoyt/emerj 
+
+https://github.com/sindresorhus/on-change
 
 --- 
 

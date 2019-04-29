@@ -1,6 +1,6 @@
 ---
 title: Guide
-description: This is the page description
+description: reLift-HTML guide.
 docs:
   - introduction.md
   - installation.md
@@ -10,34 +10,44 @@ docs:
   - methods.md
   - directives.md
   - events.md
-  - syntax.md
+  - shared-state.md
   
 ---
 
 <template>
   <div class="wrapper">
     <header class="header header-dark">
-        <div class="container">
-          <h2 class="title">Guide</h2>
+        <div class="container" id="guide-header">
+          <h2 class="title">GUIDE</h2>
         </div>
       </header>
       
       <div class="container">
         <div class="row">
           <div class="column column-25" id="sideMenu">
-            <div class="" id="content-side-affix">
+            <div id="menu-toggler" @call="toggleMenuToggler">
+                <i class="fas fa-bars"></i>
+            </div>
+            <div id="content-side-affix" class="top">
                 <ul class="side-nav">
-                  <li r-for="item in this.menu">
+                  <li r-for="item in this.menu" data-section="${item.url}">
                     <a href="#${item.url}" data-affix-link="#${item.url}">${item.title}</a>
+                    <ul>
+                      <li r-for="sitem in item.subsections"><a href="#${sitem.url}" data-affix-link="#${sitem.url}">${sitem.title}</a></li>
+                    </ul>
                   </li>
                 </ul>
+                
+                <div><a href="#" @call="scrollToTop">Back to top</a></div>
+                <hr>
+                <a href="https://github.com/mardix/relift-html/tree/master/docs" target="_blank">Edit on Github</a>
+            
             </div>
 
           </div>
-          <div class="column guides">
+          <div class="column guides" id="page-guide">
             {% for doc in this.docs %} 
-            <a name="{{ doc }}" id="{{ doc }}"></a>
-            <section class="doc">
+            <section class="doc" data-doc="{{ doc }}">
                 {% include 'guide-docs/%s' % doc %}
             </section>
             <hr>
@@ -45,44 +55,107 @@ docs:
           </div>
         </div>
       </div>
-    </div>
+  </div>
 </template>
 
 <style scss>
-  .guides {
+  #page-guide {
     margin-bottom: 40px;
     h2 {
       display: block;
-      border-bottom: 2px dotted #663399;
-      margin: auto 0;
+      border-bottom: 1px solid #312450;
       margin-bottom: 40px;
-      font-weight: bold;
       padding-bottom: 10px;
-      font-size: 5.5rem
+      font-size: 4.0rem;
+      color: #312450;
     }
     h3 {
       border-top: 1px dotted #ccc;
       padding-top: 10px;
       padding-bottom: 10px;
-      font-size: 3.5rem
+      font-size: 2.5rem
     }
   }
+
+  #menu-toggler {
+    display: none;
+  }
+
+  @media (min-width: 320px) and (max-width: 639px) {
+    #menu-toggler {
+      .fas {
+        font-size: 25px;
+        color: #312450;
+        font-weight: bold;
+      };
+      text-align: center;
+      background: #fff;
+      padding: 10px;
+      left: -20px;
+      top: 70px;
+      height: 50px;
+      width: 85px;
+      position: fixed;
+      z-index: 100;
+      display: block;
+      border: 1px solid #312450;
+      border-radius: 60px;
+    }
+    #content-side-affix {
+      background: #fff;
+      height: 100%;
+      position: fixed;
+      width: 110%;
+      margin-left: 0px;
+      left: -10px;
+      text-align: center;
+      top: 190px; 
+      padding-top: 60px;
+      display: none;
+      &.show {
+        display: block;
+      }
+      ul {
+        li {
+          margin-bottom: 20px;
+          a {
+            font-size: 30px;
+          }
+          ul {
+          }
+        }
+      }
+      &.top {
+        top: 0px;
+      }
+    }
+    
+  }
+
   ul {
     &.side-nav {
       list-style: none;
       li {
         a {
-          color: #663399;
+          color: #312450;
           font-size: 20px;
         }
         ul {
           list-style: none;
-          margin-left: 20px;
+          margin-left: 10px;
+          margin-top: 5px;
+          display: none;
           li {
+            margin-top: 5px;
             a {
-              font-size: 20px;
+              font-size: 14px;
               color: #606c76;
             }
+          }
+        }
+        &.active {
+          ul {
+            display: block;
           }
         }
       }
@@ -94,7 +167,8 @@ docs:
 
 <script type="module">
     import reLiftHTML from '//unpkg.com/relift-html';
-  
+    const debounce = (callback, time = 250, interval) => (...args) => clearTimeout(interval, interval = setTimeout(callback, time, ...args));
+
     reLiftHTML({
       el: '#sideMenu',
       data: {
@@ -102,16 +176,13 @@ docs:
       },
       created() {
         const sections = [];
-        for (const s of document.querySelectorAll('.guides section')) {
-          const subsections = [];
+        const scrollSpies = {};
+        for (const s of document.querySelectorAll('#page-guide section')) {
           const h2 = s.querySelector('h2');
+          h2.parentElement.setAttribute('data-section', h2.id);
           const slug = this.slugify(h2.innerText);
-
           h2.setAttribute('id', `${slug}`)
-          sections.push({
-            title: h2.innerText,
-            url: slug
-          })
+          scrollSpies[slug] = h2.offsetTop;
 
           /** 
             Fix the anchoring problem with all the MDs
@@ -134,13 +205,41 @@ docs:
               el.setAttribute('id', `${slug}__${id}`)
             }
           })
+          
+          sections.push({
+            title: h2.innerText,
+            url: slug,
+            subsections: [...s.querySelectorAll('h3')].map(el => {
+              const id = el.getAttribute('id');
+              return {
+                title: el.innerText, 
+                url: `${id}`
+              }
+            })
+          })
+
         }
         this.data.menu = sections;
+        //this.data.scrollSpies = scrollSpies;
+
+        const scrollSpy = debounce(() => {
+          const scrollPosition = document.documentElement.scrollTop || document.body.scrollTop;
+          for (const i in scrollSpies) {
+            if (scrollSpies[i] <= scrollPosition) {
+              const lastActive = this.el.querySelector('ul li.active');
+              const active = this.el.querySelector(`[data-section="${i}"]`);
+              if (lastActive) lastActive.classList.remove('active');
+              if (active) active.classList.add('active');
+            }
+          }
+        }, 100);
 
         const el = document.querySelector('#content-side-affix')
-        if (el) {
-          const scroll = () => {
-            const scrollTop = window.pageYOffset;
+        const top = el.getAttribute('data-affix-top') || 100;
+        
+        const scroll = () => {
+          const scrollTop = window.pageYOffset;
+          if (window.matchMedia('(min-width: 640px)').matches) {
             if( scrollTop > 100 ){
               el.style.top=`${top}px`;
               el.style.width=`200px`;
@@ -149,29 +248,44 @@ docs:
               el.style.position="relative";
               el.style.top="0px";
             }
-          };
-    
-          const top = el.getAttribute('data-affix-top') || 100;
-          [...el.querySelectorAll('[data-affix-link]')].map(e => {
-            e.addEventListener('click', (ev) => {
-              ev.preventDefault();
-              this.scrollTo(document.querySelector(e.getAttribute('data-affix-link')));
-              setTimeout(() => {
-                scroll();
-              }, 300)
-            })
+            this.el.querySelector('#content-side-affix').classList.remove('show')
+            scrollSpy();
+          } else {
+            
+          }
+
+          
+        };
+  
+        
+        [...el.querySelectorAll('[data-affix-link]')].map(e => {
+          e.addEventListener('click', (ev) => {
+            ev.preventDefault();
+            this.scrollTo(document.querySelector(e.getAttribute('data-affix-link')));
+            setTimeout(() => {
+              scroll();
+            }, 300)
           })
-          window.onscroll = scroll;
-        }
+        })
+        window.onscroll = scroll;
+
       },
-      slugify: (s) => s.toLowerCase()
-      .replace(/[^\w\s-]/g, '') // remove non-word [a-z0-9_], non-whitespace, non-hyphen characters
-      .replace(/[\s_-]+/g, '-') // swap any length of whitespace, underscore, hyphen characters with a single -
-      .replace(/^-+|-+$/g, ''), // remove leading, trailing -
-      scrollTo: (el) => {
-        const id = el.id;
-        history.replaceState(undefined, undefined,`#${id}`);
-        el.scrollIntoView({behavior: "smooth"})
+      slugify: (s) => {
+        return s.toLowerCase()
+        .replace(/[^\w\s-]/g, '') // remove non-word [a-z0-9_], non-whitespace, non-hyphen characters
+        .replace(/[\s_-]+/g, '-') // swap any length of whitespace, underscore, hyphen characters with a single -
+        .replace(/^-+|-+$/g, '') // remove leading, trailing -
+      },
+      scrollTo(el){
+        history.replaceState(undefined, undefined,`#${el.id}`);
+        el.scrollIntoView({behavior: "smooth"});
+        this.el.querySelector('#content-side-affix').classList.remove('show')
+      },
+      scrollToTop() {
+        this.scrollTo(document.querySelector('#guide-header'));
+      },
+      toggleMenuToggler() {
+        this.el.querySelector('#content-side-affix').classList.toggle('show')
       }
     });
 
