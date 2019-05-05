@@ -1,0 +1,89 @@
+<script type="module">
+    const lastAttributeNameRegex =
+    /([ \x09\x0a\x0c\x0d])([^\0-\x1F\x7F-\x9F "'>=/]+)([ \x09\x0a\x0c\x0d]*=[ \x09\x0a\x0c\x0d]*(?:[^ \x09\x0a\x0c\x0d"'`<>=]*|"[^"]*|'[^']*))$/;
+
+    const marker = `{{lit-${String(Math.random()).slice(2)}}}`;
+
+    const nodeMarker = `<!--${marker}-->`;
+
+  class TemplateResult {
+    constructor(strings, values, type) {
+      this.strings = strings;
+      this.values = values;
+      this.type = type;
+    }
+
+    /**
+     * Returns a string of HTML used to create a `<template>` element.
+     */
+    getHTML(){
+      const l = this.strings.length - 1;
+      let html = '';
+      let isCommentBinding = false;
+
+      for (let i = 0; i < l; i++) {
+        const s = this.strings[i];
+        // For each binding we want to determine the kind of marker to insert
+        // into the template source before it's parsed by the browser's HTML
+        // parser. The marker type is based on whether the expression is in an
+        // attribute, text, or comment poisition.
+        //   * For node-position bindings we insert a comment with the marker
+        //     sentinel as its text content, like <!--{{lit-guid}}-->.
+        //   * For attribute bindings we insert just the marker sentinel for the
+        //     first binding, so that we support unquoted attribute bindings.
+        //     Subsequent bindings can use a comment marker because multi-binding
+        //     attributes must be quoted.
+        //   * For comment bindings we insert just the marker sentinel so we don't
+        //     close the comment.
+        //
+        // The following code scans the template source, but is *not* an HTML
+        // parser. We don't need to track the tree structure of the HTML, only
+        // whether a binding is inside a comment, and if not, if it appears to be
+        // the first binding in an attribute.
+        const commentOpen = s.lastIndexOf('<!--');
+        // We're in comment position if we have a comment open with no following
+        // comment close. Because <-- can appear in an attribute value there can
+        // be false positives.
+        isCommentBinding = (commentOpen > -1 || isCommentBinding) && s.indexOf('-->', commentOpen + 1) === -1;
+        // Check to see if we have an attribute-like sequence preceeding the
+        // expression. This can match "name=value" like structures in text,
+        // comments, and attribute values, so there can be false-positives.
+        const attributeMatch = lastAttributeNameRegex.exec(s);
+        if (attributeMatch === null) {
+          // We're only in this branch if we don't have a attribute-like
+          // preceeding sequence. For comments, this guards against unusual
+          // attribute values like <div foo="<!--${'bar'}">. Cases like
+          // <!-- foo=${'bar'}--> are handled correctly in the attribute branch
+          // below.
+          html += s + (isCommentBinding ? marker : nodeMarker);
+        } else {
+          // For attributes we use just a marker sentinel, and also append a
+          // $lit$ suffix to the name to opt-out of attribute-specific parsing
+          // that IE and Edge do for style and certain SVG attributes.
+          html +=
+            s.substr(0, attributeMatch.index) +
+            attributeMatch[1] +
+            attributeMatch[2] +
+            boundAttributeSuffix +
+            attributeMatch[3] +
+            marker;
+        }
+      }
+      html += this.strings[l];
+      return html;
+    }
+
+    getTemplateElement(){
+      const template = document.createElement('template');
+      template.innerHTML = this.getHTML();
+      return template;
+    }
+  }
+  const html = (strings, ...values) => new TemplateResult(strings, values, 'html');
+
+
+const helloTemplate = (firstName) => html`<div>Hello ${firstName.toUpperCase()} Today is ${Date.now()}!</div>`;
+
+//const s = () => html`<div>Hello ${firstName.toUpperCase()}!</div>`.bind(this);
+console.log(helloTemplate('Jones').getTemplateElement())
+</script>
