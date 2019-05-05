@@ -1,0 +1,8 @@
+
+- 0.0.6
+  - changed the instances to become Web Component (shadow dom or custom element).
+    This will allow composability, sharability and use of component in other 
+    components
+     
+- 0.0.5 --
+  - initial
