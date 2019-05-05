@@ -73,8 +73,9 @@ function r_for(el, value, directive) {
 
 /** r-value */
 function r_value(el, value, directive) {
+  return
   const v = `\${${value}}`
-  (nodeName === 'TEXTAREA') ? el.innerHTML = v : el.setAttribute('value', v);
+  (el.nodeName === 'TEXTAREA') ? (el.innerHTML = v) : el.setAttribute('value', v);
   rm_d(el, directive);
 }
 
@@ -93,13 +94,6 @@ function r_class(el, value, directive) {
   // parse the value to make the condition
   el.setAttribute('class', cValue);
   rm_d(el, directive);
-}
-
-
-
-/** r-select */
-function r_select(el, value, directive) {
-  //const optValue
 }
 
 
@@ -124,8 +118,3 @@ function r_valueX(el, value, directive) {
 function r_checked(el, value, directive) {
   // <input type="radio" r-checked="this.something" value>
 }
-
-// function f(d) {
-//   const v = el.value;
-//   return (Array.isArray(d) ? d : [d]).includes(v) ? 'checked' : '';
-// }

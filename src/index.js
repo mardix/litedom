@@ -3,112 +3,193 @@
  */
 
 import emerj from './emerj.js';
-import onChange from './onchange.js';
 import { tokenizeEvents, bindEvents } from './events.js';
 import { parseDirectives } from './directives.js';
-import { computeState, isFn, parseLit, htmlToDom, debounce } from './utils.js';
+import { computeState, isFn, parseLit, htmlToDom, getAttrs, objectOnChange, randomChars, selector} from './utils.js';
+
+const RESERVED_KEYS = [
+  'data', 
+  'el', 
+  'templateString', 
+  'template',
+  'created', 
+  'updated', 
+  'removed',
+  '$store', 
+  '$attrs', 
+  'tagName',
+  'type'
+];
+
+const error = (msg) => new Error(`reLift-HTML Error: ${msg}`);
 
 /**
- *
- * @param {HTMLElement} el
- * @param {string|null} template
- * @param {object} context
+ * Connect to an external store to share state
+ * @param {store} store store Instance, must have getState() and subscribe()
+ * @return {function} to create an instance of the store to react on the element
  */
-function dom(el, template = null, context = {}) {
-  if (template) el.innerHTML = template;
-  const node = el.cloneNode(true);
-  tokenizeEvents(node);
-  parseDirectives(node);
-  el.innerHTML = node.innerHTML;
-  bindEvents(el, context);
-  const lit = parseLit(node.outerHTML);
-  return state => {
-    const newNode = htmlToDom(lit(state));
-    return emerj(el, newNode);
-  };
-} 
+const storeConnector = (store) => {
+  return (state) => {
+    state.$store = store.getState();
+    return store.subscribe(x => state.$store = store.getState());
+  }
+}
 
-export default function reLiftHTML(opt = {}) {
-  const reservedKeys = ['data', 'el', 'template', 'created', 'updated', '$store'];
-  const conf = {
-    el: null /** @type {HTMLElement} The dom element to bind */,
-    data: {} /** @type {object} local state data */,
-    template: null /** @type {string} */,
-    created: () => {} /** @type {function} triggered on initialization */,
-    updated: () => {} /** @type {function} triggered on update */,
-    $store: {} /** @type {getState, subscribe} for global store/state manager */,
-    ...opt,
-  };
+/**
+ * Receiving a template it 
+ * @param {*} template 
+ * @returns {object[html:string, render:function]}
+ */
+const domConnector = (template) => {
+    const node = htmlToDom(template);
+    parseDirectives(node);
+    tokenizeEvents(node);
+    const html = node.outerHTML;
+    const lit = parseLit(html);
+    return {
+      html, 
+      render: (target, state) => {
+        const newNode = htmlToDom(lit(state));
+        return (!target.isEqualNode(newNode)) ? emerj(target, newNode) : false;
+      }
+    };
+}
 
-  const el = typeof conf.el === 'string' ? document.querySelector(conf.el) : conf.el;
-  if (!(el instanceof HTMLElement))
-    throw new Error(`reLift-HTML setup error: 'el' is not a DOM Element. >> el: ${conf.el}`);
+function action2wb(event) {
 
-  const template = conf.template ? conf.template : el.innerHTML;
+}
+
+function reLiftHTML(options={}) {
+  const opt = {
+    /** @type {[CE|SD]} The type of element to create */
+    type: 'CE',
+    /** @type {string} the element tag name */
+    tagName: null,
+    /** @type {object} local state data */
+    data: {}, 
+    /** @type {string} */
+    templateString: null, 
+    /** @type {getState, subscribe} for global store/state manager */
+    $store: {getState: () => {}, subscribe: () => () => {}}, 
+    /** @type {function} lifecycle */
+    created(){}, 
+    /** @type {function} lifecycle */
+    updated(){},
+    /** @type {function} lifecycle */
+    removed(){},
+    /** @type {any} */
+    ...options,
+  }
+
+  const store = storeConnector(opt.$store);
+  const dom = domConnector(opt.templateString);
 
   /** Extract all methods to be used in the context */
-  const methods = Object.keys(conf)
-    .filter(k => !reservedKeys.includes(k))
-    .filter(k => isFn(conf, k))
-    .reduce((pV, cK) => ({ ...pV, [cK]: conf[cK] }), {});
-
+  const methods = Object.keys(opt)
+    .filter(k => !RESERVED_KEYS.includes(k))
+    .filter(k => isFn(opt, k))
+    .reduce((pV, cK) => ({ ...pV, [cK]: opt[cK] }), {});
+    
   /** initialState */
-  const initialState = Object.keys(conf.data)
-    .filter(k => !isFn(conf.data, k))
-    .reduce((pV, cK) => ({ ...pV, [cK]: conf.data[cK] }), {});
+  const initialState = Object.keys(opt.data)
+    .filter(k => !isFn(opt.data, k))
+    .reduce((pV, cK) => ({ ...pV, [cK]: opt.data[cK] }), {});
 
   /** computedState */
-  const computedState = Object.keys(conf.data)
-    .filter(k => isFn(conf.data, k))
-    .map(k => computeState(k, conf.data[k]));
+  const computedState = Object.keys(opt.data)
+    .filter(k => isFn(opt.data, k))
+    .map(k => computeState(k, opt.data[k]));
 
+  /** @type {function} update the computed states */
   const updateComputedState = state => computedState.forEach(s => s(state));
+  
+  /**
+   * Define and Register the WebComponent
+   */
+  window.customElements.define(opt.tagName.toLowerCase(), class extends HTMLElement {
+    constructor() {
+      super();
+      // with Shadow dom or leave as CUSTOM ELEMENT
+      this.$root = opt.type === 'SD' ? this.attachShadow({mode: 'open'}) : this;
+    }
 
-  /** @type {object} the application state */
-  let state = { $store: {}, ...initialState };
+    /**
+     * When element is added
+     */
+    connectedCallback(){
+      this.state = {...this.state, ...initialState, $attr: getAttrs(this)};
+      const data = objectOnChange(this.state, () => {
+        updateComputedState(this.state);
+        if (dom.render(this.$root, this.state)) {
+          opt.updated.call(this.context);
+        }
+      });
+      
+      this.disconnectStore = store(data);
+      this.$root.innerHTML = dom.html;
+
+      // context contains methods and properties to work on the element
+      this.context = { ...methods, $attr: this.state.$attr, el: this.$root, data}
+
+      // Bind events
+      bindEvents(this.$root, this.context);
+
+      // Initial setup + first rendering
+      updateComputedState(this.state);
+      dom.render(this.$root, this.state);
+      opt.created.call(this.context);
+    }
+
+    /**
+     * When element is removed
+     */
+    disconnectedCallback() {
+      opt.removed.call(this.context);
+      this.disconnectStore();
+    }
+  })  
+
+}
+
+
+/**
+ * reLiftHTML default function initializer
+ * @param {object} options 
+ */
+export default function (options = {}) {
+  const opt = {
+    el: null,
+    tagName: null, 
+    type: null,
+    templateString: null,
+    ...options
+  };
+  let el = null;
 
   /**
-   * Shared state
-   * @type {getState(), subscribe()}
+   * Create the template string
    */
-  let store = undefined;
-  if (Object.keys(conf.$store).length) {
-    store = conf.$store;
-    state.$store = conf.$store.getState();
-    conf.$store.subscribe(x => {
-      state.$store = conf.$store.getState();
-      updateComputedState(state);
-      render();
-    });
+  if (! opt.templateString) {
+    if (opt.template) {
+      el = selector(opt.template);
+      opt.type = opt.type || 'SD';
+      opt.tagName = opt.tagName || el.getAttribute('tag-name');
+      opt.templateString = el.innerHTML;
+    } else if (opt.el) {
+      el = selector(opt.el);
+      opt.type = opt.type || 'CE';
+      opt.tagName = opt.tagName || `rel-${el.id}-${randomChars()}`;
+      opt.templateString = el.outerHTML;    
+    }     
   }
 
-  /** To re-render and run updated() */
-  // Exploring whether to debounce render or not
-  //const render = debounce((updated=true) => updateDom({...state}), 100)
-  function render(runUpdated=true) {
-    if (updateDom({...state}) && runUpdated) {
-      conf.updated.call(context); // lifecycle: udpated
-    }
-  }
+  if (opt.el && opt.type === 'CE') {
+    el = selector(opt.el);
+    opt.tagName = opt.tagName || `rel-${el.id}-${randomChars()}`;
+    el.parentNode.replaceChild(document.createElement(opt.tagName), el);  
+  } 
 
-  /** data proxy */
-  const data = onChange(state, () => {
-    updateComputedState(state);
-    render();
-  });
-
-  /** @type {object} context (events action methods) to be used in the  template */
-  const context = { ...methods, el, data, render, store };
-
-
-  /** Bind the dom and attach the method context */
-  const updateDom = dom(el, template, context);
-
-  /** DOM Ready */
-  document.addEventListener('DOMContentLoaded', () => {
-    updateComputedState(state); // Make sure computed state are available
-    render(false); // initial rendering
-    conf.created.call(context); // lifecycle: created
-    el.style.display = 'block'; // if the element is hidden, let's show it now
-  });
+  if (!opt.templateString) throw error(`missing 'templateString' option or 'el|template' are not valid elements`);
+  if (!opt.tagName) throw error(`missing 'tagName'`);
+  reLiftHTML(opt);
 }

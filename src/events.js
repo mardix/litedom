@@ -3,6 +3,10 @@
  */
 
 
+/**
+ * Holds all the browser's event list, ie: click, mouseover, keyup
+ * @type {Array}
+ */ 
 const EVENTS_LIST = []; 
 for (const key in document) {
   const isEvent = document[key] === null || typeof document[key] === 'function';
