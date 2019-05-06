@@ -22,9 +22,16 @@ export function tokenizeEvents(selector) {
    * ie: on input element, '@call' will turn into 'r-on-input' and 'r-on-paste'
    * on AHREF, '@call' will turn into 'r-on-click'
    */
-  for (const el of selector.querySelectorAll('[\\@call]')) {
-    const method = el.getAttribute('@call');
+  for (const el of selector.querySelectorAll('[\\@call], [\\@bind]')) {
+    let method = el.getAttribute('@call');
+    const isBind = el.hasAttribute('@bind');
     el.removeAttribute('@call');
+    if (isBind) {
+      el.setAttribute('r-data-key', el.getAttribute('@bind'));
+      el.removeAttribute('@bind');
+      method = '__$bindInput';
+    }
+    
     let evnts = ['click'];
     if (el instanceof HTMLInputElement || el instanceof HTMLTextAreaElement) evnts = ['input', 'paste'];
     else if (el instanceof HTMLSelectElement) evnts = ['change'];

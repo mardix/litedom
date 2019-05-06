@@ -1,4 +1,4 @@
-import { isFn, htmlToDom, parseLit, computeState } from '../src/utils.js';
+import { isFn, htmlToDom, parseLit, computeState, set, get } from '../src/utils.js';
 
 describe('isFn', () => {
   test('is a function', () => {
@@ -53,3 +53,68 @@ describe('computeState', () => {
     expect(data.value).toBe('OK HTML')
   });  
 })
+
+describe('SET', () => {
+  test('Set simple key value', () => {
+    const o = {};
+    set(o, 'key', 'value');
+    expect(o.key).toBe('value')
+  })
+
+  test('Set dot notation', () => {
+    const o = {};
+    set(o, 'key.key2.key3', 10);
+    expect(o.key.key2.key3).toBe(10)
+  })
+
+  test('Set dot notation to be object', () => {
+    const o = {};
+    set(o, 'key.key2.key3', 10);
+    expect(o.key.key2).toBeInstanceOf(Object);
+  });
+
+}) 
+
+
+
+describe('GET', () => {
+  test('Get simple key value', () => {
+    const o = {
+      key: 'value'
+    };
+    expect(get(o, 'key')).toBe('value')
+  })
+
+  test('Get dot notation', () => {
+    const o = {
+      key: {
+        key2: {
+          key3: 10
+        }
+      }
+    };
+    expect(get(o, 'key.key2.key3')).toBe(10)
+  })
+
+  test('Set dot notation to be object', () => {
+    const o = {
+      key: {
+        key2: {
+          key3: 10
+        }
+      }
+    };
+    expect(get(o, 'key.key2')).toBeInstanceOf(Object);
+  });
+
+  test('Set dot notation to be undefined', () => {
+    const o = {
+      key: {
+        key2: {
+          key3: 10
+        }
+      }
+    };
+    expect(get(o, 'key.key2.k4')).toBe(undefined);
+  });
+}) 

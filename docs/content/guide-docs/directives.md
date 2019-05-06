@@ -158,28 +158,3 @@ You can also have `item, index in items`, where `index` is tracking the number.
 
 ```
 
-### r-class
-(*not implemented yet)
-N/A
-
-### r-value
-
-(*not complete)
-
-`r-value` can be used in forms to automatically set values.
-
-
-```
-  <input type="text" r-value="this.item">
-```
-
-
-### r-select
-(*not implemented yet)
-N/A
-
-
-### r-checked
-(*not implemented yet)
-N/A
-

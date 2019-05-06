@@ -1,4 +1,4 @@
-**reLift-HTML** is a blazing fast view library that lets you write Javascript Template Literals in HTML. (Yup! You've read that right!)
+**reLift-HTML** is a small view library that lets you write Javascript Template Literals in HTML. (Yup! You've read that right!)
 
 Inspired by, but unlike *lit-html* and *hyperHTML*, **reLift-HTML** makes it easy to write javascript in your HTML template using template literals. 
 

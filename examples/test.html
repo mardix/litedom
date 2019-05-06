@@ -40,9 +40,50 @@
     </div>
   </template>
 
-  <my-counter></my-counter>
 
-  <!-- COUNTER -->
+
+
+ 
+<!-- 2WB -->
+  <div class="container">
+    <two-way-bind></two-way-bind>
+
+    <template id="tpl-2wb" tag-name="two-way-bind">
+        <div>Text: ${this.form.text}</div>
+        <div>Radio: ${this.form.radio}</div>
+        <div>Select ${this.form.city}</div>
+        <div>Check: ${this.form.checks} </div>
+        <hr>
+        <div>Input text: <input type="text" @bind="form.text"></div>
+        <div>Radio: <input type="radio" name='r1' @bind="form.radio" value='Mr'> - <input type="radio" name='r1' @bind="form.radio" value='Mrs.'></div>
+        <div>Checkbox: 
+          <input type="checkbox" name='r1' @bind="form.checks" value='up'> Up 
+          <input type="checkbox" name='r1' @bind="form.checks" value='down'> Up 
+          <input type="checkbox" name='r1' @bind="form.checks" value='left'> Up 
+        </div>
+        <div>Select: <select name="city" @bind="form.city">
+          <option value="Charlotte">Charlotte</option>
+          <option value="Concord">Concord</option>
+        </select></div>
+    </template>
+    <script type="module">
+        import reLiftHTML from '../src/index.js';
+        reLiftHTML({
+          template: '#tpl-2wb',
+          data: {
+            form: {
+              text: '',
+              radio: '',
+              checks: [],
+              city: ''
+            }
+
+          }
+        })
+    </script>
+  </div>
+
+    <!-- COUNTER -->
   <div>
     <div class="container">
       <div class="row">
@@ -106,6 +147,7 @@
       </div>
     </div>
   </div>
+
 
 
   <!-- STAR WARS -->

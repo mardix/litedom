@@ -3,6 +3,9 @@
   - changed the instances to become Web Component (shadow dom or custom element).
     This will allow composability, sharability and use of component in other 
     components
-     
-- 0.0.5 --
+  - two way data binding
+    - __$bindInput() function fot 2wdb
+  - Added `utils.get` and `utils.set` to retrive data from dot notation
+
+- 0.0.5
   - initial

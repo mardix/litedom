@@ -5,7 +5,7 @@
 import emerj from './emerj.js';
 import { tokenizeEvents, bindEvents } from './events.js';
 import { parseDirectives } from './directives.js';
-import { computeState, isFn, parseLit, htmlToDom, getAttrs, objectOnChange, randomChars, selector} from './utils.js';
+import { computeState, isFn, parseLit, htmlToDom, getAttrs, objectOnChange, randomChars, selector, set, get} from './utils.js';
 
 const RESERVED_KEYS = [
   'data', 
@@ -44,7 +44,7 @@ const domConnector = (template) => {
     const node = htmlToDom(template);
     parseDirectives(node);
     tokenizeEvents(node);
-    const html = node.outerHTML;
+    const html = node.innerHTML;
     const lit = parseLit(html);
     return {
       html, 
@@ -55,8 +55,22 @@ const domConnector = (template) => {
     };
 }
 
-function action2wb(event) {
-
+/**
+ * For two-way data binding
+ * This is an internal function to be used 
+ * @param {Event} e 
+ */
+function __$bindInput (e) {
+  const el = e.target;
+  const key = el.getAttribute('r-data-key');
+  if (el.type === 'checkbox') {
+    const obj = get(this.data, key) || [];
+    set(this.data, key, (el.checked) ? obj.concat(el.value) : obj.filter(v => v != el.value));
+  } else if (el.options && el.multiple) {
+    set(this.data, key, [].reduce.call(el, (v, o) => (o.selected ? v.concat(o.value) : v), []));
+  } else {
+    set(this.data, key, el.value);
+  }
 }
 
 function reLiftHTML(options={}) {
@@ -131,8 +145,9 @@ function reLiftHTML(options={}) {
       // context contains methods and properties to work on the element
       this.context = { ...methods, $attr: this.state.$attr, el: this.$root, data}
 
+
       // Bind events
-      bindEvents(this.$root, this.context);
+      bindEvents(this.$root, {...this.context, __$bindInput});
 
       // Initial setup + first rendering
       updateComputedState(this.state);
@@ -173,7 +188,7 @@ export default function (options = {}) {
     if (opt.template) {
       el = selector(opt.template);
       opt.type = opt.type || 'SD';
-      opt.tagName = opt.tagName || el.getAttribute('tag-name');
+      opt.tagName = opt.tagName || el.getAttribute('tag');
       opt.templateString = el.innerHTML;
     } else if (opt.el) {
       el = selector(opt.el);

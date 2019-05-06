@@ -9,9 +9,47 @@ Full Documentation: https://relift-html.js.org/
 
 ---
 
-**reLift-HTML** is a blazing fast view library that lets you write JavaScript Template Literals in HTML. (Yup! You've read that right!)
+**reLift-HTML** is a small view library that helps you easily create reactive Custom Elements (Web Components) using Javascript Template Literals itself as templating in HTML.
 
-Inspired by, but unlike *lit-html* and *hyperHTML*, **reLift-HTML** makes it easy to write JavaScript in your HTML template using template literals. 
+No need to transpile or compile or build. The components created are valid web components and can be reused anywhere, with complete lifecycle.
+
+
+```html
+
+<template tag="my-counter">
+  Counting: ${this.count}
+</template>
+
+
+<my-counter></my-counter>
+
+<my-counter></my-counter>
+
+
+<script type="module">
+  import reLiftHTML from '//unpkg.com/relift-html';
+  reLiftHTML({
+    template: '[tag="my-counter"]',
+    data: {
+      count: 0
+    },
+    created(){
+
+      setInterval(_=> {
+        this.data.count++;
+      }, 1000)
+    }
+  })
+
+</script>
+
+```
+
+Some of the major features: Web Components (Custom Elements and Shadow DOM), Template Literals, event handling, data binding, one way data flow, two-way data binding, lifecycle, state management, computed properties, directives
+
+
+Inspired by, but unlike *lit-html* and *hyperHTML*, **reLift-HTML** makes it easy to write JavaScript in your HTML template using template literals. But also, the elements are actually custom elements, 
+which can be reused whereever on the page.
 
 No need to know special React / JSX syntax or some other templaty stuff, HTML is your template. Use it the way you've used it before.
 
@@ -23,7 +61,9 @@ reLift-HTML doesn't have a virtual DOM, therefor it doesn't keep a DOM tree in m
 
 ---
 
-### First Example
+### Second Example, Inline Element
+
+
 
 ```html
 
@@ -187,7 +227,7 @@ https://mardix.github.com/relift-html
 
 #### How big is reLift-HTML?
 
-reLift-HTML is very small. gzip: **~2kb**
+reLift-HTML is very small. gzip: **~3kb**
 
 
 #### Why yet another JavaScript library?
@@ -198,7 +238,7 @@ So, one week-end afternoon (4/20 weekend 2019 :), while working on a personal pr
 
 So I decided to create reLift-HTML, to just be a simple drop-in view library that can make any sections of the site reactive without the overhead. I wanted my HTML to stay as is. No React, No Vue, just my HTML and me.
 
-(BTW, See how many days since the last JavaScript framework: https://dayssincelastJavaScriptframework.com/)
+(BTW, See how many days since the last JavaScript framework: https://dayssincelastjavascriptframework.com/)
 
 #### Who and when would someone use it?
 
@@ -220,27 +260,27 @@ It follows the same paradigm as the big ones, just on a smaller scale.
 
 #### Features
 
-
 - Very small
+- Web Components (Custom Elements + Shadow DOM)
 - Template literals
 - Directives
 - Data binding
+- Two-way data binding (one way data flow)
 - Computed properties
 - Event Handling
 - Lifecycle
 - State management
 - HTML stays as is
 - No JSX 
-- No dependency
+- No dependencies
 - No virtual DOM
 - No need for CLI
 - No build, the real DOM does it!
-
 ---
 
 ### About Me
 
-I'm Mardix, an inventor, a creator and a UI Tech Lead Application Engineer at Bank of America, NA, in Charlotte, NC, USA.  
+I'm Mardix, an inventor, a creator and a UI Tech Lead Application Engineer at Bank of America, in Charlotte, NC, USA.  
 
 I love to invent stuff. I love to make stuff. I love UI. I love JavaScript. I love Python.
 

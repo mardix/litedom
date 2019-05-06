@@ -1,6 +1,31 @@
 // reLift-HTML
 
 /**
+ * Set a value in an object via dot notation
+ * @param {object} obj 
+ * @param {string} path 
+ * @param {any} value 
+ * @returns {void}
+ */
+export const set = (obj, path, value) => {
+  let ref = obj;
+  const keys = path.split('.');
+  while (keys.length) {
+      const key = keys.shift();
+      ref[key] = keys.length ? (ref[key]  ? ref[key] : {}) : value;
+      ref = ref[key];
+  }
+}
+/**
+ * Get a value in an object via dot notation
+ * @param {object} obj 
+ * @param {string} path 
+ * @returns {any}
+ */
+export const get = (obj, path) => path.split('.').reduce((acc, part) => acc && acc[part], obj);
+
+
+/**
  * isFn isFunction
  * @param {object} obj
  * @param {string} key
@@ -8,15 +33,20 @@
  */
 export const isFn = (obj, key) => obj && typeof obj[key] === 'function';
 
+/**
+ * Return a HTMLElement 
+ * @param {any} el 
+ * @returns {HTMLElement}
+ */
 export const selector = (el) => typeof el === 'string' ? document.querySelector(el) : el;
 
 
 /**
  * Turn an HTML string into HTMLElement
  * @param {string} html 
- * @return {HTMLElement}
+ * @returns {HTMLElement}
  */
-export const htmlToDom = html => new DOMParser().parseFromString(html, 'text/html').body//.firstChild;
+export const htmlToDom = html => new DOMParser().parseFromString(html, 'text/html').body;//.firstChild;
 
 /**
  * Get a string and turn it into template literal
@@ -38,17 +68,29 @@ export const parseLit = tpl => state => new Function(`return \`${tpl}\``).call(s
  */
 export const computeState = (key, fn) => state => state[key] = fn({...state})
 
+/**
+ * 
+ * @param {function} callback 
+ * @param {timeout} time 
+ * @param {any} interval 
+ * @returns {void}
+ */
 export const debounce = (callback, time = 250, interval) => (...args) => clearTimeout(interval, interval = setTimeout(callback, time, ...args));
 
 /**
  * Returns all attributes into an object
  * @param {HTMLElement} el
- * @return {object} 
+ * @returns {object} 
  */
 export const getAttrs = (el) => Object.freeze(Array.from(el.attributes)
   .map(e => ({[e.name]: e.value}))
   .reduce((pV, cK) => ({...pV, ...cK}) , {}));
 
+/**
+ * 
+ * @param {*} strings 
+ * @param  {...any} values 
+ */
 export const html = (strings, ...values) => String.raw(strings, ...values.map(v => Array.isArray(v) ? v.join('') : v));
 
 
@@ -141,3 +183,5 @@ export const objectOnChange = (object, onChange) => {
   const proxy = new Proxy(object, handler);
   return proxy;
 };
+
+

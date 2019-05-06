@@ -11,12 +11,13 @@ const getNodesByKey = (parent, makeKey) => Array.from(parent.childNodes)
   .map(e => ({[makeKey(e)]: e}))
   .reduce((pV, cK) => ({...pV, ...cK}) , {});
 
+const isCE = (el) => el.nodeName.includes('-');
 
 export default function merge (base, modified, opts={}) {
   opts = {key: node => node.id, ...opts}
   if (typeof modified === 'string') {
     const html = modified;
-    modified = document.createElement(base.tagName);
+    modified = document.createElement(base.nodeName);
     modified.innerHTML = html;
   }
   const nodesByKeyOld = getNodesByKey(base, opts.key)

@@ -6,10 +6,6 @@
 const DIRECTIVES_LIST = {
   $for: r_for,
   $if: r_if,
-  $value: r_value,
-  //disabled: r_disabled,
-  //$class: r_class,
-  
 };
 
 /**
@@ -71,22 +67,6 @@ function r_for(el, value, directive) {
   }
 }
 
-/** r-value */
-function r_value(el, value, directive) {
-  return
-  const v = `\${${value}}`
-  (el.nodeName === 'TEXTAREA') ? (el.innerHTML = v) : el.setAttribute('value', v);
-  rm_d(el, directive);
-}
-
-/** r-disabled */
-function r_disabled(el, value, directive) {
-  // /r\-disable\s*=(.*)\s*"/m
-  const dir = 'disabled';
-  //rm_d(el, dir);
-  el.setAttribute(dir, `\${ ${value} ? true : false}`);
-}
-
 /** r-class */
 function r_class(el, value, directive) {
   if (!el.hasAttribute('class')) el.setAttribute('class', '');
@@ -94,27 +74,4 @@ function r_class(el, value, directive) {
   // parse the value to make the condition
   el.setAttribute('class', cValue);
   rm_d(el, directive);
-}
-
-
-/** r-value */
-function r_valueX(el, value, directive) {
-  const nodeName = el.nodeName.toLowerCase();
-  const d_default = get_d(el, 'default') || '';
-  if (has_d(el, 'default')) rm_d(el, 'default');
-
-  if (nodeName === 'textarea') {
-    el.innerHTML = `\${${value}}`;
-  } else if (nodeName === 'input') {
-    if (['radio', 'checkbox'].includes(el.getAttribute('type'))) {
-      //el.setAttribute('checked', `\$${(Array.isArray(${value}) ? value : [value] ).includes('5') ? 'checked' : ''\`}}`);
-    } else {
-      el.setAttribute('value', `\${${value}}`);
-    }
-  }
-  rm_d(el, directive);
-}
-
-function r_checked(el, value, directive) {
-  // <input type="radio" r-checked="this.something" value>
 }
