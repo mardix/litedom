@@ -1,4 +1,4 @@
-import { isFn, htmlToDom, parseLit, computeState, set, get } from '../src/utils.js';
+import { isFn, htmlToDom, parseLit, computeState, set, get, toStrLit } from '../src/utils.js';
 
 describe('isFn', () => {
   test('is a function', () => {
@@ -118,3 +118,70 @@ describe('GET', () => {
     expect(get(o, 'key.key2.k4')).toBe(undefined);
   });
 }) 
+
+
+describe('toStrLit', () => {
+  test('string to string', () => {
+    expect(toStrLit('hello world')).toBe('hello world')
+  })
+
+  test('string with var', () => {
+    expect(toStrLit('hello {key}')).toBe('hello ${key}')
+  })
+
+  test('string with var with method inside', () => {
+    expect(toStrLit('hello {key.aFunction()}')).toBe('hello ${key.aFunction()}')
+  })
+
+  test('string with var with properties', () => {
+    expect(toStrLit('hello {key.val.something }')).toBe('hello ${key.val.something }')
+  })
+
+  test('string with var with operations', () => {
+    expect(toStrLit('hello {key.val.something + y + z}')).toBe('hello ${key.val.something + y + z}')
+  })
+
+  test('string with var with ternary', () => {
+    expect(toStrLit('hello {this.x ? y : z}')).toBe('hello ${this.x ? y : z}')
+  })
+
+  test('string with var with inside space left', () => {
+    expect(toStrLit('hello  {  key}')).toBe('hello  ${  key}')
+  })
+
+  test('string with var with inside space left', () => {
+    expect(toStrLit("hello <div id='{key}'></div>")).toBe("hello <div id='${key}'></div>")
+  })
+
+  test('string with var with inside space right', () => {
+    expect(toStrLit('hello  {  key   }')).toBe('hello  ${  key   }')
+  })
+
+  test('string with var with inside space right 2', () => {
+    expect(toStrLit('hello  {key   }')).toBe('hello  ${key   }')
+  })
+
+  test('string with var with leading extra space', () => {
+    expect(toStrLit('hello  {key}')).toBe('hello  ${key}')
+  })
+
+  test('string with var with trailing extra space', () => {
+    expect(toStrLit('hello  {key}   ')).toBe('hello  ${key}   ')
+  })
+
+  test('string with $', () => {
+    expect(toStrLit('hello ${key}')).toBe('hello ${key}')
+  })
+
+  test('string with $$', () => {
+    expect(toStrLit('hello $${key}')).toBe('hello $${key}')
+  })
+
+  test('string with $ with a method inside', () => {
+    expect(toStrLit('hello ${key.aFunction()}')).toBe('hello ${key.aFunction()}')
+  })
+
+  test('string with $ with ternary', () => {
+    expect(toStrLit('hello ${this.x ? y : z}')).toBe('hello ${this.x ? y : z}')
+  })
+})

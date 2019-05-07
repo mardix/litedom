@@ -3,9 +3,10 @@
   - changed the instances to become Web Component (shadow dom or custom element).
     This will allow composability, sharability and use of component in other 
     components
-  - two way data binding
+  - two way data binding (via one way data flow)
     - __$bindInput() function fot 2wdb
   - Added `utils.get` and `utils.set` to retrive data from dot notation
+  - template lit can written without dollar sign, {...} => ${...}. Specially when being written in JS
 
 - 0.0.5
   - initial

@@ -59,6 +59,14 @@ export const htmlToDom = html => new DOMParser().parseFromString(html, 'text/htm
 export const parseLit = tpl => state => new Function(`return \`${tpl}\``).call(state);
 
 /**
+ * Convert a string that contains {...} to ${...}
+ * @param {string} str
+ * @returns {string} 
+ */
+export const toStrLit = str => str.replace(/\$?\{([^\;\{]+)\}/g, (_, expression) => `\${${expression}}`);
+
+
+/**
  * Create a function that receive data to create computed state
  * @param {string} key 
  * @param {function} fn 
@@ -85,13 +93,6 @@ export const debounce = (callback, time = 250, interval) => (...args) => clearTi
 export const getAttrs = (el) => Object.freeze(Array.from(el.attributes)
   .map(e => ({[e.name]: e.value}))
   .reduce((pV, cK) => ({...pV, ...cK}) , {}));
-
-/**
- * 
- * @param {*} strings 
- * @param  {...any} values 
- */
-export const html = (strings, ...values) => String.raw(strings, ...values.map(v => Array.isArray(v) ? v.join('') : v));
 
 
 const proxyTarget = '___target___';

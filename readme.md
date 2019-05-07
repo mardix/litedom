@@ -17,7 +17,7 @@ No need to transpile or compile or build. The components created are valid web c
 ```html
 
 <template tag="my-counter">
-  Counting: ${this.count}
+  Counting: {this.count}
 </template>
 
 
@@ -141,7 +141,7 @@ We will be using the ESM way, but the same applied if you were to install it via
     </div>
     <div class="row">
       <div class="column center" id="counterWidget">
-        <div><h4>${this.count}</h4></div>
+        <div><h4>{this.count}</h4></div>
         <div>
           <button @click="down" class="button-outline">DOWN</button>
           <button @click="up" class="button-outline">UP</button>

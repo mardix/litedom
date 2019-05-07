@@ -5,7 +5,7 @@
 import emerj from './emerj.js';
 import { tokenizeEvents, bindEvents } from './events.js';
 import { parseDirectives } from './directives.js';
-import { computeState, isFn, parseLit, htmlToDom, getAttrs, objectOnChange, randomChars, selector, set, get} from './utils.js';
+import { computeState, isFn, parseLit, htmlToDom, getAttrs, objectOnChange, randomChars, selector, set, get, toStrLit} from './utils.js';
 
 const RESERVED_KEYS = [
   'data', 
@@ -37,11 +37,11 @@ const storeConnector = (store) => {
 
 /**
  * Receiving a template it 
- * @param {*} template 
+ * @param {string} template 
  * @returns {object[html:string, render:function]}
  */
 const domConnector = (template) => {
-    const node = htmlToDom(template);
+    const node = htmlToDom(toStrLit(template));
     parseDirectives(node);
     tokenizeEvents(node);
     const html = node.innerHTML;

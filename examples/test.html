@@ -48,10 +48,10 @@
   <div class="container">
     <two-way-bind></two-way-bind>
 
-    <template id="tpl-2wb" tag-name="two-way-bind">
-        <div>Text: ${this.form.text}</div>
+    <template id="tpl-2wb" tag="two-way-bind">
+        <div>Text: {this.form.text}</div>
         <div>Radio: ${this.form.radio}</div>
-        <div>Select ${this.form.city}</div>
+        <div>Select {this.form.city || 'Charlotter'}</div>
         <div>Check: ${this.form.checks} </div>
         <hr>
         <div>Input text: <input type="text" @bind="form.text"></div>
@@ -97,13 +97,13 @@
         </div>
         <div class="column center" id="counterWidget">
 
-          <div><h4>${this.count} with ${this.countNum}</h4></div>
+          <div><h4>{this.count} with {this.countNum}</h4></div>
           <div>
             <input type="text" r-bind="text">
             <textarea r-value="this.countNum"></textarea>
             <input type="checkbox"  r-value="5">
-            <div>Date:  ${new Date().toISOString().slice(0, 10)}</div>
-            <div>2 Way binding: {this.data.text}</div>
+            <div>Date:  {new Date().toISOString().slice(0, 10)}</div>
+           
             
 
             <my-counter></my-counter>
@@ -140,7 +140,7 @@
           </div>
           <div>
             <ul>
-              <li r-for="(item,i) in this.todos">${item} <a @click="remove" data-index="${i}">Remove</a></li>
+              <li r-for="(item,i) in this.todos">{item} <a @click="remove" data-index="{i}">Remove</a></li>
             </ul>
           </div>
         </div>
@@ -170,7 +170,7 @@
             </div>
             <div>
               <ul>
-                <li r-for="(item,i) in this.peopleList">${item.name} [<a @click="remove" data-index="${i}">+</a>]</li>
+                <li r-for="(item,i) in this.peopleList">{item.name} [<a @click="remove" data-index="{i}">+</a>]</li>
               </ul>
             </div>
           </div>
