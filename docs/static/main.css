@@ -82,6 +82,10 @@
   margin-bottom: 40px;
 }
 
+.header .description strong {
+  font-size: 2.9rem;
+}
+
 @media(min-width:20rem) {
   .header .title {
     font-size: 2.5rem;
@@ -90,11 +94,15 @@
   }
 
   .header .description {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     width: 100%;
     margin: 0 auto;
     margin-top: 10px;
     margin-bottom: 10px;
+  }
+
+  .header .description strong {
+    font-size: 1.4rem;
   }
 }
 
@@ -110,6 +118,10 @@
     margin: 0 auto;
     margin-top: 30px;
     margin-bottom: 30px;
+  }
+
+  .header .description strong {
+    font-size: 2.4rem;
   }
 }
 

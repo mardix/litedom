@@ -2,7 +2,7 @@
  * reLift-HTML
  */
 
-// to prevent conflict, name that may clash prefix them with $
+/** @type {object} */
 const DIRECTIVES_LIST = {
   $for: r_for,
   $if: r_if,
@@ -40,9 +40,14 @@ const wrapAround = (el, before, after) => {
   beforeText(el, before);
   afterText(el, after);
 };
-const replaceChild = (newEl, el) => el.parentNode.replaceChild(newEl, el);
 
-/** r-if */
+/**
+ * r-if directive
+ * @param {HTMLElement} el 
+ * @param {string} value 
+ * @param {string} directive 
+ * @returns {void}
+ */
 function r_if(el, value, directive) {
   rm_d(el, directive);
   beforeText(el, `\${${value} ? `);
@@ -56,7 +61,13 @@ function r_if(el, value, directive) {
   }
 }
 
-/** r-for */
+/**
+ * r-for director
+ * @param {HTMLElement} el 
+ * @param {string} value 
+ * @param {string} directive 
+ * @returns {void}
+ */
 function r_for(el, value, directive) {
   const groups = /(.*)\s+(in)\s+(.*)$/.exec(value);
   if (groups.length === 4) {
@@ -67,7 +78,13 @@ function r_for(el, value, directive) {
   }
 }
 
-/** r-class */
+/**
+ * r-class directive
+ * @param {HTMLElement} el 
+ * @param {string} value 
+ * @param {string} directive 
+ * @returns {void}
+ */
 function r_class(el, value, directive) {
   if (!el.hasAttribute('class')) el.setAttribute('class', '');
   let cValue = el.getAttribute('class');

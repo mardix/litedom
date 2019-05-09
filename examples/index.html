@@ -34,53 +34,16 @@
     }
   </style>
 
-  <template id="my-tag-element" tag-name="my-tag">
-    <div>
-      Hello World
-    </div>
-  </template>
 
 
-
+<count-up start=5></count-up>
+<kobra-kai></kobra-kai>
 
  
 <!-- 2WB -->
   <div class="container">
-    <two-way-bind></two-way-bind>
-
-    <template id="tpl-2wb" tag="two-way-bind">
-        <div>Text: {this.form.text}</div>
-        <div>Radio: ${this.form.radio}</div>
-        <div>Select {this.form.city || 'Charlotter'}</div>
-        <div>Check: ${this.form.checks} </div>
-        <hr>
-        <div>Input text: <input type="text" @bind="form.text"></div>
-        <div>Radio: <input type="radio" name='r1' @bind="form.radio" value='Mr'> - <input type="radio" name='r1' @bind="form.radio" value='Mrs.'></div>
-        <div>Checkbox: 
-          <input type="checkbox" name='r1' @bind="form.checks" value='up'> Up 
-          <input type="checkbox" name='r1' @bind="form.checks" value='down'> Up 
-          <input type="checkbox" name='r1' @bind="form.checks" value='left'> Up 
-        </div>
-        <div>Select: <select name="city" @bind="form.city">
-          <option value="Charlotte">Charlotte</option>
-          <option value="Concord">Concord</option>
-        </select></div>
-    </template>
-    <script type="module">
-        import reLiftHTML from '../src/index.js';
-        reLiftHTML({
-          template: '#tpl-2wb',
-          data: {
-            form: {
-              text: '',
-              radio: '',
-              checks: [],
-              city: ''
-            }
-
-          }
-        })
-    </script>
+    <h2>Two-Way Data Binding</h2>
+    <form-2wdb></form-2wdb>
   </div>
 
     <!-- COUNTER -->
@@ -106,7 +69,7 @@
            
             
 
-            <my-counter></my-counter>
+            <count-up></count-up>
 
           </select>
 
@@ -181,16 +144,16 @@
     
 
 
-
-
+  <!-- Import as custom element -->
+  <script type="module" src="./tag.count-up.js"></script>
+  <script type="module" src="./tag.form-2wdb.js"></script>
   <script type="module">
     import reLiftHTML from '../src/index.js';
-    import './myCounter.js';
-    
 
     // COUNTER
     reLiftHTML({
       el: '#counterWidget',
+      tagName: 'kobra-kai',
       data: {
         count: 0,
         countNum: state => `We are now counting ${state.count}`,

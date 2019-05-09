@@ -39,8 +39,8 @@ In the template you have access to data via `this.#data-property-name`, where '#
 ```html
 
 <div id="root">
-  <p>Hello ${this.name}</p>
-  <p>Date: ${this.todaysDate}
+  <p>Hello {this.name}</p>
+  <p>Date: {this.todaysDate}
 </div>
 
 <script type="module">
@@ -66,10 +66,10 @@ In the template you have access to data via `this.#data-property-name`, where '#
 ```js
   <div id="root">
     <!-- use from data -->
-    ${this.firstName}
+    {this.firstName}
 
     <!-- fall under the global object/window -->
-    ${new Date().toLocaleString()}
+    {new Date().toLocaleString()}
   </div>
 ```
 
@@ -78,7 +78,7 @@ In the template you have access to data via `this.#data-property-name`, where '#
 
 Local state is the data that the instance will use. It is set in the `data`. Whenever it is updated, it will trigger a re-render (if necessary). 
 
-In the template you have access to it via `${this.#data-property-name}` and in your methods it's via `this.data`;
+In the template you have access to it via `{this.#data-property-name}` and in your methods it's via `this.data`;
 
 The state/data is mutable only in the methods of your instance, which means you can directly update the properties. No need for this.set(key, value) or this.get(key).
 
@@ -120,15 +120,15 @@ data: {
   firstName: 'Mardix',
   lastName: 'M.',
 
-  // computed data, will be accessed via '${this.fullName}' or 'this.data.fullName'
+  // computed data, will be accessed via '{this.fullName}' or 'this.data.fullName'
   fullName(state) => `${state.firstName} ${state.lastName}`
 
-  // computed data, will be accessed via '${this.totalChars}' or 'this.data.totalChars'
+  // computed data, will be accessed via '{this.totalChars}' or 'this.data.totalChars'
   totalChars(state) => state.fullName.length
 }
 ```
 
-In the example above, we now can access as properties: `this.data.fullName` and `this.data.totalChars`. In the template, `${this.fullName}` and `${this.totalChars}`
+In the example above, we now can access as properties: `this.data.fullName` and `this.data.totalChars`. In the template, `{this.fullName}` and `{this.totalChars}`
 
 NOTE 1: You can't access the computed data as functions in your code. 
 NOTE 2: You can't mutate the state in the computed data funcion, nor access an instance's method in the computed data function.
@@ -137,7 +137,7 @@ Computed data function accept the current state as the only argument, and must r
 
 ```html
 <div id="root">
-  <p>Hello ${this.fullName}</p>
+  <p>Hello {this.fullName}</p>
 </div>
 
 <script type="module">
@@ -155,6 +155,40 @@ Computed data function accept the current state as the only argument, and must r
 ```
 
 
+### Two-Way Data Binding
+
+You can use the `@bind` directive to create two-way data bindings on form input, textarea, and select elements. It automatically picks the correct way to update the element based on the input type. `@bind` is essentially syntax sugar for updating data on user input events.
+
+```html
+<script type="module">
+  import reLiftHTML from '//unpkg.com/relift-html';
+
+  reLiftHTML({
+    el: `#root`,
+    data: {
+      name: '',
+      salutation: ''
+    }
+  })
+</script>
+
+<!-- HTML -->
+<div id="root">
+  <div>Hello {this.salutation} {this.name}</div>
+  
+  <!---- Form ---->
+
+  <form>
+    <div>Enter name: <input type="text" @bind="name"></div>
+    <div>Salutation: 
+      <input type="radio" name="salutation" @bind="salutation" value="Mr."> Mr. -
+      <input type="radio" name="salutation" @bind="salutation" value="Mrs."> Mrs. 
+    </div>
+  </form>
+</div>
+```
+
+
 ### Example of making Async call
 
 The example below illustrate how we can make async call and at the same time setting the state to make it reactive.
@@ -168,7 +202,7 @@ The example below illustrate how we can make async call and at the same time set
   <div v-if="this.loadingStatus === 'done'">
     <p>Data loading successfully!</p>
     <ul>
-      <li r-for="item in this.myData">${item}</li>
+      <li r-for="item in this.myData">{item}</li>
     </ul>
   </div>
 

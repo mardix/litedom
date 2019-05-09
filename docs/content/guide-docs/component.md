@@ -1,8 +1,10 @@
-## Instance
+## Component
 
 [TOC]
 
-Every reLift-HTML application starts by creating a reLift-HTML instance with the `reLiftHTML` function.
+**reLift-HTML** allows you to split up your application into smaller, composable parts called components. The components are full web components standards. They can be either just Custom Element or Shadow DOM
+
+
 
 During the initilization process, reLift-HTML needs to prepare the HTML to template literals, setup data observation, setup event listeners, do the first update of the DOM, runs lifecycle hooks.
 
@@ -30,7 +32,7 @@ Setting up an instance starts by invoking `reLiftHTML` function, which accepts o
     updated() {
     },
     template: null,
-    $store: null
+    store: null
   })
 </script>
 ```
@@ -54,11 +56,15 @@ In the case of a function, it will become a computated data.
 
 #### **`created`**
 [function]
-This is a lifecycle hook method. It runs once the instance is created. 
+This is a lifecycle hook method. It runs once the component is added on the page. 
 
 #### **`updated`**
 [function]
-This is a lifecycle hook method. It runs each time the instance is updated. 
+This is a lifecycle hook method. It runs each time the data or the store update the component's state. 
+
+#### **`removed`**
+[function]
+This is a lifecycle hook method. It runs once the component is removed from the page. 
 
 #### **`template`**
 [string] 
@@ -140,6 +146,29 @@ Whenever a `data` is updated it will trigger re-render (if necessary). You don't
   })
 ```
 
+#### **`this.props`**
+
+Props are the attributes that were set during initialization
+
+```html
+  <my-counter start=5></my-counter>
+
+  <script>
+  reLiftHTML({
+    el: '#root',
+    data: {
+      count: 0
+    },
+    created() {
+      this.data.count = this.props.start || 0;
+      setTimeout(_=> { this.data.count++; }, 1000)
+    }
+  })  
+  
+  </script>
+```
+
+
 #### **`this.render`**
 A function to manually re-render.
 
@@ -153,7 +182,7 @@ A function to manually re-render.
   })
 ```
 
-#### **`...this.$define-methods`** 
+#### **`...this.$defined-methods`** 
 
 ```js
   reLiftHTML({

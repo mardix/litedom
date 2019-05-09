@@ -1,4 +1,6 @@
 // reLift-HTML
+// @ts-check
+
 
 /**
  * Set a value in an object via dot notation
@@ -79,9 +81,9 @@ export const computeState = (key, fn) => state => state[key] = fn({...state})
 /**
  * 
  * @param {function} callback 
- * @param {timeout} time 
+ * @param {number} time 
  * @param {any} interval 
- * @returns {void}
+ * @returns {any}
  */
 export const debounce = (callback, time = 250, interval) => (...args) => clearTimeout(interval, interval = setTimeout(callback, time, ...args));
 

@@ -6,7 +6,7 @@
 
 Directives are special attribute that start with `r-` that you place in HTML elements as a normal data attribute, ie: `<span r-if="this.x ===  y">show</span>`. They serve as shorthands to convert to template literals stuff that could be too challenging to write. 
 
-```
+```js
   // directive
   <span r-if="this.index === 5">Show me</span>
 
@@ -15,12 +15,12 @@ Directives are special attribute that start with `r-` that you place in HTML ele
 
   // Here's how to iterate over a list of items
   <ul>
-    <li r-for="item in this.items">${item}</li>
+    <li r-for="item in this.items">{item}</li>
   </ul>
 
 ```
 
-Values can be of any javascript conditional. Values should not be placed in `${...}` inside of the directive. It should be written as normal string. 
+Values can be of any javascript conditional. Values should not be placed in `${...}` or `{...}` inside of the directive. It should be written as normal string. 
 
 **DO THIS**: `<span r-if="this.index === 5">show me</span>`
 
@@ -38,7 +38,7 @@ Values can be of any javascript conditional. Values should not be placed in `${.
 ```
   <div id="root">
 
-    <div r-if="this.count !== 5">The count is not ${this.count}</div>
+    <div r-if="this.count !== 5">The count is not {this.count}</div>
 
     <div r-if="this.isTrue">Show me</div>
     <div r-else> Show me ELSE</div>
@@ -72,7 +72,7 @@ You can also have `item, index in items`, where `index` is tracking the number.
 ```
   <div id="root">
     <ul>
-      <li r-for="location in this.locations">${location.name}</li>
+      <li r-for="location in this.locations">{location.name}</li>
     </ul>
   </div>
 
@@ -104,11 +104,11 @@ You can also have `item, index in items`, where `index` is tracking the number.
   <div id="root">
     <ul>
       <li r-for="state in this.states">
-        ${state.name}
+        {state.name}
 
         <ul>
           <li>Cities</li>
-          <li r-for="city in state.cities">${city}</li>
+          <li r-for="city in state.cities">{city}</li>
         </ul>
 
       </li>
@@ -154,7 +154,7 @@ You can also have `item, index in items`, where `index` is tracking the number.
 
 ```
 
-  <div r-for="i in [...Array(5).keys()]">I'm ${i}</div>
+  <div r-for="i in [...Array(5).keys()]">I'm {i}</div>
 
 ```
 

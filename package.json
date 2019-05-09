@@ -8,6 +8,7 @@
   "main": "dist/relift-html.esm.js",
   "module": "dist/relift-html.esm.js",
   "scripts": {
+    "check-js": "tsc --allowJs --checkJs --noEmit --target ES6 src/*.js",
     "dry-publish-docs": "cd ./docs && kolibri build && cp ./static/CNAME ./build",
     "publish-docs": "cd ./docs && kolibri build && cp static/CNAME ./build && gh-pages -d build",
     "test": "jest --verbose ./test/",
@@ -35,7 +36,8 @@
     "mutationobserver-shim": "^0.3.3",
     "rollup": "^1.8.0",
     "rollup-plugin-banner": "^0.2.0",
-    "rollup-plugin-terser": "^4.0.4"
+    "rollup-plugin-terser": "^4.0.4",
+    "typescript": "^3.4.5"
   },
   "dependencies": {}
 }

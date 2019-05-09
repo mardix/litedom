@@ -6,7 +6,7 @@
 
 ### How big is reLift-HTML?
 
-reLift-HTML is very small. Gzip: **~2kb**
+reLift-HTML is very small. Gzip: **~3kb**
 
 ---
 

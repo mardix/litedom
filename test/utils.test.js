@@ -34,7 +34,7 @@ describe('htmlToDom', () => {
     expect(htmlToDom(div)).toBeInstanceOf(HTMLElement)
   })
   test('div to return same outerHTML div', () => {
-    const div = '<div>Hello World</div>';
+    const div = '<body><div>Hello World</div></body>';
     expect(htmlToDom(div).outerHTML).toBe(div)
   })
 });

@@ -9,67 +9,59 @@ Full Documentation: https://relift-html.js.org/
 
 ---
 
-**reLift-HTML** is a small view library that helps you easily create reactive Custom Elements (Web Components) using Javascript Template Literals itself as templating in HTML.
+**reLift-HTML** is very small (3kb) view library that allows you to create Web Component, Custom Element, and helps you make any HTML page reactive without the bloat of big frameworks. 
 
-No need to transpile or compile or build. The components created are valid web components and can be reused anywhere, with complete lifecycle.
-
+**reLift-HTML** is very close to standard, uses Javascript Template Literals as the template and is compatible with all modern browsers that support ES2016 (ES6), ESM (ES Module), Proxy etc.
 
 ```html
-
-<template tag="my-counter">
-  Counting: {this.count}
-</template>
-
-
-<my-counter></my-counter>
-
-<my-counter></my-counter>
-
 
 <script type="module">
   import reLiftHTML from '//unpkg.com/relift-html';
   reLiftHTML({
-    template: '[tag="my-counter"]',
+    template: `
+      Counting: {this.count}
+    `,
+    tagName: 'my-counter', // custom tag
     data: {
       count: 0
     },
     created(){
-
+      this.data.count = this.props.start || 0;
       setInterval(_=> {
         this.data.count++;
       }, 1000)
     }
   })
-
 </script>
+
+
+<!-- the count will start at 5 for this custom element -->
+<my-counter start=5></my-counter>
+
+<!-- the count will start at 21 for this custom element -->
+<my-counter start=21></my-counter>
 
 ```
 
-Some of the major features: Web Components (Custom Elements and Shadow DOM), Template Literals, event handling, data binding, one way data flow, two-way data binding, lifecycle, state management, computed properties, directives
+
+**reLift-HTML** has no dependecies, no virtual DOM, and build tool; Which will fit best with developers who want something small, light, and simple but still follow the paradigm of the major libraries; With developers working on simple but dynamic static site; When having React/Vuejs/Angular/(etc) is too much or when you just want to progressively upgrade your site without changing too much.
+
+**Features**: Web Components, Custom Element, Template Literals, Reactive, Data Binding, One Way Data Flow, Two-way data binding, Event Handling, Props, Lifecycle, State Management, Computed Properties, Directives and more.
 
 
-Inspired by, but unlike *lit-html* and *hyperHTML*, **reLift-HTML** makes it easy to write JavaScript in your HTML template using template literals. But also, the elements are actually custom elements, 
-which can be reused whereever on the page.
+**reLift-HTML** turns the template into template string literal and doesn't have a virtual DOM, therefor it doesn't keep a DOM tree in memory. Instead it relies on the real DOM, and only mutates it in place whenever there is change. This tends to be memory efficient, and also reduces GC activities
 
-No need to know special React / JSX syntax or some other templaty stuff, HTML is your template. Use it the way you've used it before.
-
-If you need some values to be reactive, just place them in the template literal `${...}`, otherwise, keep going with your plain old HTML.
-
-Underneath, reLift-HTML will turn the HTML section into a modern template string literal, and upon receiving new data, it will re-render only sections that need to be rendered.
-
-reLift-HTML doesn't have a virtual DOM, therefor it doesn't keep a DOM tree in memory. Instead it relies on the real DOM, and only mutates it in place whenever there is change. This tends to be memory efficient, and also reduces GC activities.
 
 ---
 
 ### Second Example, Inline Element
 
 
-
 ```html
 
 <div id="helloWidget">
-  <div>Hello ${this.name}</div>
-  <div>Today's date: ${new Date().toISOString().slice(0, 10)}</div>
+  <div>Hello {this.name}</div>
+  <div>Today's date: {new Date().toISOString().slice(0, 10)}</div>
 </div>
 
 <script type="module">
@@ -85,7 +77,6 @@ reLift-HTML doesn't have a virtual DOM, therefor it doesn't keep a DOM tree in m
 ```
 
 Please notice the `type="module"` in the script tag, it is required when using ES Module.
-
 
 ---
 
@@ -132,6 +123,23 @@ import reLiftHTML from 'relift-html';
 We will be using the ESM way, but the same applied if you were to install it via npm
 
 ```html
+  <script type="module">
+    import reLiftHTML from '//unpkg.com/relift-html';
+    
+    reLiftHTML({
+      el: '#counterWidget',
+      data: {
+        count: 0
+      },
+      up() {
+        this.data.count++;
+      },
+      down() {
+        this.data.count--;
+      }
+    });
+
+  </script>
 
   <div class="container">
     <div class="row">
@@ -150,67 +158,9 @@ We will be using the ESM way, but the same applied if you were to install it via
     </div>
   </div>
 
-
-<script type="module">
-  import reLiftHTML from '//unpkg.com/relift-html';
-  
-  reLiftHTML({
-    el: '#counterWidget',
-    data: {
-      count: 0
-    },
-    up() {
-      this.data.count++;
-    },
-    down() {
-      this.data.count--;
-    }
-  });
-
-</script>
-
 ```
 
 The script above shows how easy it is to create a counter that goes UP or DOWN each time is clicked. You can try it yourself: https://jsfiddle.net/hdfup3cg/ 
-
-
-##### So what did we do?
-
-We created our HTML and create and id `div#counterWidget` which will be reactive.
-
-Interpolation:
-
-`<h4>${this.count}</h4>` is reactive, it will be interpolated whenever the state changes
-
-Buttons: assign events with `@click`
-
-```
-<button @click="down" class="button-outline">DOWN</button>
-<button @click="up" class="button-outline">UP</button>
-```
-
-Two buttons contain: `@click="down"` and `@click="up"`. These are events directives, whenever the user click, it will run the function that is set in the reLiftHTML instance. 
-
-On the JS side, 
-
-```js
-  reLiftHTML({
-    el: '#counterWidget',
-    data: {
-      count: 0
-    },
-    up() {
-      this.data.count++;
-    },
-    down() {
-      this.data.count--;
-    }
-  });
-```
-
-We assign the target element to `#counterWidget`, set the default state `data: {count: 0}`. Then created two methods `up()` and `down()`, which will be called when the user click on the button. 
-
-That's pretty much of it.
 
 ---
 

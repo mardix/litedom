@@ -5,6 +5,8 @@
 
 **`this.data`**: Gives you access to the reactive data. You can get, set and delete properties. Whenever a data is updated it will trigger re-render (if necessary), ie: `console.log(this.data.name)`
 
+**`this.props`**: Give you access to the properties that were set. 
+
 **`this.render`** A function to manually re-render, ie: `this.render()`
 
-**`...this.$define-methods`** all of the defined methods, ie: `this.$my-defined-method()`
+**`...this.defined-methods`** all of the defined methods, ie: `this.my-defined-method()`

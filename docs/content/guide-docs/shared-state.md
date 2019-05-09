@@ -68,7 +68,7 @@ To access properties from the store, `this.$store` is exposed and contain the va
 
 ```
   <div id="root">
-    ${this.$store.fullName}
+    {this.$store.fullName}
   </div>
 ```
 
@@ -143,14 +143,14 @@ This is how we can use shared state with reStated.
 
 
 <div id="rootA">
-  Hello ${this.$store.fullName}!
+  Hello {this.$store.fullName}!
 
   <button @call="loadAccount">Load Account</button>
 </div>
 
 <div id="rootB">
   <ul>
-    <li r-for="item in this.$store.accountDetails">${accountName}</li>
+    <li r-for="item in this.$store.accountDetails">{accountName}</li>
   </ul>
 </div>
 

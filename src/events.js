@@ -1,7 +1,7 @@
 /**
  * reLift-HTML
  */
-
+// @ts-check
 
 /**
  * Holds all the browser's event list, ie: click, mouseover, keyup
@@ -12,9 +12,22 @@ for (const key in document) {
   const isEvent = document[key] === null || typeof document[key] === 'function';
   if (key.startsWith('on') && isEvent) EVENTS_LIST.push(key.substring(2))
 }
-const ATTR_EVENTS_LIST = 'r-events-list';
+
+/** @type {string} attribute to hold all events name */
+const ATTR_EVENTS_LIST = 'r-e-list';
+
+/**
+ * Make an event name
+ * @param {string} e the event name
+ * @returns {string}
+ */
 const mkEventName = e => `r-on-${e}`;
 
+/**
+ * Tokenize all the events, change @* to r-on-*
+ * @param {HTMLElement} selector 
+ * @returns {void}
+ */
 export function tokenizeEvents(selector) {
   /**
    * '@call'
@@ -57,6 +70,12 @@ export function tokenizeEvents(selector) {
   }
 }
 
+/**
+ * Bind events to all elements with r-on-*
+ * @param {HTMLElement} selector The element to look
+ * @param {Object} context object of function to bind the events to
+ * @returns {MutationObserver}
+ */
 export function bindEvents(selector, context) {
   function mapEvents(selector) {
     Array.from(selector.querySelectorAll(`[${ATTR_EVENTS_LIST}]`)).map(el => {
