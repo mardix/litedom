@@ -26,12 +26,12 @@ describe('tokenizeEvents', () => {
     expect(el.getAttribute('r-on-click')).toBe('fn')
   });
 
-  test('@click + @mouseover r-events-list', () => {
+  test('@click + @mouseover r-e-list', () => {
     document.body.innerHTML = `<a id="myId" href="#" @click="fn" @mouseover="fn">x</a>`
     tokenizeEvents(document.body);
     const el = document.querySelector('#myId')
-    expect(el.hasAttribute('r-events-list')).toBe(true)
-    expect(el.getAttribute('r-events-list').split(',').filter(v=>v).length).toBe(2)
+    expect(el.hasAttribute('r-e-list')).toBe(true)
+    expect(el.getAttribute('r-e-list').split(',').filter(v=>v).length).toBe(2)
   });
 
   test('@call ahref to r-on-click', () => {
