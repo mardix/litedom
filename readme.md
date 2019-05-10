@@ -26,7 +26,7 @@ Full Documentation: https://relift-html.js.org/
       count: 0
     },
     created(){
-      this.data.count = this.props.start || 0;
+      this.data.count = this.prop.start || 0;
       setInterval(_=> {
         this.data.count++;
       }, 1000)
@@ -43,8 +43,7 @@ Full Documentation: https://relift-html.js.org/
 
 ```
 
-
-**reLift-HTML** has no dependecies, no virtual DOM, and build tool; Which will fit best with developers who want something small, light, and simple but still follow the paradigm of the major libraries; With developers working on simple but dynamic static site; When having React/Vuejs/Angular/(etc) is too much or when you just want to progressively upgrade your site without changing too much.
+**reLift-HTML** has no dependencies, no virtual DOM, and build tool; Which will fit best with developers who want something small, light, and simple but still follow the paradigm of the major libraries; With developers working on simple but dynamic static site; When having React/Vuejs/Angular/(etc) is too much or when you just want to progressively upgrade your site without changing too much.
 
 **Features**: Web Components, Custom Element, Template Literals, Reactive, Data Binding, One Way Data Flow, Two-way data binding, Event Handling, Props, Lifecycle, State Management, Computed Properties, Directives and more.
 
