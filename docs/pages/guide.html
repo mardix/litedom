@@ -26,27 +26,30 @@ docs:
       
       <div class="container">
         <div class="row">
-          <div class="column column-25" id="sideMenu">
-            <div id="menu-toggler" @call="toggleMenuToggler">
-                <i class="fas fa-bars"></i>
-            </div>
-            <div id="content-side-affix" class="top">
-                <ul class="side-nav">
-                  <li r-for="item in this.menu" data-section="${item.url}">
-                    <a href="#${item.url}" data-affix-link="#${item.url}">${item.title}</a>
-                    <ul>
-                      <li r-for="sitem in item.subsections"><a href="#${sitem.url}" data-affix-link="#${sitem.url}">${sitem.title}</a></li>
-                    </ul>
-                  </li>
-                </ul>
+          <div class="column column-25">
+              <div id="sideMenu">
                 
-                <div><a href="#" @call="scrollToTop">Back to top</a></div>
-                <hr>
-                <a href="https://github.com/mardix/relift-html/tree/master/docs" target="_blank">Edit on Github</a>
-            
-            </div>
+                  <div id="menu-toggler" @call="toggleMenuToggler">
+                      <i class="fas fa-bars"></i>
+                  </div>
 
+                  <div id="content-side-affix" class="top">
+                      <ul class="side-nav">
+                        <li r-for="item in this.menu" data-section="${item.url}">
+                          <a href="#${item.url}" data-affix-link="#${item.url}">${item.title}</a>
+                          <ul>
+                            <li r-for="sitem in item.subsections"><a href="#${sitem.url}" data-affix-link="#${sitem.url}">${sitem.title}</a></li>
+                          </ul>
+                        </li>
+                      </ul>
+                      
+                      <div><a href="#" @call="scrollToTop">Back to top</a></div>
+                      <hr>
+                      <a href="https://github.com/mardix/relift-html/tree/master/docs" target="_blank">Edit on Github</a>
+                  </div>
+              </div>
           </div>
+
           <div class="column guides" id="page-guide">
             {% for doc in this.docs %} 
             <section class="doc" data-doc="{{ doc }}">
@@ -83,6 +86,18 @@ docs:
     display: none;
   }
 
+  #content-side-affix {
+    position: relative;
+    top: 0px;
+
+    &.lock {
+      top: 100px;
+      width: 200px;
+      position: fixed;
+    }
+  }
+
+
   @media (min-width: 320px) and (max-width: 639px) {
     #menu-toggler {
       .fas {
@@ -104,6 +119,7 @@ docs:
       border-radius: 60px;
     }
     #content-side-affix {
+
       background: #fff;
       height: 100%;
       position: fixed;
@@ -173,6 +189,7 @@ docs:
 
     reLiftHTML({
       el: '#sideMenu',
+      isShadow: false,
       data: {
         menu: []
       },
@@ -236,26 +253,23 @@ docs:
           }
         }, 100);
 
-        const el = document.querySelector('#content-side-affix')
+        const el = this.el.querySelector('#content-side-affix')
         const top = el.getAttribute('data-affix-top') || 100;
         
         const scroll = () => {
           const scrollTop = window.pageYOffset;
+          const contentSideAffix = this.el.querySelector('#content-side-affix');
           if (window.matchMedia('(min-width: 640px)').matches) {
             if( scrollTop > 100 ){
-              el.style.top=`${top}px`;
-              el.style.width=`200px`;
-              el.style.position="fixed";
+              contentSideAffix.classList.add('lock');
             } else {
-              el.style.position="relative";
-              el.style.top="0px";
+              contentSideAffix.classList.remove('lock');;
             }
-            this.el.querySelector('#content-side-affix').classList.remove('show')
+            contentSideAffix.classList.remove('show')
             scrollSpy();
           } else {
             
           }
-
           
         };
   
