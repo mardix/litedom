@@ -1,4 +1,8 @@
 
+- 0.0.8
+  - fixed bug in $store. 
+  - put $store in the context
+  - Make sure $store return the copy of the object
 - 0.0.7
   - anonymous Component will be named 'relift-ce-$random-id'
   - Added el.style.display=block so hidden can be prepared before compiled.

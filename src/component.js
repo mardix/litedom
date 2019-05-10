@@ -31,9 +31,9 @@ const RESERVED_KEYS = [
  * @return {function} to create an instance of the store to react on the element
  */
 const storeConnector = (store) => {
-  return (state) => {
-    state.$store = store.getState();
-    return store.subscribe(x => state.$store = store.getState());
+  return (data) => {
+    data.$store = store.getState();
+    return store.subscribe(x => data.$store = {...store.getState()});
   }
 }
 
@@ -147,7 +147,7 @@ export default function Component(options={}) {
       this.$root.innerHTML = dom.html;
 
       // context contains methods and properties to work on the element
-      this.context = { ...methods, data, el: this.$root, prop: this.state.prop}
+      this.context = { ...methods, data, el: this.$root, prop: this.state.prop, $store: opt.$store}
 
       // Bind events
       bindEvents(this.$root, {...this.context, __$bindInput});
