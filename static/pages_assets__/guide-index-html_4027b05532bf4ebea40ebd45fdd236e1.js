@@ -3,6 +3,7 @@
 
     reLiftHTML({
       el: '#sideMenu',
+      isShadow: false,
       data: {
         menu: []
       },
@@ -66,26 +67,23 @@
           }
         }, 100);
 
-        const el = document.querySelector('#content-side-affix')
+        const el = this.el.querySelector('#content-side-affix')
         const top = el.getAttribute('data-affix-top') || 100;
         
         const scroll = () => {
           const scrollTop = window.pageYOffset;
+          const contentSideAffix = this.el.querySelector('#content-side-affix');
           if (window.matchMedia('(min-width: 640px)').matches) {
             if( scrollTop > 100 ){
-              el.style.top=`${top}px`;
-              el.style.width=`200px`;
-              el.style.position='fixed';
+              contentSideAffix.classList.add('lock');
             } else {
-              el.style.position='relative';
-              el.style.top='0px';
+              contentSideAffix.classList.remove('lock');;
             }
-            this.el.querySelector('#content-side-affix').classList.remove('show')
+            contentSideAffix.classList.remove('show')
             scrollSpy();
           } else {
             
           }
-
           
         };
   

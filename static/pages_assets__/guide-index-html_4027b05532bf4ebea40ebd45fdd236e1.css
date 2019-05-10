@@ -1,0 +1,83 @@
+#page-guide {
+  margin-bottom: 40px; }
+  #page-guide h2 {
+    display: block;
+    border-bottom: 1px solid #312450;
+    margin-bottom: 40px;
+    padding-bottom: 10px;
+    font-size: 4rem;
+    color: #312450; }
+    #page-guide h3 {
+      border-top: 1px dotted #ccc;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      font-size: 2.5rem; }
+
+#menu-toggler {
+  display: none; }
+
+  #content-side-affix {
+    position: relative;
+    top: 0px; }
+    #content-side-affix.lock {
+      top: 100px;
+      width: 200px;
+      position: fixed; }
+
+@media (min-width: 320px) and (max-width: 639px) {
+  #menu-toggler {
+    ;
+text-align: center;
+    background: #fff;
+    padding: 10px;
+    left: -20px;
+    top: 70px;
+    height: 50px;
+    width: 85px;
+    position: fixed;
+    z-index: 100;
+    display: block;
+    border: 1px solid #312450;
+    border-radius: 60px;   }
+    #menu-toggler .fas {
+      font-size: 25px;
+      color: #312450;
+      font-weight: bold;   }
+  #content-side-affix {
+    background: #fff;
+    height: 100%;
+    position: fixed;
+    width: 110%;
+    margin-left: 0px;
+    left: -10px;
+    text-align: center;
+    top: 190px;
+    padding-top: 60px;
+    display: none;   }
+    #content-side-affix.show {
+      display: block;   }
+      #content-side-affix ul li {
+        margin-bottom: 20px;   }
+        #content-side-affix ul li a {
+          font-size: 24px;   }
+    #content-side-affix.top {
+      top: 0px;   }
+}
+
+ul.side-nav {
+  list-style: none; }
+  ul.side-nav li a {
+    color: #312450;
+    font-size: 20px; }
+    ul.side-nav li ul {
+      list-style: none;
+      margin-left: 10px;
+      margin-top: 5px;
+      display: none; }
+      ul.side-nav li ul li {
+        margin-top: 5px; }
+        ul.side-nav li ul li a {
+          font-size: 14px;
+          color: #606c76; }
+  ul.side-nav li.active ul {
+    display: block; }
