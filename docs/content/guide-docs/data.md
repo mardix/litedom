@@ -15,7 +15,6 @@ In the case of a function, it will become a computed data.
 
 ```js
 reLiftHTML({
-  el: '#root',
   data: {
     firstName: 'Mardix',
     lastName: 'M.',
@@ -37,12 +36,6 @@ Data in reLift-HTML is:
 In the template you have access to data via `this.#data-property-name`, where '#data-property-name' is the property name to access.
 
 ```html
-
-<div id="root">
-  <p>Hello {this.name}</p>
-  <p>Date: {this.todaysDate}
-</div>
-
 <script type="module">
 
   reLiftHTML({
@@ -56,6 +49,11 @@ In the template you have access to data via `this.#data-property-name`, where '#
     }
   })
 </script>
+
+<div id="root">
+  <p>Hello {this.name}</p>
+  <p>Date: {this.todaysDate}
+</div>
 
 ```
 
@@ -116,16 +114,16 @@ Computed state are data that will be created based on some other input, usually 
 Computed data are set as function that returns a value, which will be assigned to the name of the function in the `data` object. 
 
 ```js
-data: {
-  firstName: 'Mardix',
-  lastName: 'M.',
+  data: {
+    firstName: 'Mardix',
+    lastName: 'M.',
 
-  // computed data, will be accessed via '{this.fullName}' or 'this.data.fullName'
-  fullName(state) => `${state.firstName} ${state.lastName}`
+    // computed data, will be accessed via '{this.fullName}' or 'this.data.fullName'
+    fullName(state) => `${state.firstName} ${state.lastName}`
 
-  // computed data, will be accessed via '{this.totalChars}' or 'this.data.totalChars'
-  totalChars(state) => state.fullName.length
-}
+    // computed data, will be accessed via '{this.totalChars}' or 'this.data.totalChars'
+    totalChars(state) => state.fullName.length
+  }
 ```
 
 In the example above, we now can access as properties: `this.data.fullName` and `this.data.totalChars`. In the template, `{this.fullName}` and `{this.totalChars}`
@@ -136,21 +134,22 @@ NOTE 2: You can't mutate the state in the computed data funcion, nor access an i
 Computed data function accept the current state as the only argument, and must return a value. The value will be assigned in the `data` with the function name. The data provided in the computed data is not mutable. 
 
 ```html
+  <script type="module">
+
+    reLiftHTML({
+      el: '#root',
+      data: {
+        firstName: 'Mardix',
+        lastName: 'M.',
+        fullName: (state) => `${state.firstName} ${state.lastName}`
+      }
+    })
+  </script>
+
 <div id="root">
   <p>Hello {this.fullName}</p>
 </div>
 
-<script type="module">
-
-  reLiftHTML({
-    el: '#root',
-    data: {
-      firstName: 'Mardix',
-      lastName: 'M.',
-      fullName(state) => `${state.firstName} ${state.lastName}`
-    }
-  })
-</script>
 
 ```
 

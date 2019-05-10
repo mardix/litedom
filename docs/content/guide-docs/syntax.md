@@ -23,7 +23,7 @@ Custom Element create reusable element by specifying a `tagName` (custom tag).
       count: 0
     },
     created() {
-      this.data.count = this.props.start || 0;
+      this.data.count = this.prop.start || 0;
       setInterval(_=> {
         this.data.count++;
       }, 1000)

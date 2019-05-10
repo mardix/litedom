@@ -20,6 +20,7 @@ const RESERVED_KEYS = [
   'removed',
   '$store', 
   'props', 
+  'prop',
   'tagName'
 ];
 
@@ -134,7 +135,7 @@ export default function Component(options={}) {
      * When element is added
      */
     connectedCallback(){
-      this.state = {...this.state, ...initialState, props: getAttrs(this)};
+      this.state = {...this.state, ...initialState, prop: getAttrs(this)};
       const data = objectOnChange(this.state, () => {
         updateComputedState(this.state);
         if (dom.render(this.$root, this.state)) {
@@ -146,7 +147,7 @@ export default function Component(options={}) {
       this.$root.innerHTML = dom.html;
 
       // context contains methods and properties to work on the element
-      this.context = { ...methods, data, el: this.$root, props: this.state.props}
+      this.context = { ...methods, data, el: this.$root, prop: this.state.prop}
 
       // Bind events
       bindEvents(this.$root, {...this.context, __$bindInput});

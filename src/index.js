@@ -22,7 +22,7 @@ export default function (options = {}) {
     tagName: null, 
     /** @type {boolean|null} */
     isShadow: null,
-    /** @type {string} */
+    /** @type {string} the template string to use to create the component */
     template: null,
     ...options
   };
@@ -33,16 +33,19 @@ export default function (options = {}) {
    */
 
   opt.isShadow = opt.isShadow === null ? opt.asTemplate : opt.isShadow;
-  if (! opt.template) {
+
+  if (!opt.template) {
     el = selector(opt.el);
+    el.style.display = 'block'; 
     opt.template = opt.asTemplate ? el.innerHTML : el.outerHTML;
-    opt.tagName = opt.tagName || (opt.asTemplate ? el.getAttribute('tag-name') : `rel-${el.id}-${randomChars()}`);    
+    opt.tagName = opt.tagName || (opt.asTemplate ? el.getAttribute('tag-name') : `relift-ce-${randomChars()}`);    
   }
   
   if (opt.el && !opt.isShadow) {
     el = selector(opt.el);
+    el.style.display = 'block';
     opt.template = opt.template || el.outerHTML;
-    opt.tagName = opt.tagName || `rel-${el.id}-${randomChars()}`;
+    opt.tagName = opt.tagName || `relift-ce-${randomChars()}`;
     el.parentNode.replaceChild(document.createElement(opt.tagName), el);  
   } 
 

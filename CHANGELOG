@@ -1,9 +1,13 @@
 
+- 0.0.7
+  - anonymous Component will be named 'relift-ce-$random-id'
+  - Added el.style.display=block so hidden can be prepared before compiled.
+    Adding style="display:none" will hide the template so the content is not shown.
+    this option, will then show the element.
 - 0.0.6
   - changed the instances to become Web Component (shadow dom or custom element).
     This will allow composability, sharability and use of component in other 
     components.
-    
   - two way data binding (via one way data flow)
     - __$bindInput() function for two way data binding
   - Added `utils.get` and `utils.set` to retrive data from dot notation

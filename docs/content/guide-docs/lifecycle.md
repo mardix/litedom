@@ -13,16 +13,12 @@ All lifecycle methods have:
 
 ### created
 
-`created` runs **once** on `DOMContentLoaded`. At the time of running, the DOM is ready, you can query elements. 
+`created` runs **once** when the Custom Element is added to the page. At the time of running, the DOM is ready, you can query elements. 
 
 It is also the place to initialize some async call, ajax etc.
 
-```
+```js
   reLiftHTML({
-    el: '#root',
-    data: {
-
-    },
     created() {
       //... code here
     }
@@ -31,7 +27,7 @@ It is also the place to initialize some async call, ajax etc.
 
 #### Example with async
 
-```
+```js
   reLiftHTML({
     el: '#root',
     data: {
@@ -55,18 +51,12 @@ It is also the place to initialize some async call, ajax etc.
   })
 ```
 
-
-
 ### updated
 
 `updated` runs only each time the state updates the DOM. This is a place to do any computations after an update.
 
-```
+```js
   reLiftHTML({
-    el: '#root',
-    data: {
-
-    },
     updated() {
       //... code 
     }
@@ -75,15 +65,28 @@ It is also the place to initialize some async call, ajax etc.
 
 #### Example of count LI
 
-```
+```js
   reLiftHTML({
-    el: '#root',
     data: {
       totalLis: 0
     },
     updated() {
       const lis = this.el.querySelectorAll('li');
       this.data.totalLis = lis.length;
+    }
+  })
+```
+
+### removed
+
+`removed` runs **once** when the Custom Element is removed from the page. At the time of running, the DOM is ready, you can query elements. 
+
+It is also the place to do some cleanup, remove intervals etc.
+
+```js
+  reLiftHTML({
+    created() {
+      //... code here
     }
   })
 ```
