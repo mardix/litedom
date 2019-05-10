@@ -11,7 +11,7 @@ Full Documentation: https://relift-html.js.org/
 
 **reLift-HTML** is very small (3kb) view library that allows you to create Web Component, Custom Element, and helps you make any HTML page reactive without the bloat of big frameworks. 
 
-**reLift-HTML** is very close to standard, uses Javascript Template Literals as the template and is compatible with all modern browsers that support ES2016 (ES6), ESM (ES Module), Proxy etc.
+**reLift-HTML** is very close to standard, uses Javascript Template Literals as the template and is compatible with all modern browsers that support ES2015 (ES6), ESM (ES Module), Proxy etc.
 
 ```html
 
