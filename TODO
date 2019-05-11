@@ -1,0 +1,3 @@
+- expose the data of the component
+  <my-counter id=""></my-counter>
+  document.querySelector('#id').getData();

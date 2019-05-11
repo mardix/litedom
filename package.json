@@ -8,13 +8,17 @@
   "main": "dist/relift-html.esm.js",
   "module": "dist/relift-html.esm.js",
   "scripts": {
+    "gzip-size": "gzip-size ./dist/relift-html.esm.js",
     "check-js": "tsc --allowJs --checkJs --noEmit --target ES6 src/*.js",
-    "dry-publish-docs": "cd ./docs && kolibri build && cp ./static/CNAME ./build",
-    "publish-docs": "cd ./docs && kolibri build && cp static/CNAME ./build && gh-pages -d build",
-    "test": "jest --verbose ./test/",
-    "mk-dist": "jest ./test/ && rollup -c && gzip-size ./dist/relift-html.esm.js",
-    "mk-dist0": "rollup -c && gzip-size ./dist/relift-html.esm.js",
-    "npm-publish": "jest ./test/ && rollup -c && npm publish"
+    "publish-docs-0": "cd ./docs && kolibri build && cp ./static/CNAME ./build",
+    "publish-docs": "npm run publish-docs-0 && gh-pages -d build",
+    "test": "jest ./test/",
+    "test-0": "jest --verbose ./test/",
+    "bundle-0": "npm run bundle && npm run gzip-size",
+    "bundle": "rollup -c ",
+    "commit-publish-tag": "cross-var git commit -am '$npm_package_version' && git tag $npm_package_version && git push && git push --tags",
+    "publish": "cross-var npm run test && npm run bundle && npm run commit-publish-tag && npm publish && npm run gzip-size",
+    "test-publish": "cross-var npm run test && npm run bundle && npm run commit-publish-tag && npm run gzip-size"
   },
   "jest": {
     "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.jsx?$"
@@ -30,6 +34,7 @@
   "devDependencies": {
     "@babel/core": "^7.4.3",
     "@babel/preset-env": "^7.4.3",
+    "cross-var": "^1.1.0",
     "gh-pages": "^2.0.1",
     "gzip-size-cli": "^3.0.0",
     "jest": "^24.6.0",
