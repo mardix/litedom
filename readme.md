@@ -3,6 +3,8 @@
 
 [![gzip bundle size](http://img.badgesize.io/https://unpkg.com/relift-html@latest/dist/relift-html.esm.js?compression=gzip&style=flat-square)](https://unpkg.com/relift-html)
 
+[![Build Status](https://travis-ci.org/mardix/relift-html.svg?branch=master)](https://travis-ci.org/mardix/relift-html)
+
 ---
 
 **Full Documentation**: https://relift-html.js.org/ 
