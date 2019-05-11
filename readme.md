@@ -1,9 +1,7 @@
 # reLift-HTML
 
 
-[![gzip bundle size](http://img.badgesize.io/https://unpkg.com/relift-html@latest/dist/relift-html.esm.js?compression=gzip&style=flat-square)](https://unpkg.com/relift-html)
-
-[![Build Status](https://travis-ci.org/mardix/relift-html.svg?branch=master)](https://travis-ci.org/mardix/relift-html)
+![npm (tag)](https://img.shields.io/npm/v/relift-html/latest.svg?style=flat-square) ![Travis (.org) branch](https://img.shields.io/travis/mardix/relift-html/master.svg?style=flat-square) [![gzip bundle size](http://img.badgesize.io/https://unpkg.com/relift-html@latest/dist/relift-html.esm.js?compression=gzip&style=flat-square)](https://unpkg.com/relift-html) ![NPM](https://img.shields.io/npm/l/relift-html.svg?style=flat-square)
 
 ---
 
