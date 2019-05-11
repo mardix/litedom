@@ -38,6 +38,7 @@
     "gh-pages": "^2.0.1",
     "gzip-size-cli": "^3.0.0",
     "jest": "^24.6.0",
+    "jsdom": "^15.0.0",
     "mutationobserver-shim": "^0.3.3",
     "rollup": "^1.8.0",
     "rollup-plugin-banner": "^0.2.0",

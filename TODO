@@ -1,3 +1,8 @@
 - expose the data of the component
   <my-counter id=""></my-counter>
   document.querySelector('#id').getData();
+- add directive for-else 
+  <ul>
+    <li r-for="items in this.items">{item}</li>
+    <li r-else>No content found</li>
+  </ul>
