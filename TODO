@@ -1,8 +1,49 @@
-- expose the data of the component
+## Wish list / todos / brainwashing
+
+- Add getData() on the component to expose data
   <my-counter id=""></my-counter>
   document.querySelector('#id').getData();
+
+- Add on() to create event hooks outside of the component 
+  <my-counter id=""></my-counter>
+  const el = document.querySelector('#id');
+  el.on('stateChanged', () => {})
+    .on('update', () => {})
+
 - add directive for-else 
   <ul>
     <li r-for="items in this.items">{item}</li>
     <li r-else>No content found</li>
   </ul>
+
+- enhance @bind="model.name" to use custom action
+
+- Add use() that help setup hooks, or do something, 
+  reLiftHTML({
+    use:[
+      key: {
+        setup
+        beforeCreate
+        created
+        afterCreate
+        beforeUpdate
+        updated
+        afterUpdate
+        beforeRemove
+        removed
+        afterRemoved
+      }
+    ]
+  })
+  // thoughts gathering
+  reLiftHTML({
+    use:[
+      $store: {
+        setup: ({state}) {
+          
+        }
+      }
+    ]
+  })
+
+- add animation, it toggles classes

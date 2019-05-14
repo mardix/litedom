@@ -1,4 +1,5 @@
-
+- 0.0.9
+  - fixed bug that doesn't remove the element when doing inline
 - 0.0.8
   - fixed bug in $store. 
   - put $store in the context

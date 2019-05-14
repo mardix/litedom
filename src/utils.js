@@ -105,7 +105,7 @@ const isPrimitive = value => value === null || !['function', 'object'].includes(
  * @param {number} l the length 
  * @return {string}
  */
-export const randomChars = (l=7) => Math.random().toString(36).toLowerCase().substring(l);
+export const randomChars = (l=7) => Math.random().toString(36).substr(2, l).toLowerCase();
 
 /**
  * objectOnChange

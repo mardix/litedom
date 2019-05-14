@@ -1,4 +1,4 @@
-import { isFn, htmlToDom, parseLit, computeState, set, get, toStrLit } from '../src/utils.js';
+import { isFn, htmlToDom, parseLit, computeState, set, get, toStrLit, randomChars } from '../src/utils.js';
 
 describe('isFn', () => {
   test('is a function', () => {
@@ -75,8 +75,6 @@ describe('SET', () => {
 
 }) 
 
-
-
 describe('GET', () => {
   test('Get simple key value', () => {
     const o = {
@@ -118,7 +116,6 @@ describe('GET', () => {
     expect(get(o, 'key.key2.k4')).toBe(undefined);
   });
 }) 
-
 
 describe('toStrLit', () => {
   test('string to string', () => {
@@ -184,4 +181,14 @@ describe('toStrLit', () => {
   test('string with $ with ternary', () => {
     expect(toStrLit('hello ${this.x ? y : z}')).toBe('hello ${this.x ? y : z}')
   })
+})
+
+describe('randomChars', () => {
+  test('Default length 7', () => {
+    expect(randomChars().length).toBe(7)
+  })
+
+  test('Length 10', () => {
+    expect(randomChars(10).length).toBe(10)
+  })  
 })

@@ -34,6 +34,7 @@
   "devDependencies": {
     "@babel/core": "^7.4.3",
     "@babel/preset-env": "^7.4.3",
+    "babel-plugin-rewire": "^1.2.0",
     "cross-var": "^1.1.0",
     "gh-pages": "^2.0.1",
     "gzip-size-cli": "^3.0.0",
