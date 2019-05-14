@@ -5,26 +5,33 @@
 // @ts-check
 
 import Component from './component.js';
-import { randomChars, selector} from './utils.js';
+import { randomChars, selector } from './utils.js';
 
-const error = (msg) => new Error(`reLift-HTML Error: ${msg}`);
+const error = msg => new Error(`reLift-HTML Error: ${msg}`);
+
+/**
+ * Generate random custom element tag
+ * @returns {string}
+ */
+const genRandomCustomElementTagName = () => `relift-ce-${randomChars()}`;
 
 /**
  * reLiftHTML default function initializer
- * @param {object} options 
+ * @param {object} options
  */
-export default function (options = {}) {
+export default function(options = {}) {
   const opt = {
+    /** @type {HTMLElement | string} a string or a html for query selector. Place holder of the component when inline */
     el: null,
-    /** @type {boolean} */
+    /** @type {boolean} when true it will use the el.innerHTML as the template */
     asTemplate: false,
     /** @type {string} */
-    tagName: null, 
+    tagName: null,
     /** @type {boolean|null} */
     isShadow: null,
     /** @type {string} the template string to use to create the component */
     template: null,
-    ...options
+    ...options,
   };
   let el = null;
 
@@ -34,20 +41,20 @@ export default function (options = {}) {
 
   opt.isShadow = opt.isShadow === null ? opt.asTemplate : opt.isShadow;
 
-  if (!opt.template) {
-    el = selector(opt.el);
-    el.style.display = 'block'; 
-    opt.template = opt.asTemplate ? el.innerHTML : el.outerHTML;
-    opt.tagName = opt.tagName || (opt.asTemplate ? el.getAttribute('tag-name') : `relift-ce-${randomChars()}`);    
-  }
-  
-  if (opt.el && !opt.isShadow) {
+  if (opt.el) {
     el = selector(opt.el);
     el.style.display = 'block';
-    opt.template = opt.template || el.outerHTML;
-    opt.tagName = opt.tagName || `relift-ce-${randomChars()}`;
-    el.parentNode.replaceChild(document.createElement(opt.tagName), el);  
-  } 
+    opt.tagName = opt.tagName || (opt.asTemplate ? el.getAttribute('tag-name') : genRandomCustomElementTagName());
+    if (!opt.template) {
+      opt.template = opt.asTemplate ? el.innerHTML : el.outerHTML;
+    }
+    if (opt.asTemplate) {
+      el.innerHTML = '';
+    } else {
+      el.parentNode.replaceChild(document.createElement(opt.tagName), el);
+    }
+  }
+  opt.tagName = opt.tagName || genRandomCustomElementTagName();
 
   if (!opt.template) throw error(`missing 'template' option or 'el' are not valid elements`);
   if (!opt.tagName) throw error(`missing 'tagName'`);
