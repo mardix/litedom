@@ -17,12 +17,9 @@ const genRandomCustomElementTagName = () => `relift-ce-${randomChars()}`;
 
 /**
  * reLiftHTML default function initializer
- * @param {object|array} options object of reLift options or array of relift options
+ * @params {object} the configuration
  */
-export default function reLiftHTML(options) {
-  /** Can be an array of relift options */
-  if (Array.isArray(options)) return options.map(opt => reLiftHTML(opt));
-
+function reLift(options) {
   const opt = {
     /** @type {HTMLElement | string} a string or a html for query selector. Place holder of the component when inline */
     el: null,
@@ -62,4 +59,13 @@ export default function reLiftHTML(options) {
   if (!opt.template) throw error(`missing 'template' option or 'el' are not valid elements`);
   if (!opt.tagName) throw error(`missing 'tagName'`);
   Component(opt);
+}
+
+/**
+ *
+ * @param {object|array} config object of reLift options or array of relift options
+ */
+export default function(config) {
+  if (Array.isArray(config)) config.map(o => reLift(o));
+  else reLift(config);
 }

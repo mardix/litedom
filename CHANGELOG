@@ -1,3 +1,6 @@
+- 0.10.1
+  - Fixed rollup bundling error that was redeclaring variable
+  
 - 0.10.0
   - reLiftHTML now accepts array of config, to instantiate multiple components at once.
     reLiftHTML({...}) or reLiftHTML([{...}, {...}])
