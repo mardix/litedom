@@ -1,7 +1,7 @@
 {# **REQUIRED** #}
 {% import "kolibri.macros" as Kolibri with context %}
+
 {% include "layouts/header.html" %}
-{% block __PAGE_COMPONENT_STYLE__ %}{% endblock %}
 
 <div class="wrapper">
     <nav class="navigation">
@@ -19,10 +19,5 @@
 
 {% block __MAIN_CONTENT__ %}{% endblock %}
 
-{{ Kolibri.stylesheet_tag('vendor/highlight/styles/nord.css') }}
-{{ Kolibri.script_tag('vendor/highlight/highlight.pack.js') }}
-{{ Kolibri.script_tag('main.js') }}
-
-{% block __PAGE_COMPONENT_SCRIPT__ %}{% endblock %}
 
 {% include "layouts/footer.html" %}

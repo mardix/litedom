@@ -12,4 +12,14 @@
   <hr />
 </div>
 
+  {{ stylesheet_tag('vendor/highlight/styles/nord.css') }}
+  {{ script_tag('vendor/highlight/highlight.pack.js') }}
+  {{ script_tag('main.js') }}
+
+  {% for script in page.__assets.scripts %}
+    {{ script_tag(script.url, attributes=script.attributes) }}
+  {% endfor %}
+      
+  </body>
+</html> 
 
