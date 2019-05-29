@@ -1,5 +1,15 @@
 ## Wish list / todos / brainwashing
 
+- make reliftHTML to accept array of reliftHTML -> reLiftHTML([{}, {}])
+  to allow multiple import in one
+
+- Passing props from parent to children
+  r:propName=varName 
+  ie: <my-el r:item=this.item></my-el>
+  parsed to
+  <my-el item='json:${JSON.parse(this.item)}'></my-el>
+
+
 - Add getData() on the component to expose data
   <my-counter id=""></my-counter>
   document.querySelector('#id').getData();
