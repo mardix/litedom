@@ -20,9 +20,7 @@ Discord/Chat: https://discord.gg/uaRFsT
 <script type="module">
   import reLiftHTML from '//unpkg.com/relift-html';
   reLiftHTML({
-    template: `
-      Counting: {this.count}
-    `,
+    template: `Counting: {this.count}`,
     tagName: 'my-counter', // custom tag
     data: {
       count: 0
