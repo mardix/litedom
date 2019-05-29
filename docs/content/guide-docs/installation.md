@@ -25,10 +25,8 @@ Make sure `type="module"` exists in the script tag (`<script type="module">`).
 
 The JavaScript import statement only works inside module scripts (`<script type="module">`), which can be inline scripts (as shown above) or external scripts:
 
-```
-
+```html
 <script type="module" src="$PATH/script.esm.js"></script>
-
 ```
 
 ### npm

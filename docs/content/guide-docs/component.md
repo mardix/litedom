@@ -2,18 +2,11 @@
 
 [TOC]
 
-**reLift-HTML** allows you to split up your application into smaller, composable parts called components. The components are full Web Components standards. 
+**reLift-HTML** turns your application into smaller composable fully compliant **Web Component** (Custom Element + Shadow DOM), which can be used as  embeddable elements or Custom Elements with Custom Tags to be reused.
 
-Components created can be added on the page via a custom tag, and be reused by any other places.
+### Embeddable Elements
 
-
-### Setup
-
-reLift-HTML can be setup as either Inline Component or Web Component (Web Components).
-
-### Setup as Inline Component
-
-Inline Component is when only we are reLifting some part of DOM to make it reactive. This will not be reused, and only be added in placed where it was initiated using `el`.
+*Embeddable Elements* is set in place by using the current DOM element section to turn it into reactive. An emebeddable element is not intended to be reused. It also requires the `el` to be set.
 
 ```html
 
@@ -34,21 +27,20 @@ Inline Component is when only we are reLifting some part of DOM to make it react
 
 ```
 
-### Setup as Web Component
+### Custom Element
 
-Web Component (Custom Element + Shadow DOM), allow you to reuse the components created. 
-They can be imported from a js, or use template element from the DOM. 
-At the end, you will the 
+*Custom Element* is set using a Custom Tag, which can be reused in multiple places. And also, as Custom Element, it allows you to place your component in an external JS file.
+
+Unlike embeddable element, Custom Element requires a `tagName` and a `template` to
+
 
 ```html
 
 <script type="module">
   import reLiftHTML from '//unpkg.com/relift-html';
-
-  const template = `Hello {this.world} {this.prop.name}!`
   reLiftHTML({
-    template,
-    tagName: 'hello-world'
+    template: `Hello {this.world} {this.prop.name}!`,
+    tagName: 'hello-world',
     data: {
       world: 'World'
     }
@@ -66,52 +58,106 @@ At the end, you will the
 ```
 
 
-### Options
+### Initialize
 
+The recommended way to import **reLift-HTML** is via ESM javascript, where we specify the type `module` in the script tag, and we import it from **unpkg.com** 
+
+Make sure `type="module"` exists in the script tag (`<script type="module">`).
+
+
+```html
+
+<script type="module">
+  import reLiftHTML from '//unpkg.com/relift-html';
+
+  reLiftHTML(options=object|array)
+</script>
+
+```
+
+or
+
+```html 
+<script type="module" src="$PATH/script.esm.js"></script>
+```
+
+
+### Configurations
+
+`reLiftHTML` function accepts one argument which can be of:
+
+**Object**: as a plain object, it contains the config to create and initialize the element.
+
+```js
+
+reLiftHTML({
+  template: '...',
+  tagName: 'component-x'
+})
+```
+
+**Array**: as an array, it accepts an array of configs, to create and  initialize multiple elements at once.
+
+```js
+  const componentA = {
+    template: '...',
+    tagName: 'component-a'
+  };
+  const componentB = {
+    template: '',
+    tagName: 'component-b'
+  };
+
+  reLiftHTML([componentA, componentB]);
+```
+
+#### Config Properties
 
 #### **`el`**:
-[string|HTMLElement] 
+[*string|HTMLElement*] 
+To be used mainly when creating Embeddable Elements. 
+
 This is where the view instance will be created and rendered. By default, it will use the innerHTML of the element as `template`.
 This can be html selector , ie `#someId`, `[some-data-attribute]`. Or a query selector `document.querySelector('#myId')`. 
 
 
 #### **`tagName`**:
-[string]
+[*string*]
 Name for the new custom element. Note that custom element names must contain a hyphen. `my-counter` will be used as `<my-counter></my-counter>`
 
 ####  **`data`**:
-[object]
+[*object*]
 Is the application state. All data in here are reactive. Whenever a property is added, updated or removed it will trigger the update of the DOM (if necessary).
 Values are expected to be the type string, number, plain object, boolean, null, undefined or *function*. 
 In the case of a function, it will become a computated data.
 
 #### **`created`**
-[function]
+[*function*]
 This is a lifecycle hook method. It runs once the component is added on the page. 
 
 #### **`updated`**
-[function]
+[*function*]
 This is a lifecycle hook method. It runs each time the data or the store update the component's state. 
 
 #### **`removed`**
-[function]
+[*function*]
 This is a lifecycle hook method. It runs once the component is removed from the page. 
 
 #### **`template`**
-[string] 
-A string/text for the body of the element. It contains all the markup to be displayed.   
+[*string*] 
+A string/text for the body of the element. It contains all the markup to be displayed. When creating Custom Element. 
 
 #### **`asTemplate`**:
-[boolean:false]
+[*boolean:false*]
 To be used along with `el`, when set to `true` it will turn the component into the Custom Tag to be used.
 
 #### **`isShadow`**:
-[boolean:false]
+[*boolean:false*]
 By default elements are created as normal Custom Element. To set the web component as Shadow Dom, set `isShadow` to `true`.
 
 
 #### **`$store`**: 
-[state management interface]
+[*state management interface*]
 Unlike `data` store is where to hook a shared store manager, ie: reStated, Redux. The store instance must have the methods `getState()` and `subscribe(callback:function)`. 
 
 
