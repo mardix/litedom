@@ -85,7 +85,7 @@ It is also the place to do some cleanup, remove intervals etc.
 
 ```js
   reLiftHTML({
-    created() {
+    removed() {
       //... code here
     }
   })
