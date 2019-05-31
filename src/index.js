@@ -31,7 +31,7 @@ function reLift(options) {
     isShadow: null,
     /** @type {string} the template string to use to create the component */
     template: null,
-    ...options,
+    ...options
   };
   let el = null;
 

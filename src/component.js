@@ -6,6 +6,7 @@ import { tokenizeEvents, bindEvents } from './events.js';
 import { parseDirectives } from './directives.js';
 import { computeState, isFn, parseLit, htmlToDom, getAttrs, objectOnChange, set, get, toStrLit } from './utils.js';
 
+// prettier-ignore
 const RESERVED_KEYS = [
   'data',
   'el',
@@ -81,7 +82,7 @@ const domConnector = template => {
     render: (target, state) => {
       const newNode = htmlToDom(lit(state));
       return !target.isEqualNode(newNode) ? emerj(target, newNode) : false;
-    },
+    }
   };
 };
 
@@ -124,7 +125,7 @@ export default function Component(options = {}) {
     /** @type {function} lifecycle */
     removed() {},
     /** @type {any} */
-    ...options,
+    ...options
   };
 
   const store = storeConnector(opt.$store);

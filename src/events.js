@@ -6,11 +6,11 @@
 /**
  * Holds all the browser's event list, ie: click, mouseover, keyup
  * @type {Array}
- */ 
-const EVENTS_LIST = []; 
+ */
+const EVENTS_LIST = [];
 for (const key in document) {
   const isEvent = document[key] === null || typeof document[key] === 'function';
-  if (key.startsWith('on') && isEvent) EVENTS_LIST.push(key.substring(2))
+  if (key.startsWith('on') && isEvent) EVENTS_LIST.push(key.substring(2));
 }
 
 /** @type {string} attribute to hold all events name */
@@ -25,7 +25,7 @@ const mkEventName = e => `r-on-${e}`;
 
 /**
  * Tokenize all the events, change @* to r-on-*
- * @param {HTMLElement} selector 
+ * @param {HTMLElement} selector
  * @returns {void}
  */
 export function tokenizeEvents(selector) {
@@ -44,7 +44,7 @@ export function tokenizeEvents(selector) {
       el.removeAttribute('@bind');
       method = '__$bindInput';
     }
-    
+
     let evnts = ['click'];
     if (el instanceof HTMLInputElement || el instanceof HTMLTextAreaElement) evnts = ['input', 'paste'];
     else if (el instanceof HTMLSelectElement) evnts = ['change'];
@@ -83,11 +83,11 @@ export function bindEvents(selector, context) {
         .split(',')
         .filter(v => v)
         .map(e => {
-          el[`on${e}`] = (evnt) => {
+          el[`on${e}`] = evnt => {
             evnt.preventDefault();
-            const method = el.getAttribute(mkEventName(e)) 
+            const method = el.getAttribute(mkEventName(e));
             context[method].call(context, evnt);
-          }
+          };
         });
     });
   }

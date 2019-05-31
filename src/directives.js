@@ -5,7 +5,7 @@
 /** @type {object} */
 const DIRECTIVES_LIST = {
   $for: r_for,
-  $if: r_if,
+  $if: r_if
   //$class: r_class,
 };
 
@@ -44,9 +44,9 @@ const wrapAround = (el, before, after) => {
 
 /**
  * r-if directive
- * @param {HTMLElement} el 
- * @param {string} value 
- * @param {string} directive 
+ * @param {HTMLElement} el
+ * @param {string} value
+ * @param {string} directive
  * @returns {void}
  */
 function r_if(el, value, directive) {
@@ -64,10 +64,10 @@ function r_if(el, value, directive) {
 
 /**
  * r-for director
- * @todo: add for else => r-else for for, it's an if condition that test the length, 
- * @param {HTMLElement} el 
- * @param {string} value 
- * @param {string} directive 
+ * @todo: add for else => r-else for for, it's an if condition that test the length,
+ * @param {HTMLElement} el
+ * @param {string} value
+ * @param {string} directive
  * @returns {void}
  */
 function r_for(el, value, directive) {
@@ -84,17 +84,18 @@ function r_for(el, value, directive) {
  * r-class directive
  * <div r-class="clsName:condition; clsName2: condition2"></div>
  * <div r-class="hide: this.item > 5; show-my-ownclass: x === y"></div>
- * @param {HTMLElement} el 
- * @param {string} value 
- * @param {string} directive 
+ * @param {HTMLElement} el
+ * @param {string} value
+ * @param {string} directive
  * @returns {void}
  */
 function r_class(el, value, directive) {
-  const klass = value.split(';')
-      .map(v => v.split(':', 2).map(e => e.trim()))
-      .map(v => `\${${v[1]} ? '${v[0]}': ''}`)
-      .join(' ');
-  const classList = el.getAttribute('class') || '' + ` ${klass}`
-  el.setAttribute('class', classList)
+  const klass = value
+    .split(';')
+    .map(v => v.split(':', 2).map(e => e.trim()))
+    .map(v => `\${${v[1]} ? '${v[0]}': ''}`)
+    .join(' ');
+  const classList = el.getAttribute('class') || '' + ` ${klass}`;
+  el.setAttribute('class', classList);
   rm_d(el, directive);
 }
