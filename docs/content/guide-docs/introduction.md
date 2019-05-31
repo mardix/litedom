@@ -6,10 +6,9 @@
 
 {% include "guide-docs/about-relift-html.md" %}
 
-
 ### Features
 
-reLift-HTML aims to be simple, easy to use and helps you do much more. 
+reLift-HTML aims to be simple, easy to use and helps you do much more.
 
 - Very small
 - Web Components
@@ -23,7 +22,7 @@ reLift-HTML aims to be simple, easy to use and helps you do much more.
 - Event Handling
 - Lifecycle
 - State management
-- No JSX 
+- No JSX
 - No dependency
 - No virtual DOM
 - No need for CLI

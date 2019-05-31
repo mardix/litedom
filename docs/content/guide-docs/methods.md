@@ -2,10 +2,9 @@
 
 [TOC]
 
-You can define your own methods in the instance. 
+You can define your own methods in the instance.
 
 Method can be used to be accessed by other methods via `this.$method-name(...args)`, or can be used as events methods in the instance of `@click="$method-name"`
-
 
 #### Properties
 
@@ -15,26 +14,20 @@ Method can be used to be accessed by other methods via `this.$method-name(...arg
 
 The example below showcases how methods can be used.
 
-```js
-
+```html
 <div id="root">
-  <a @click="sayHello" href="#">Say Hello!</a>
+  <button @click="sayHello">Say Hello!</button>
 
-  <input 
-    type="text" 
-    name="color" 
-    @call="changeColor" 
-    r-value="this.defaultColor"
-  > 
-
+  <input type="text" name="color" @call="changeColor" r-value="this.defaultColor" />
 </div>
 
 <script type="module">
+  import reLiftHTML from '//unpkg.com/relift-html';
 
   reLiftHTML({
     el: '#root',
     data: {
-      defaultColor: '#FFFFFF'
+      defaultColor: '#fff',
     },
 
     sayHello(event) {
@@ -47,38 +40,38 @@ The example below showcases how methods can be used.
     },
 
     setBgColor(color) {
-      this.el.style.background = color;
+      this.el.children.root.style.background = color;
     },
-
-  })
-
+  });
 </script>
-
 ```
-
 
 ### Async method
 
-You can also setup Async methods with the `async/await`. 
-
+You can also setup Async methods with the `async/await`.
 
 ```js
+<div id="root">
+  {this.status}
+</div>
+
+<script type="module">
+  import reLiftHTML from '//unpkg.com/relift-html';
 
   reLiftHTML({
     el: '#root',
-    
+
     async loadData() {
       this.data.status = 'loading...';
-      const data = await fetch('url');
-      const data = await resp.data;
+
+      await fetch('https://jsonplaceholder.typicode.com/todos/1').then((r) => r.json());
+
       this.data.status = 'loading completed!';
     },
 
     async created(event) {
       await this.loadData();
     },
-
-  })
-
-
+  });
+</script>
 ```
