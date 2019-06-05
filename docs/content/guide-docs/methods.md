@@ -9,7 +9,7 @@ Method can be used to be accessed by other methods via `this.$method-name(...arg
 
 #### Properties
 
-{% include "guide-docs/_method-properties.md" %}
+{% include "content/guide-docs/_method-properties.md" %}
 
 ### Defined Method
 

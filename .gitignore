@@ -26,5 +26,5 @@ package-lock.json
 site/
 dev/
 perf/
-docs/build
+docs/.build
 

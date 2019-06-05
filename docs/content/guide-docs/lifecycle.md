@@ -9,7 +9,7 @@ All lifecycle methods have:
 
 #### Properties
 
-{% include "guide-docs/_method-properties.md" %}
+{% include "content/guide-docs/_method-properties.md" %}
 
 ### created
 

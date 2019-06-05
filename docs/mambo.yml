@@ -1,11 +1,11 @@
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
-#                              Kolibri
+#                              Mambo
 #                      The Elegant Static Site Generator
-# mardix.github.io/kolibri
+# mardix.github.io/mambo
 #
-# kolibri v=1.2.0
+# Mambo 
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
@@ -40,48 +40,68 @@ site:
     rating: General
     robots: index, follow
 
-  # Social
-  social:
-    facebook:
-    twitter:
-    github:
 
 # Site environment: environment data will be merged with the global site settings
 # ie: 'env.prod.base_url' will use the prod base_url
-# At build: 'kolibri build prod', or serve 'kolibri serve --env prod'
+# At build: 'mambo build prod', or serve 'mambo serve --env prod'
 env: 
   prod:
     base_url: 'https://relift-html.js.org/'
     static_url: 'https://relift-html.js.org/static/'
 
 # ------------------------------------------------------------------------------
-# For local server development
+# Configuration when serving locally
 serve:
   port: 8000
   livereload: True
   openwindow: True
-  env:
-  make_sitemap: True
-  make_rss: True
-  make_robots: True
-  debug: True
-  compress_html: False 
+  env: 
+  generate_sitemap: True
+  minify_html: False  
 
 # ------------------------------------------------------------------------------
-# Build configuration 
+# Build configuration, could be the final product
 build:
+  # env: The site_env to build. Leave blank to have the option in the command line
   env: prod
-  make_sitemap: True
-  make_rss: True
-  make_robots: True
-  debug: True
-  compress_html: True 
+  generate_sitemap: True
+  minify_html: True 
 
-#---
-
+# ------------------------------------------------------------------------------
+# Global settings
 globals:
   # layout: **REQUIRED - The default site layout
-  layout: "layouts/default.html"
+  layout: layouts/default.html
 
-plugins:
-  - copy_cname.py
+  # Timezone
+  timezone: America/New_York
+
+  # sitemap: default sitemap 
+  sitemap: 
+    priority: 0.7 
+    changefreq: monthly
+    
+  # assets: global assets to be included in all pages
+  # assets must reside in the static folder or from http url 
+  # * for stylesheets, just list the items
+  # ie: stylesheets:
+  #       - x.css
+  #       - y.css
+  # * for scripts, you can list the items. 
+  # They will have type="text/javascript" by default
+  # or as object, where you specify the url and attributes
+  # ie:  scripts:
+  #       - main.js
+  #       - url: main2.js
+  #         attributes: type="module"  
+  assets:
+    scripts:
+      - vendor/highlight/highlight.pack.js
+      - main.js
+    stylesheets:
+      - vendor/normalize.css
+      - vendor/milligram.css
+      - main.css
+      - https://use.fontawesome.com/releases/v5.8.1/css/all.css
+      - https//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic
+      - vendor/highlight/styles/nord.css

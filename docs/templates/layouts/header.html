@@ -1,5 +1,5 @@
 {# **REQUIRED** #}
-{% import "kolibri.macros" as Kolibri with context %}
+{% import "macros/meta.html" as Meta with context %}
 
 {# header #}
 
@@ -9,16 +9,10 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    {{ Kolibri.meta_page_title() }}
-    {{ Kolibri.meta_page_description() }}
-    {{ Kolibri.meta_page_meta_tags() }}
-    {{ stylesheet_tag('vendor/normalize.css') }}
-    {{ stylesheet_tag('vendor/milligram.css') }}
-    {{ stylesheet_tag('main.css') }}
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-    {{ stylesheet_tag('//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic', True) }}
-
-    {% for css in page.__assets.stylesheets %}
+    {{ Meta.meta_page_title() }}
+    {{ Meta.meta_page_description() }}
+    {{ Meta.meta_page_meta_tags() }}
+    {% for css in page.assets.stylesheets %}
       {{ stylesheet_tag(css.url) }}
     {% endfor %}
 

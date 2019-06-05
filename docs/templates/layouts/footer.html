@@ -3,20 +3,18 @@
   <hr />
   <footer class="footer">
     <section class="container">
-      &copy; {{ __info.year }} {{ site.name }} - License: MIT - 
+      &copy; {{ __info__.year }} {{ site.name }} - License: MIT - 
       <a target="_blank" href="https://github.com/mardix/relift-html">Github</a> - 
       <a target="_blank" href="https://github.com/mardix/">Mardix</a> - 
-      Thanks to <a target="_blank" href="https://milligram.io/">Milligram CSS</a>
+      Thanks to <a target="_blank" href="https://milligram.io/">Milligram CSS</a> 
+      - Last build: {{ "now" | format_date }}
     </section>
   </footer>
   <hr />
 </div>
 
-  {{ stylesheet_tag('vendor/highlight/styles/nord.css') }}
-  {{ script_tag('vendor/highlight/highlight.pack.js') }}
-  {{ script_tag('main.js') }}
 
-  {% for script in page.__assets.scripts %}
+  {% for script in page.assets.scripts %}
     {{ script_tag(script.url, attributes=script.attributes) }}
   {% endfor %}
       

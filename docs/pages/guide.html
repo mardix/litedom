@@ -27,7 +27,7 @@ docs:
       <div class="container">
         <div class="row">
           <div class="column column-25">
-              <div id="sideMenu">
+              <div id="sideMenu" style="display:none">
                 
                   <div id="menu-toggler" @call="toggleMenuToggler">
                       <i class="fas fa-bars"></i>
@@ -51,9 +51,9 @@ docs:
           </div>
 
           <div class="column guides" id="page-guide">
-            {% for doc in this.docs %} 
+            {% for doc in page.docs %} 
             <section class="doc" data-doc="{{ doc }}">
-                {% include 'guide-docs/%s' % doc %}
+                {% include 'content/guide-docs/%s' % doc %}
             </section>
             <hr>
             {% endfor %}

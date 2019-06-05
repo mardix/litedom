@@ -1,6 +1,18 @@
 ---
 title: Demo - Playground
 description: Demo and Playground
+codepens:
+  - title: Counter
+    slug: VNVyze
+  - title: My Todos
+    slug: EJMGJe
+  - title: Star Wars Demo
+    slug: bJZzGg
+assets:
+  scripts:
+    - url: https://static.codepen.io/assets/embed/ei.js
+      attributes: async type="text/javascript"
+
 ---
 
 <template>
@@ -12,79 +24,34 @@ description: Demo and Playground
     </header>
 
     <div class="container">
+      {% for pen in page.codepens %}
       <div class="row">
         <div class="column">
-          <h3>Counter</h3>
+          <hr />
+
+          <h3>{{ pen.title }}</h3>
           <p
             class="codepen"
             data-height="500"
             data-theme-id="0"
             data-default-tab="html,result"
             data-user="mardix"
-            data-slug-hash="VNVyze"
+            data-slug-hash="{{ pen.slug }}"
             style="height: 500px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid black; margin: 1em 0; padding: 1em;"
-            data-pen-title="VNVyze"
+            data-pen-title="{{ pen.slug }}"
           >
             <span
-              >See the Pen <a href="https://codepen.io/mardix/pen/VNVyze/"> VNVyze</a> by Mardix (<a
+              >See the Pen <a href="https://codepen.io/mardix/pen/{{ pen.slug }}/"> {{ slug }}</a> by Mardix (<a
                 href="https://codepen.io/mardix"
                 >@mardix</a
               >) on <a href="https://codepen.io">CodePen</a>.</span
             >
           </p>
-          <script async src="https://static.codepen.io/assets/embed/ei.js"></script>
         </div>
       </div>
+      {% endfor %}
 
-      <div class="row">
-        <div class="column">
-          <hr />
 
-          <h3>My Todos</h3>
-          <p
-            class="codepen"
-            data-height="500"
-            data-theme-id="0"
-            data-default-tab="html,result"
-            data-user="mardix"
-            data-slug-hash="EJMGJe"
-            style="height: 500px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid black; margin: 1em 0; padding: 1em;"
-            data-pen-title="reLift-HTML-demo-todo"
-          >
-            <span
-              >See the Pen <a href="https://codepen.io/mardix/pen/EJMGJe/"> reLift-HTML-demo-todo</a> by Mardix (<a
-                href="https://codepen.io/mardix"
-                >@mardix</a
-              >) on <a href="https://codepen.io">CodePen</a>.</span
-            >
-          </p>
-          <script async src="https://static.codepen.io/assets/embed/ei.js"></script>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="column">
-          <hr />
-          <h3>Stars Wars API Call</h3>
-
-          <p
-            class="codepen"
-            data-height="500"
-            data-theme-id="0"
-            data-default-tab="html,result"
-            data-user="mardix"
-            data-slug-hash="bJZzGg"
-            style="height: 500px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid black; margin: 1em 0; padding: 1em;"
-            data-pen-title="reLift-HTML-demo-star wars api"
-          >
-            <span
-              >See the Pen <a href="https://codepen.io/mardix/pen/bJZzGg/"> reLift-HTML-demo-star wars api</a> by Mardix
-              (<a href="https://codepen.io/mardix">@mardix</a>) on <a href="https://codepen.io">CodePen</a>.</span
-            >
-          </p>
-          <script async src="https://static.codepen.io/assets/embed/ei.js"></script>
-        </div>
-      </div>
     </div>
   </div>
 </template>

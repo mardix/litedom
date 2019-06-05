@@ -1,0 +1,79 @@
+
+{# ----------------------------- MACROS ------------------------------------- #}
+{# This file contains all meta macros to be used. You can also define your own #}
+{# -------------------------------------------------------------------------- #}
+
+{# meta_tag_custom: create a custom meta tag 
+    @params
+    namespace
+    name
+    value    
+#}
+{% macro meta_tag_custom(namespace, name, value) %}
+    <meta {{ namespace }}="{{ name }}" content="{{ value or '' | safe }}">
+{% endmacro %}
+
+{# meta_tag: create a meta tag 
+    @params
+    name
+    value    
+#}
+{% macro meta_tag(name, value) %}
+    {{ meta_tag_custom('name', name, value) }}
+{% endmacro %}
+
+
+{# meta_page_meta_tags: Set all the meta tags in the page  
+#}
+{% macro meta_page_meta_tags() %}
+    {% for k, v in page.meta.items() %}
+        {{ meta_tag(k, v) }}
+    {% endfor %}
+    {% set url =  site.base_url + page.url %}
+    {{ meta_tag_custom('property', 'og:title', page.title or '') }}
+    {{ meta_tag_custom('property', 'og:description', page.description or '') }}
+    {{ meta_tag_custom('property', 'og:url', url) }}
+    {{ meta_tag_custom('property', 'og:site_name', site.name or '') }}
+    {{ meta_tag_custom('property', 'og:type', page.meta.object_type or 'article') }}
+    {{ meta_tag_custom('itemprop', 'description', page.description or '') }}
+    {{ meta_tag_custom('itemprop', 'name', page.title or '') }}
+    {{ meta_tag_custom('itemprop', 'url', url) }}
+    {{ meta_tag_custom('name', 'twitter:title', page.title or '') }}
+    {{ meta_tag_custom('name', 'twitter:description', page.description or '') }}
+    {{ meta_tag_custom('name', 'twitter:url', url) }}
+
+    {% if not page.image %}
+        {{ meta_tag_custom('name', 'twitter:card', "summary") }}
+    {% endif %}
+
+    {% if page.image %}
+        {{ meta_tag_custom('property', 'og:image', page.image) }}
+        {{ meta_tag_custom('itemprop', 'image', page.image) }}
+        {{ meta_tag_custom('name', 'twitter:image', page.image) }}
+        {{ meta_tag_custom('name', 'twitter:card', "summary_large_image") }}
+    {% endif %}
+{% endmacro %}
+
+
+
+{# meta_page_title: Set the page title. Leave title empty to fallback to default
+    @params
+    title
+    suffix
+    separator    
+#}
+{% macro meta_page_title(title=None, suffix=None, separator='|') %}
+    <title>{{ title or page.title or '' }} {{ separator }} {{ suffix or site.name }}</title>
+    {{ meta_tag('title', title or page.title or '') }}
+    <link rel="canonical" href="{{ site.base_url }}"/>
+{% endmacro %}
+
+
+
+{# meta_page_description: Set the page description. Leave description empty to fallback to default
+    @params
+    description    
+#}
+{% macro meta_page_description(description=None) %}
+    {{ meta_tag('description', description or page.description or site.description or '') }}
+{% endmacro %}

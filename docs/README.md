@@ -13,7 +13,7 @@ https://relift-html.js.org/
 
 
 
-The doc site is built with Kolibri, a static site generator in Python:  https://github.com/mardix/kolibri
+The doc site is built with Mambo, a static site generator in Python:  https://github.com/mardix/mambo
 
 Follow the instruction on that page to setup. 
 

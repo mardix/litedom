@@ -4,7 +4,7 @@
 
 ### What is reLift-HTML?
 
-{% include "guide-docs/about-relift-html.md" %}
+{% include "content/guide-docs/about-relift-html.md" %}
 
 
 ### Features
