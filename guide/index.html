@@ -1,4 +1,5 @@
-      <!DOCTYPE html> <html lang="en"> <head> <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> <meta http-equiv="X-UA-Compatible" content="IE=edge" /> <meta name="viewport" content="width=device-width, initial-scale=1" />  <title>Guide | reLift-HTML</title>   <meta name="title" content="Guide">   <link rel="canonical" href="https://relift-html.js.org/"/>     <meta name="description" content="reLift-HTML guide.">        <meta name="rating" content="General">      <meta name="language" content="en-us">      <meta name="robots" content="index, follow">      <meta name="keywords" content="">      <meta property="og:title" content="Guide">   <meta property="og:description" content="reLift-HTML guide.">   <meta property="og:url" content="https://relift-html.js.org//guide/">   <meta property="og:site_name" content="reLift-HTML">   <meta property="og:type" content="article">   <meta itemprop="description" content="reLift-HTML guide.">   <meta itemprop="name" content="Guide">   <meta itemprop="url" content="https://relift-html.js.org//guide/">   <meta name="twitter:title" content="Guide">   <meta name="twitter:description" content="reLift-HTML guide.">   <meta name="twitter:url" content="https://relift-html.js.org//guide/">    <meta name="twitter:card" content="summary">       <link rel="stylesheet" href="https://relift-html.js.org/static/vendor/normalize.css" type="text/css" >    <link rel="stylesheet" href="https://relift-html.js.org/static/vendor/milligram.css" type="text/css" >    <link rel="stylesheet" href="https://relift-html.js.org/static/main.css" type="text/css" >  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic" type="text/css" >  </head> <body>   <link rel="stylesheet" href="https://relift-html.js.org/static/pages_assets__/guide-index-html_7233665b624947128ee9a7f8dffc250f.css" type="text/css" >  <div class="wrapper"> <nav class="navigation"> <section class="container"> <a class="navigation-title" href="https://relift-html.js.org/"><h1 class="title">reLift-HTML</h1></a> <ul class="navigation-list float-right"> <li><a href="https://relift-html.js.org/guide/"><strong>GUIDE</strong></a></li> <li><a href="https://relift-html.js.org/demo/">DEMO</a></li> <li><a target="_blank" href="https://github.com/mardix/relift-html">GITHUB</a></li> </ul> </section> </nav> </div>  <div class="wrapper"> <header class="header header-dark"> <div class="container" id="guide-header"> <h2 class="title">GUIDE</h2> </div> </header> <div class="container"> <div class="row"> <div class="column column-25"> <div id="sideMenu"> <div id="menu-toggler" @call="toggleMenuToggler"> <i class="fas fa-bars"></i> </div> <div id="content-side-affix" class="top"> <ul class="side-nav"> <li r-for="item in this.menu" data-section="${item.url}"> <a href="#${item.url}" data-affix-link="#${item.url}">${item.title}</a> <ul> <li r-for="sitem in item.subsections"><a href="#${sitem.url}" data-affix-link="#${sitem.url}">${sitem.title}</a></li> </ul> </li> </ul> <div><a href="#" @call="scrollToTop">Back to top</a></div> <hr> <a href="https://github.com/mardix/relift-html/tree/master/docs" target="_blank">Edit on Github</a> </div> </div> </div> <div class="column guides" id="page-guide">  <section class="doc" data-doc="introduction.md"> <h2 id="introduction">Introduction</h2> <div class="toc"> <ul> <li><a href="#introduction">Introduction</a><ul> <li><a href="#what-is-relift-html">What is reLift-HTML?</a></li> <li><a href="#features">Features</a></li> </ul> </li> </ul> </div> <h3 id="what-is-relift-html">What is reLift-HTML?</h3> <p><p><strong>reLift-HTML</strong> is very small (3kb) view library that allows you to create Web Component, Custom Element, and helps you make any HTML page reactive without the bloat of big frameworks. </p> <p><strong>reLift-HTML</strong> is very close to standard, uses Javascript Template Literals as the template and is compatible with all modern browsers that support ES2015 (ES6), ESM (ES Module), Proxy etc.</p> <p><strong>reLift-HTML</strong> has no dependecies, no virtual DOM, and build tool; Which will fit best with small to medium projects that need something small, light, and simple but still follow the paradigm of the major libraries; Fit best with developers working on simple but dynamic static site; When having React/Vuejs/Angular/(etc) is too much or when you just want to progressively upgrade your site without changing too much.</p> <p><strong>Features</strong>: Web Components, Custom Element, Template Literals, Reactive, Data Binding, One Way Data Flow, Two-way data binding, Event Handling, Props, Lifecycle, State Management, Computed Properties, Directives and more.</p> <p><strong>reLift-HTML</strong> turns the template into template string literal and doesn't have a virtual DOM, therefor it doesn't keep a DOM tree in memory. Instead it relies on the real DOM, and only mutates it in place whenever there is change. This tends to be memory efficient, and also reduces GC activities</p></p> <h3 id="features">Features</h3> <p>reLift-HTML aims to be simple, easy to use and helps you do much more. </p> <ul> <li>Very small</li> <li>Web Components</li> <li>Custom Elements</li> <li>Template literals</li> <li>Directives</li> <li>Data binding</li> <li>One way data flow</li> <li>Two-Way Data Binding on forms</li> <li>Computed properties</li> <li>Event Handling</li> <li>Lifecycle</li> <li>State management</li> <li>No JSX </li> <li>No dependency</li> <li>No virtual DOM</li> <li>No need for CLI</li> <li>No build, the real DOM does it!</li> </ul> </section> <hr>  <section class="doc" data-doc="syntax.md"> <h2 id="syntax">Syntax</h2> <div class="toc"> <ul> <li><a href="#syntax">Syntax</a><ul> <li><a href="#create-custom-element">Create Custom Element</a></li> <li><a href="#create-inline-element">Create Inline Element</a></li> <li><a href="#textdata-binding">Text/Data Binding</a></li> <li><a href="#ifelse-conditional-r-if">If/Else Conditional: r-if</a></li> <li><a href="#for-loop-r-for">For loop: r-for</a></li> <li><a href="#event-listeners-event-name">Event Listeners: @event-name</a></li> <li><a href="#two-way-data-binding">Two-Way Data Binding</a></li> <li><a href="#lifecycle">Lifecycle</a></li> </ul> </li> </ul> </div> <h3 id="create-custom-element">Create Custom Element</h3> <p>Custom Element create reusable element by specifying a <code>tagName</code> (custom tag).</p> <pre><code class="html">&lt;script type=&quot;module&quot;&gt;
+<!DOCTYPE html>
+<html lang=en> <head><meta http-equiv=Content-Type content="text/html; charset=UTF-8"><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width, initial-scale=1"><title>Guide | reLift-HTML</title><meta name=title content=Guide><link rel=canonical href=https://relift-html.js.org/><meta name=description content="reLift-HTML guide."><meta property=og:title content=Guide><meta property=og:description content="reLift-HTML guide."><meta property=og:url content=https://relift-html.js.org/guide><meta property=og:site_name content=reLift-HTML><meta property=og:type content=article><meta itemprop=description content="reLift-HTML guide."><meta itemprop=name content=Guide><meta itemprop=url content=https://relift-html.js.org/guide><meta name=twitter:title content=Guide><meta name=twitter:description content="reLift-HTML guide."><meta name=twitter:url content=https://relift-html.js.org/guide><meta name=twitter:card content=summary><link rel=stylesheet href=https://relift-html.js.org/static/vendor/normalize.css type=text/css><link rel=stylesheet href=https://relift-html.js.org/static/vendor/milligram.css type=text/css><link rel=stylesheet href=https://relift-html.js.org/static/main.css type=text/css><link rel=stylesheet href=https://use.fontawesome.com/releases/v5.8.1/css/all.css type=text/css><link rel=stylesheet href="https://relift-html.js.org/static/https//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic" type=text/css><link rel=stylesheet href=https://relift-html.js.org/static/vendor/highlight/styles/nord.css type=text/css><link rel=stylesheet href=https://relift-html.js.org/static/pages_assets__/guide-html_722b49d781184aed90e7faa1e0e54851.css type=text/css></head> <body> <div class=wrapper> <nav class=navigation> <section class=container> <a class=navigation-title href=https://relift-html.js.org/><h1 class=title>reLift-HTML</h1></a> <ul class="navigation-list float-right"> <li><a href=https://relift-html.js.org/guide><strong>GUIDE</strong></a></li> <li><a href=https://relift-html.js.org/demo>DEMO</a></li> <li><a target=_blank href=https://github.com/mardix/relift-html>GITHUB</a></li> </ul> </section> </nav> </div> <div class=wrapper> <header class="header header-dark"> <div class=container id=guide-header> <h2 class=title>GUIDE</h2> </div> </header> <div class=container> <div class=row> <div class="column column-25"> <div id=sideMenu style=display:none> <div id=menu-toggler @call=toggleMenuToggler> <i class="fas fa-bars"></i> </div> <div id=content-side-affix class=top> <ul class=side-nav> <li r-for="item in this.menu" data-section=${item.url}> <a href=#${item.url} data-affix-link=#${item.url}>${item.title}</a> <ul> <li r-for="sitem in item.subsections"><a href=#${sitem.url} data-affix-link=#${sitem.url}>${sitem.title}</a></li> </ul> </li> </ul> <div><a href=# @call=scrollToTop>Back to top</a></div> <hr> <a href=https://github.com/mardix/relift-html/tree/master/docs target=_blank>Edit on Github</a> </div> </div> </div> <div class="column guides" id=page-guide> <section class=doc data-doc=introduction.md> <h2 id=introduction>Introduction</h2> <div class=toc> <ul> <li><a href=#introduction>Introduction</a><ul> <li><a href=#what-is-relift-html>What is reLift-HTML?</a></li> <li><a href=#features>Features</a></li> </ul> </li> </ul> </div> <h3 id=what-is-relift-html>What is reLift-HTML?</h3> <p><p><strong>reLift-HTML</strong> is very small (3kb) view library that allows you to create Web Component, Custom Element, and helps you make any HTML page reactive without the bloat of big frameworks. </p> <p><strong>reLift-HTML</strong> is very close to standard, uses Javascript Template Literals as the template and is compatible with all modern browsers that support ES2015 (ES6), ESM (ES Module), Proxy etc.</p> <p><strong>reLift-HTML</strong> has no dependecies, no virtual DOM, and build tool; Which will fit best with small to medium projects that need something small, light, and simple but still follow the paradigm of the major libraries; Fit best with developers working on simple but dynamic static site; When having React/Vuejs/Angular/(etc) is too much or when you just want to progressively upgrade your site without changing too much.</p> <p><strong>Features</strong>: Web Components, Custom Element, Template Literals, Reactive, Data Binding, One Way Data Flow, Two-way data binding, Event Handling, Props, Lifecycle, State Management, Computed Properties, Directives and more.</p> <p><strong>reLift-HTML</strong> turns the template into template string literal and doesn't have a virtual DOM, therefor it doesn't keep a DOM tree in memory. Instead it relies on the real DOM, and only mutates it in place whenever there is change. This tends to be memory efficient, and also reduces GC activities</p></p> <h3 id=features>Features</h3> <p>reLift-HTML aims to be simple, easy to use and helps you do much more. </p> <ul> <li>Very small</li> <li>Web Components</li> <li>Custom Elements</li> <li>Template literals</li> <li>Directives</li> <li>Data binding</li> <li>One way data flow</li> <li>Two-Way Data Binding on forms</li> <li>Computed properties</li> <li>Event Handling</li> <li>Lifecycle</li> <li>State management</li> <li>No JSX </li> <li>No dependency</li> <li>No virtual DOM</li> <li>No need for CLI</li> <li>No build, the real DOM does it!</li> </ul> </section> <hr> <section class=doc data-doc=syntax.md> <h2 id=syntax>Syntax</h2> <div class=toc> <ul> <li><a href=#syntax>Syntax</a><ul> <li><a href=#create-custom-element>Create Custom Element</a></li> <li><a href=#create-inline-element>Create Inline Element</a></li> <li><a href=#textdata-binding>Text/Data Binding</a></li> <li><a href=#ifelse-conditional-r-if>If/Else Conditional: r-if</a></li> <li><a href=#for-loop-r-for>For loop: r-for</a></li> <li><a href=#event-listeners-event-name>Event Listeners: @event-name</a></li> <li><a href=#two-way-data-binding>Two-Way Data Binding</a></li> <li><a href=#lifecycle>Lifecycle</a></li> </ul> </li> </ul> </div> <h3 id=create-custom-element>Create Custom Element</h3> <p>Custom Element create reusable element by specifying a <code>tagName</code> (custom tag).</p> <pre><code class=html><script type="module">
   import reLiftHTML from '//unpkg.com/relift-html';
 
   const template = `
@@ -13,22 +14,22 @@
     },
     created() {
       this.data.count = this.prop.start || 0;
-      setInterval(_=&gt; {
+      setInterval(_=> {
         this.data.count++;
       }, 1000)
     }
   })
-&lt;/script&gt;
+</script>
 
-&lt;!-- HTML --&gt;
+<!-- HTML -->
 
-&lt;!-- this will start at 5 --&gt;
-&lt;my-counter start=5&gt;&lt;/my-counter&gt;
+<!-- this will start at 5 -->
+<my-counter start=5></my-counter>
 
-&lt;!-- this will start at 13 --&gt;
-&lt;my-counter start=13&gt;&lt;/my-counter&gt;
+<!-- this will start at 13 -->
+<my-counter start=13></my-counter>
 
-</code></pre> <h3 id="create-inline-element">Create Inline Element</h3> <p>Inline element gets created if a <code>tagName</code> was not provided, and the <code>el</code> is refering to the element on the page. </p> <pre><code class="html">&lt;script type=&quot;module&quot;&gt;
+</code></pre> <h3 id=create-inline-element>Create Inline Element</h3> <p>Inline element gets created if a <code>tagName</code> was not provided, and the <code>el</code> is refering to the element on the page. </p> <pre><code class=html><script type="module">
   import reLiftHTML from '//unpkg.com/relift-html';
 
   reLiftHTML({
@@ -37,21 +38,21 @@
       count: 0
     },
     created() {
-      setInterval(_=&gt; {
+      setInterval(_=> {
         this.data.count++;
       }, 1000)
     }
   })
-&lt;/script&gt;
+</script>
 
-&lt;!-- HTML --&gt;
-&lt;!-- this will be relifted and shown in place --&gt;
-&lt;div id=&quot;root&quot;&gt;
+<!-- HTML -->
+<!-- this will be relifted and shown in place -->
+<div id="root">
   Hello I'm inline and counting: {this.count}
-&lt;/div&gt;
+</div>
 
-</code></pre> <h3 id="textdata-binding">Text/Data Binding</h3> <p>Expression are placed within <code>{...}</code> and are updated whenever the <code>data</code> values are changed, making <code>data</code> reactive.</p> <pre><code class="html">
-&lt;script type=&quot;module&quot;&gt;
+</code></pre> <h3 id=textdata-binding>Text/Data Binding</h3> <p>Expression are placed within <code>{...}</code> and are updated whenever the <code>data</code> values are changed, making <code>data</code> reactive.</p> <pre><code class=html>
+<script type="module">
   import reLiftHTML from '//unpkg.com/relift-html';
 
   reLiftHTML({
@@ -62,25 +63,25 @@
       timestamp: Date.now()
     }
   })
-&lt;/script&gt;
+</script>
 
-&lt;!-- HTML --&gt;
-&lt;div id=&quot;root&quot;&gt;
-  &lt;div&gt;Library: {this.name}&lt;/div&gt;
-  &lt;div&gt;License: {this.license}&lt;/div&gt;
-  &lt;div&gt;Timestamp: {this.timestamp}&lt;/div&gt;
+<!-- HTML -->
+<div id="root">
+  <div>Library: {this.name}</div>
+  <div>License: {this.license}</div>
+  <div>Timestamp: {this.timestamp}</div>
 
-  &lt;div&gt;Template literal evaluation {1 + 1}&lt;/div&gt;
+  <div>Template literal evaluation {1 + 1}</div>
 
-  &lt;!-- real template literal, can do everything --&gt;
-  &lt;div&gt;Library Upper: {this.name.toUpperCase()}&lt;/div&gt;
+  <!-- real template literal, can do everything -->
+  <div>Library Upper: {this.name.toUpperCase()}</div>
 
-  &lt;!-- with HTML data attribute --&gt;
-  &lt;div data-license=&quot;{this.license}&quot;&gt;{this.license.toUpperCase()}&lt;/div&gt;
-&lt;/div&gt;
+  <!-- with HTML data attribute -->
+  <div data-license="{this.license}">{this.license.toUpperCase()}</div>
+</div>
 
-</code></pre> <h3 id="ifelse-conditional-r-if">If/Else Conditional: r-if</h3> <p>For conditional use <code>r-if</code> and <code>r-else</code></p> <pre><code class="html">
-&lt;script type=&quot;module&quot;&gt;
+</code></pre> <h3 id=ifelse-conditional-r-if>If/Else Conditional: r-if</h3> <p>For conditional use <code>r-if</code> and <code>r-else</code></p> <pre><code class=html>
+<script type="module">
   import reLiftHTML from '//unpkg.com/relift-html';
 
   reLiftHTML({
@@ -89,23 +90,23 @@
       count: 0
     },
     created() {
-      setInterval(_=&gt; {
+      setInterval(_=> {
         this.data.count++;
       }, 1000)
     }
   })
-&lt;/script&gt;
+</script>
 
-&lt;!-- HTML --&gt;
-&lt;div id=&quot;root&quot;&gt;
+<!-- HTML -->
+<div id="root">
   Hello I'm inline and counting: {this.count}
 
-  &lt;span r-if=&quot;this.count % 2 === 0&quot;&gt;This Even&lt;/span&gt;
-  &lt;span r-else&gt;This Odd&lt;/span&gt;
+  <span r-if="this.count % 2 === 0">This Even</span>
+  <span r-else>This Odd</span>
 
-&lt;/div&gt;
+</div>
 
-</code></pre> <h3 id="for-loop-r-for">For loop: r-for</h3> <p>For For-loop use <code>r-for</code></p> <pre><code class="html">&lt;script type=&quot;module&quot;&gt;
+</code></pre> <h3 id=for-loop-r-for>For loop: r-for</h3> <p>For For-loop use <code>r-for</code></p> <pre><code class=html><script type="module">
   import reLiftHTML from '//unpkg.com/relift-html';
 
   reLiftHTML({
@@ -120,19 +121,19 @@
       ]
     }
   })
-&lt;/script&gt;
+</script>
 
-&lt;!-- HTML --&gt;
-&lt;div id=&quot;root&quot;&gt;
-  &lt;h2&gt;This is the list&lt;/h2&gt;
+<!-- HTML -->
+<div id="root">
+  <h2>This is the list</h2>
 
-  &lt;ul&gt;
-    &lt;li r-for=&quot;item in this.items&quot;&gt;I want {item}&lt;/li&gt;
-  &lt;/ul&gt;
+  <ul>
+    <li r-for="item in this.items">I want {item}</li>
+  </ul>
 
-&lt;/div&gt;
+</div>
 
-</code></pre> <h3 id="event-listeners-event-name">Event Listeners: @event-name</h3> <p>To create an event listener, use <code>@$event-name</code> as an attribute in the element. </p> <pre><code class="html">&lt;script type=&quot;module&quot;&gt;
+</code></pre> <h3 id=event-listeners-event-name>Event Listeners: @event-name</h3> <p>To create an event listener, use <code>@$event-name</code> as an attribute in the element. </p> <pre><code class=html><script type="module">
   import reLiftHTML from '//unpkg.com/relift-html';
 
   reLiftHTML({
@@ -141,14 +142,14 @@
       console.log('Hello World!')
     }
   })
-&lt;/script&gt;
+</script>
 
-&lt;!-- HTML --&gt;
-&lt;div id=&quot;root&quot;&gt;
-  &lt;a @click=&quot;sayHello&quot; href=&quot;#&quot;&gt;Say Hello!&lt;/a&gt;
-&lt;/div&gt;
+<!-- HTML -->
+<div id="root">
+  <a @click="sayHello" href="#">Say Hello!</a>
+</div>
 
-</code></pre> <h3 id="two-way-data-binding">Two-Way Data Binding</h3> <p>Two-way data binding is set on form elements, with <code>@bind</code> pointing to the data to be updated. </p> <pre><code class="html">&lt;script type=&quot;module&quot;&gt;
+</code></pre> <h3 id=two-way-data-binding>Two-Way Data Binding</h3> <p>Two-way data binding is set on form elements, with <code>@bind</code> pointing to the data to be updated. </p> <pre><code class=html><script type="module">
   import reLiftHTML from '//unpkg.com/relift-html';
 
   reLiftHTML({
@@ -157,16 +158,16 @@
       name: ''
     }
   })
-&lt;/script&gt;
+</script>
 
-&lt;!-- HTML --&gt;
-&lt;div id=&quot;root&quot;&gt;
-  &lt;div&gt;Name: {this.name}&lt;/div&gt;
+<!-- HTML -->
+<div id="root">
+  <div>Name: {this.name}</div>
 
-  &lt;div&gt;Enter name: &lt;input type=&quot;text&quot; @bind=&quot;name&quot;&gt;&lt;/div&gt;
-&lt;/div&gt;
+  <div>Enter name: <input type="text" @bind="name"></div>
+</div>
 
-</code></pre> <h3 id="lifecycle">Lifecycle</h3> <p>Lifecycle put some hooks on the component and get executed based on what happens</p> <pre><code class="html">&lt;script type=&quot;module&quot;&gt;
+</code></pre> <h3 id=lifecycle>Lifecycle</h3> <p>Lifecycle put some hooks on the component and get executed based on what happens</p> <pre><code class=html><script type="module">
   import reLiftHTML from '//unpkg.com/relift-html';
 
   const template = `
@@ -186,23 +187,21 @@
       // when the element is removed from the page
     }
   })
-&lt;/script&gt;
+</script>
 
-</code></pre> </section> <hr>  <section class="doc" data-doc="installation.md"> <h2 id="installation">Installation</h2> <div class="toc"> <ul> <li><a href="#installation">Installation</a><ul> <li><a href="#importing-from-unpkgcom">Importing from unpkg.com</a></li> <li><a href="#npm">npm</a></li> <li><a href="#compatibility">Compatibility</a></li> </ul> </li> </ul> </div> <p><strong>reLift-HTML</strong> is written in ES2015 and distributed as standard JavaScript modules (ESM). Modules are increasingly supported in JavaScript environments and have shipped in Chrome, Firefox, Edge, Safari, and Opera.</p> <h3 id="importing-from-unpkgcom">Importing from unpkg.com</h3> <p>The recommended way to import <strong>reLift-HTML</strong> is via ESM javascript, where we specify the type <code>module</code> in the script tag, and we import it from <strong>unpkg.com</strong> </p> <p>Make sure <code>type="module"</code> exists in the script tag (<code>&lt;script type="module"&gt;</code>).</p> <pre><code class="html">
-&lt;script type=&quot;module&quot;&gt;
+</code></pre> </section> <hr> <section class=doc data-doc=installation.md> <h2 id=installation>Installation</h2> <div class=toc> <ul> <li><a href=#installation>Installation</a><ul> <li><a href=#importing-from-unpkgcom>Importing from unpkg.com</a></li> <li><a href=#npm>npm</a></li> <li><a href=#compatibility>Compatibility</a></li> </ul> </li> </ul> </div> <p><strong>reLift-HTML</strong> is written in ES2015 and distributed as standard JavaScript modules (ESM). Modules are increasingly supported in JavaScript environments and have shipped in Chrome, Firefox, Edge, Safari, and Opera.</p> <h3 id=importing-from-unpkgcom>Importing from unpkg.com</h3> <p>The recommended way to import <strong>reLift-HTML</strong> is via ESM javascript, where we specify the type <code>module</code> in the script tag, and we import it from <strong>unpkg.com</strong> </p> <p>Make sure <code>type="module"</code> exists in the script tag (<code><script type="module"></code>).</p> <pre><code class=html>
+<script type="module">
   import reLiftHTML from '//unpkg.com/relift-html';
 
   ...
 
-&lt;/script&gt;
+</script>
 
-</code></pre> <p>The JavaScript import statement only works inside module scripts (<code>&lt;script type="module"&gt;</code>), which can be inline scripts (as shown above) or external scripts:</p> <pre><code>
-&lt;script type=&quot;module&quot; src=&quot;$PATH/script.esm.js&quot;&gt;&lt;/script&gt;
-
-</code></pre> <h3 id="npm">npm</h3> <p>Or by installing it in your project</p> <pre><code>npm install relift-html
-</code></pre> <pre><code class="js">import reLiftHTML from 'relift-html';
-</code></pre> <h3 id="compatibility">Compatibility</h3> <p><strong>reLift-HTML</strong> is a modern library for moden browsers that support ES2015 (ES6), Template Literals, Proxy, and all the fun stuff.</p> <p>The library is written in ES2015, and will be delivered to you as such. To keep it small reLift-HTML doesn't have any polyfills nor extra code to make new ES20xx features available in non modern browsers, therefor it will not work with browsers that don't support ES6, Template Literals, Proxy, etc. </p> <p>https://caniuse.com/#feat=es6</p> <p>https://caniuse.com/#search=proxy</p> </section> <hr>  <section class="doc" data-doc="component.md"> <h2 id="component">Component</h2> <div class="toc"> <ul> <li><a href="#component">Component</a><ul> <li><a href="#setup">Setup</a></li> <li><a href="#setup-as-inline-component">Setup as Inline Component</a></li> <li><a href="#setup-as-web-component">Setup as Web Component</a></li> <li><a href="#options">Options</a><ul> <li><a href="#el">el:</a></li> <li><a href="#tagname">tagName:</a></li> <li><a href="#data">data:</a></li> <li><a href="#created">created</a></li> <li><a href="#updated">updated</a></li> <li><a href="#removed">removed</a></li> <li><a href="#template">template</a></li> <li><a href="#astemplate">asTemplate:</a></li> <li><a href="#isshadow">isShadow:</a></li> <li><a href="#store">$store:</a></li> </ul> </li> <li><a href="#methods">Methods</a></li> <li><a href="#properties">Properties</a><ul> <li><a href="#thisel">this.el</a></li> <li><a href="#thisdata">this.data</a></li> <li><a href="#thisprop">this.prop</a></li> <li><a href="#thisrender">this.render</a></li> <li><a href="#thisdefined-methods">...this.$defined-methods</a></li> </ul> </li> </ul> </li> </ul> </div> <p><strong>reLift-HTML</strong> allows you to split up your application into smaller, composable parts called components. The components are full Web Components standards. </p> <p>Components created can be added on the page via a custom tag, and be reused by any other places.</p> <h3 id="setup">Setup</h3> <p>reLift-HTML can be setup as either Inline Component or Web Component (Web Components).</p> <h3 id="setup-as-inline-component">Setup as Inline Component</h3> <p>Inline Component is when only we are reLifting some part of DOM to make it reactive. This will not be reused, and only be added in placed where it was initiated using <code>el</code>.</p> <pre><code class="html">
-&lt;script type=&quot;module&quot;&gt;
+</code></pre> <p>The JavaScript import statement only works inside module scripts (<code><script type="module"></code>), which can be inline scripts (as shown above) or external scripts:</p> <pre><code class=html><script type="module" src="$PATH/script.esm.js"></script>
+</code></pre> <h3 id=npm>npm</h3> <p>Or by installing it in your project</p> <pre><code>npm install relift-html
+</code></pre> <pre><code class=js>import reLiftHTML from 'relift-html';
+</code></pre> <h3 id=compatibility>Compatibility</h3> <p><strong>reLift-HTML</strong> is a modern library for moden browsers that support ES2015 (ES6), Template Literals, Proxy, and all the fun stuff.</p> <p>The library is written in ES2015, and will be delivered to you as such. To keep it small reLift-HTML doesn't have any polyfills nor extra code to make new ES20xx features available in non modern browsers, therefor it will not work with browsers that don't support ES6, Template Literals, Proxy, etc. </p> <p>https://caniuse.com/#feat=es6</p> <p>https://caniuse.com/#search=proxy</p> </section> <hr> <section class=doc data-doc=component.md> <h2 id=component>Component</h2> <div class=toc> <ul> <li><a href=#component>Component</a><ul> <li><a href=#embeddable-elements>Embeddable Elements</a></li> <li><a href=#custom-element>Custom Element</a></li> <li><a href=#initialize>Initialize</a></li> <li><a href=#configurations>Configurations</a><ul> <li><a href=#config-properties>Config Properties</a></li> <li><a href=#el>el:</a></li> <li><a href=#tagname>tagName:</a></li> <li><a href=#data>data:</a></li> <li><a href=#created>created</a></li> <li><a href=#updated>updated</a></li> <li><a href=#removed>removed</a></li> <li><a href=#template>template</a></li> <li><a href=#astemplate>asTemplate:</a></li> <li><a href=#isshadow>isShadow:</a></li> <li><a href=#store>$store:</a></li> </ul> </li> <li><a href=#methods>Methods</a></li> <li><a href=#properties>Properties</a><ul> <li><a href=#thisel>this.el</a></li> <li><a href=#thisdata>this.data</a></li> <li><a href=#thisprop>this.prop</a></li> <li><a href=#thisrender>this.render</a></li> <li><a href=#thisdefined-methods>...this.$defined-methods</a></li> </ul> </li> </ul> </li> </ul> </div> <p><strong>reLift-HTML</strong> turns your application into smaller composable fully compliant <strong>Web Component</strong> (Custom Element + Shadow DOM), which can be used as embeddable elements or Custom Elements with Custom Tags to be reused.</p> <h3 id=embeddable-elements>Embeddable Elements</h3> <p><em>Embeddable Elements</em> is set in place by using the current DOM element section to turn it into reactive. An emebeddable element is not intended to be reused. It also requires the <code>el</code> to be set.</p> <pre><code class=html>
+<script type="module">
   import reLiftHTML from '//unpkg.com/relift-html';
 
   reLiftHTML({
@@ -211,36 +210,57 @@
       world: 'World'
     }
   })
-&lt;/script&gt;
+</script>
 
-&lt;div id=&quot;root&quot;&gt;
+<div id="root">
   Hello {this.world}
-&lt;/div&gt;
+</div>
 
-</code></pre> <h3 id="setup-as-web-component">Setup as Web Component</h3> <p>Web Component (Custom Element + Shadow DOM), allow you to reuse the components created. <br /> They can be imported from a js, or use template element from the DOM. <br /> At the end, you will the </p> <pre><code class="html">
-&lt;script type=&quot;module&quot;&gt;
+</code></pre> <h3 id=custom-element>Custom Element</h3> <p><em>Custom Element</em> is set using a Custom Tag, which can be reused in multiple places. And also, as Custom Element, it allows you to place your component in an external JS file.</p> <p>Unlike embeddable element, Custom Element requires a <code>tagName</code> and a <code>template</code> to</p> <pre><code class=html>
+<script type="module">
   import reLiftHTML from '//unpkg.com/relift-html';
-
-  const template = `Hello {this.world} {this.prop.name}!`
   reLiftHTML({
-    template,
-    tagName: 'hello-world'
+    template: `Hello {this.world} {this.prop.name}!`,
+    tagName: 'hello-world',
     data: {
       world: 'World'
     }
   })
-&lt;/script&gt;
+</script>
 
-&lt;!-- usage --&gt;
+<!-- usage -->
 
-&lt;hello-world name='Mardix'&gt;&lt;/hello-world&gt;
+<hello-world name='Mardix'></hello-world>
 
-&lt;hello-world name='Sebastien'&gt;&lt;/hello-world&gt;
+<hello-world name='Sebastien'></hello-world>
 
-&lt;hello-world name='Samien'&gt;&lt;/hello-world&gt;
+<hello-world name='Samien'></hello-world>
 
-</code></pre> <h3 id="options">Options</h3> <h4 id="el"><strong><code>el</code></strong>:</h4> <p>[string|HTMLElement] <br /> This is where the view instance will be created and rendered. By default, it will use the innerHTML of the element as <code>template</code>.<br /> This can be html selector , ie <code>#someId</code>, <code>[some-data-attribute]</code>. Or a query selector <code>document.querySelector('#myId')</code>. </p> <h4 id="tagname"><strong><code>tagName</code></strong>:</h4> <p>[string]<br /> Name for the new custom element. Note that custom element names must contain a hyphen. <code>my-counter</code> will be used as <code>&lt;my-counter&gt;&lt;/my-counter&gt;</code></p> <h4 id="data"><strong><code>data</code></strong>:</h4> <p>[object]<br /> Is the application state. All data in here are reactive. Whenever a property is added, updated or removed it will trigger the update of the DOM (if necessary).<br /> Values are expected to be the type string, number, plain object, boolean, null, undefined or <em>function</em>. <br /> In the case of a function, it will become a computated data.</p> <h4 id="created"><strong><code>created</code></strong></h4> <p>[function]<br /> This is a lifecycle hook method. It runs once the component is added on the page. </p> <h4 id="updated"><strong><code>updated</code></strong></h4> <p>[function]<br /> This is a lifecycle hook method. It runs each time the data or the store update the component's state. </p> <h4 id="removed"><strong><code>removed</code></strong></h4> <p>[function]<br /> This is a lifecycle hook method. It runs once the component is removed from the page. </p> <h4 id="template"><strong><code>template</code></strong></h4> <p>[string] <br /> A string/text for the body of the element. It contains all the markup to be displayed. </p> <h4 id="astemplate"><strong><code>asTemplate</code></strong>:</h4> <p>[boolean:false]<br /> To be used along with <code>el</code>, when set to <code>true</code> it will turn the component into the Custom Tag to be used.</p> <h4 id="isshadow"><strong><code>isShadow</code></strong>:</h4> <p>[boolean:false]<br /> By default elements are created as normal Custom Element. To set the web component as Shadow Dom, set <code>isShadow</code> to <code>true</code>.</p> <h4 id="store"><strong><code>$store</code></strong>:</h4> <p>[state management interface]<br /> Unlike <code>data</code> store is where to hook a shared store manager, ie: reStated, Redux. The store instance must have the methods <code>getState()</code> and <code>subscribe(callback:function)</code>. </p> <h3 id="methods">Methods</h3> <p>Along the lifecycle methods <code>created</code> and <code>mounted</code>, you have the ability to define your own methods.</p> <p>The defined methods are set with the rest of the options.</p> <p><strong>WARNING</strong>: <br /> When creating methods don't use arrow functions such as <code>created: () =&gt; this.sayHello(),</code>. Since arrow function doesn't have a <code>this</code>, <code>this</code> will be treated as any other variable and will often result in error such as <code>Uncaught TypeError: Cannot read property of undefined</code> or <code>Uncaught TypeError: this.myMethod is not a function</code> </p> <pre><code class="html">
-&lt;script type=&quot;module&quot;&gt;
+</code></pre> <h3 id=initialize>Initialize</h3> <p>The recommended way to import <strong>reLift-HTML</strong> is via ESM javascript, where we specify the type <code>module</code> in the script tag, and we import it from <strong>unpkg.com</strong> </p> <p>Make sure <code>type="module"</code> exists in the script tag (<code><script type="module"></code>).</p> <pre><code class=html>
+<script type="module">
+  import reLiftHTML from '//unpkg.com/relift-html';
+
+  reLiftHTML(options=object|array)
+</script>
+
+</code></pre> <p>or</p> <pre><code class=html><script type="module" src="$PATH/script.esm.js"></script>
+</code></pre> <h3 id=configurations>Configurations</h3> <p><code>reLiftHTML</code> function accepts one argument which can be of:</p> <p><strong>Object</strong>: as a plain object, it contains the config to create and initialize the element.</p> <pre><code class=js>
+reLiftHTML({
+  template: '...',
+  tagName: 'component-x'
+})
+</code></pre> <p><strong>Array</strong>: as an array, it accepts an array of configs, to create and initialize multiple elements at once.</p> <pre><code class=js>  const componentA = {
+    template: '...',
+    tagName: 'component-a'
+  };
+  const componentB = {
+    template: '',
+    tagName: 'component-b'
+  };
+
+  reLiftHTML([componentA, componentB]);
+</code></pre> <h4 id=config-properties>Config Properties</h4> <h4 id=el><strong><code>el</code></strong>:</h4> <p>[<em>string|HTMLElement</em>] <br> To be used mainly when creating Embeddable Elements. </p> <p>This is where the view instance will be created and rendered. By default, it will use the innerHTML of the element as <code>template</code>.<br> This can be html selector , ie <code>#someId</code>, <code>[some-data-attribute]</code>. Or a query selector <code>document.querySelector('#myId')</code>. </p> <h4 id=tagname><strong><code>tagName</code></strong>:</h4> <p>[<em>string</em>]<br> Name for the new custom element. Note that custom element names must contain a hyphen. <code>my-counter</code> will be used as <code><my-counter></my-counter></code></p> <h4 id=data><strong><code>data</code></strong>:</h4> <p>[<em>object</em>]<br> Is the application state. All data in here are reactive. Whenever a property is added, updated or removed it will trigger the update of the DOM (if necessary).<br> Values are expected to be the type string, number, plain object, boolean, null, undefined or <em>function</em>. <br> In the case of a function, it will become a computated data.</p> <h4 id=created><strong><code>created</code></strong></h4> <p>[<em>function</em>]<br> This is a lifecycle hook method. It runs once the component is added on the page. </p> <h4 id=updated><strong><code>updated</code></strong></h4> <p>[<em>function</em>]<br> This is a lifecycle hook method. It runs each time the data or the store update the component's state. </p> <h4 id=removed><strong><code>removed</code></strong></h4> <p>[<em>function</em>]<br> This is a lifecycle hook method. It runs once the component is removed from the page. </p> <h4 id=template><strong><code>template</code></strong></h4> <p>[<em>string</em>] <br> A string/text for the body of the element. It contains all the markup to be displayed. When creating Custom Element. </p> <h4 id=astemplate><strong><code>asTemplate</code></strong>:</h4> <p>[<em>boolean:false</em>]<br> To be used along with <code>el</code>, when set to <code>true</code> it will turn the component into the Custom Tag to be used.</p> <h4 id=isshadow><strong><code>isShadow</code></strong>:</h4> <p>[<em>boolean:false</em>]<br> By default elements are created as normal Custom Element. To set the web component as Shadow Dom, set <code>isShadow</code> to <code>true</code>.</p> <h4 id=store><strong><code>$store</code></strong>:</h4> <p>[<em>state management interface</em>]<br> Unlike <code>data</code> store is where to hook a shared store manager, ie: reStated, Redux. The store instance must have the methods <code>getState()</code> and <code>subscribe(callback:function)</code>. </p> <h3 id=methods>Methods</h3> <p>Along the lifecycle methods <code>created</code> and <code>mounted</code>, you have the ability to define your own methods.</p> <p>The defined methods are set with the rest of the options.</p> <p><strong>WARNING</strong>: <br> When creating methods don't use arrow functions such as <code>created: () => this.sayHello(),</code>. Since arrow function doesn't have a <code>this</code>, <code>this</code> will be treated as any other variable and will often result in error such as <code>Uncaught TypeError: Cannot read property of undefined</code> or <code>Uncaught TypeError: this.myMethod is not a function</code> </p> <pre><code class=html>
+<script type="module">
   import reLiftHTML from '//unpkg.com/relift-html';
 
   reLiftHTML({
@@ -253,18 +273,18 @@
       console.log(`Hello ${name}`)
     },
   })
-&lt;/script&gt;
+</script>
 
-&lt;div id=&quot;root&quot;&gt;&lt;/div&gt;
+<div id="root"></div>
 
-</code></pre> <h3 id="properties">Properties</h3> <p>Inside of the lifecycle and defined methods, you have access to the following properties:</p> <h4 id="thisel"><strong><code>this.el</code></strong></h4> <p>Is the instance root element. It allows you to safely query, manipulate the instance's DOM elements.</p> <pre><code class="js">  reLiftHTML({
+</code></pre> <h3 id=properties>Properties</h3> <p>Inside of the lifecycle and defined methods, you have access to the following properties:</p> <h4 id=thisel><strong><code>this.el</code></strong></h4> <p>Is the instance root element. It allows you to safely query, manipulate the instance's DOM elements.</p> <pre><code class=js>  reLiftHTML({
     // will run each time there is a re-render
     updated() {
       const allLis = this.el.querySelectorAll('li');
       console.log(allList.length);
     }
   })
-</code></pre> <h4 id="thisdata"><strong><code>this.data</code></strong></h4> <p>Gives you access to the reactive <code>data</code>. You can get, set and delete properties.<br /> Whenever a <code>data</code> is updated it will trigger re-render (if necessary). You don't have to pre define a property in <code>data</code> to make it reactive.</p> <pre><code class="js">  reLiftHTML({
+</code></pre> <h4 id=thisdata><strong><code>this.data</code></strong></h4> <p>Gives you access to the reactive <code>data</code>. You can get, set and delete properties.<br> Whenever a <code>data</code> is updated it will trigger re-render (if necessary). You don't have to pre define a property in <code>data</code> to make it reactive.</p> <pre><code class=js>  reLiftHTML({
     data: {
       name: ''
     },
@@ -276,7 +296,7 @@
       console.log(this.data.myArray.length);
     }
   })
-</code></pre> <h4 id="thisprop"><strong><code>this.prop</code></strong></h4> <p>Props are the attributes that were set during initialization</p> <pre><code class="html">  &lt;script&gt;
+</code></pre> <h4 id=thisprop><strong><code>this.prop</code></strong></h4> <p>Props are the attributes that were set during initialization</p> <pre><code class=html>  <script>
     reLiftHTML({
       tagName: `my-counter`,
       template: `Counting: {this.count}`
@@ -285,20 +305,20 @@
       },
       created() {
         this.data.count = this.prop.start || 0;
-        setTimeout(_=&gt; { this.data.count++; }, 1000)
+        setTimeout(_=> { this.data.count++; }, 1000)
       }
     })  
 
-  &lt;/script&gt;
+  </script>
 
-  &lt;my-counter start=5&gt;&lt;/my-counter&gt;
-</code></pre> <h4 id="thisrender"><strong><code>this.render</code></strong></h4> <p>A function to manually re-render.</p> <pre><code class="js">  reLiftHTML({
+  <my-counter start=5></my-counter>
+</code></pre> <h4 id=thisrender><strong><code>this.render</code></strong></h4> <p>A function to manually re-render.</p> <pre><code class=js>  reLiftHTML({
     methodA() {
       /* do something, then... */
       this.render();
     }
   })
-</code></pre> <h4 id="thisdefined-methods"><strong><code>...this.$defined-methods</code></strong></h4> <p>The other methods you have defined</p> <pre><code class="js">  reLiftHTML({
+</code></pre> <h4 id=thisdefined-methods><strong><code>...this.$defined-methods</code></strong></h4> <p>The other methods you have defined</p> <pre><code class=js>  reLiftHTML({
     methodA() {
       this.methodB();
     },
@@ -309,12 +329,12 @@
       console.log(`I'm method C :)`)
     }
   })
-</code></pre> </section> <hr>  <section class="doc" data-doc="lifecycle.md"> <h2 id="lifecycle">Lifecycle</h2> <div class="toc"> <ul> <li><a href="#lifecycle">Lifecycle</a><ul> <li><a href="#properties">Properties</a></li> <li><a href="#created">created</a><ul> <li><a href="#example-with-async">Example with async</a></li> </ul> </li> <li><a href="#updated">updated</a><ul> <li><a href="#example-of-count-li">Example of count LI</a></li> </ul> </li> <li><a href="#removed">removed</a></li> </ul> </li> </ul> </div> <p>For every instance that gets created, reLift-HTML provides two lifecycle methods that get added during the initialization.</p> <p>All lifecycle methods have:</p> <h4 id="properties">Properties</h4> <p><p>*All methods have access to the following instance's properties:</p> <p><strong><code>this.el</code></strong>: Is the instance root element. It allows you to safely query, manipulate the instance's DOM elements. ie: <code>this.el.querySelector('ul')</code></p> <p><strong><code>this.data</code></strong>: Gives you access to the reactive data. You can get, set and delete properties. Whenever a data is updated it will trigger re-render (if necessary), ie: <code>console.log(this.data.name)</code></p> <p><strong><code>this.prop</code></strong>: Give you access to the properties that were set as attributes in the custom element. </p> <p><strong><code>...this.defined-methods</code></strong> all of the defined methods, ie: <code>this.my-defined-method()</code></p></p> <h3 id="created">created</h3> <p><code>created</code> runs <strong>once</strong> when the Custom Element is added to the page. At the time of running, the DOM is ready, you can query elements. </p> <p>It is also the place to initialize some async call, ajax etc.</p> <pre><code class="js">  reLiftHTML({
+</code></pre> </section> <hr> <section class=doc data-doc=lifecycle.md> <h2 id=lifecycle>Lifecycle</h2> <div class=toc> <ul> <li><a href=#lifecycle>Lifecycle</a><ul> <li><a href=#properties>Properties</a></li> <li><a href=#created>created</a><ul> <li><a href=#example-with-async>Example with async</a></li> </ul> </li> <li><a href=#updated>updated</a><ul> <li><a href=#example-of-count-li>Example of count LI</a></li> </ul> </li> <li><a href=#removed>removed</a></li> </ul> </li> </ul> </div> <p>For every instance that gets created, reLift-HTML provides two lifecycle methods that get added during the initialization.</p> <p>All lifecycle methods have:</p> <h4 id=properties>Properties</h4> <p><p>*All methods have access to the following instance's properties:</p> <p><strong><code>this.el</code></strong>: Is the instance root element. It allows you to safely query, manipulate the instance's DOM elements. ie: <code>this.el.querySelector('ul')</code></p> <p><strong><code>this.data</code></strong>: Gives you access to the reactive data. You can get, set and delete properties. Whenever a data is updated it will trigger re-render (if necessary), ie: <code>console.log(this.data.name)</code></p> <p><strong><code>this.prop</code></strong>: Give you access to the properties that were set as attributes in the custom element. </p> <p><strong><code>...this.defined-methods</code></strong> all of the defined methods, ie: <code>this.my-defined-method()</code></p></p> <h3 id=created>created</h3> <p><code>created</code> runs <strong>once</strong> when the Custom Element is added to the page. At the time of running, the DOM is ready, you can query elements. </p> <p>It is also the place to initialize some async call, ajax etc.</p> <pre><code class=js>  reLiftHTML({
     created() {
       //... code here
     }
   })
-</code></pre> <h4 id="example-with-async">Example with async</h4> <pre><code class="js">  reLiftHTML({
+</code></pre> <h4 id=example-with-async>Example with async</h4> <pre><code class=js>  reLiftHTML({
     el: '#root',
     data: {
       loading: false,
@@ -335,12 +355,12 @@
       this.loaded = true;      
     }
   })
-</code></pre> <h3 id="updated">updated</h3> <p><code>updated</code> runs only each time the state updates the DOM. This is a place to do any computations after an update.</p> <pre><code class="js">  reLiftHTML({
+</code></pre> <h3 id=updated>updated</h3> <p><code>updated</code> runs only each time the state updates the DOM. This is a place to do any computations after an update.</p> <pre><code class=js>  reLiftHTML({
     updated() {
       //... code 
     }
   })
-</code></pre> <h4 id="example-of-count-li">Example of count LI</h4> <pre><code class="js">  reLiftHTML({
+</code></pre> <h4 id=example-of-count-li>Example of count LI</h4> <pre><code class=js>  reLiftHTML({
     data: {
       totalLis: 0
     },
@@ -349,19 +369,19 @@
       this.data.totalLis = lis.length;
     }
   })
-</code></pre> <h3 id="removed">removed</h3> <p><code>removed</code> runs <strong>once</strong> when the Custom Element is removed from the page. At the time of running, the DOM is ready, you can query elements. </p> <p>It is also the place to do some cleanup, remove intervals etc.</p> <pre><code class="js">  reLiftHTML({
+</code></pre> <h3 id=removed>removed</h3> <p><code>removed</code> runs <strong>once</strong> when the Custom Element is removed from the page. At the time of running, the DOM is ready, you can query elements. </p> <p>It is also the place to do some cleanup, remove intervals etc.</p> <pre><code class=js>  reLiftHTML({
     created() {
       //... code here
     }
   })
-</code></pre> </section> <hr>  <section class="doc" data-doc="data.md"> <h2 id="data">Data</h2> <div class="toc"> <ul> <li><a href="#data">Data</a><ul> <li><a href="#data_1">data</a></li> <li><a href="#template">Template</a><ul> <li><a href="#what-about-this">What about this</a></li> </ul> </li> <li><a href="#local-state">Local state</a></li> <li><a href="#computed-state">Computed state</a></li> <li><a href="#two-way-data-binding">Two-Way Data Binding</a></li> <li><a href="#example-of-making-async-call">Example of making Async call</a></li> <li><a href="#shared-state">Shared state</a></li> </ul> </li> </ul> </div> <p>Data is at the core of the instance's reactivity. Whenever data is changed, it will trigger a re-render (if necessary).</p> <p>Data is usally set during the instance's setup, under the <code>data</code> options.</p> <h4 id="data_1"><strong><code>data</code></strong></h4> <p>[object]<br /> Is the application state. All data in here are reactive. Whenever a property is added, updated or removed it will trigger the update of the DOM (if necessary).<br /> Values are expected to be the type string, number, plain object, boolean, null, undefined or <em>function</em>. <br /> In the case of a function, it will become a computed data.</p> <pre><code class="js">reLiftHTML({
+</code></pre> </section> <hr> <section class=doc data-doc=data.md> <h2 id=data>Data</h2> <div class=toc> <ul> <li><a href=#data>Data</a><ul> <li><a href=#data_1>data</a></li> <li><a href=#template>Template</a><ul> <li><a href=#what-about-this>What about this</a></li> </ul> </li> <li><a href=#local-state>Local state</a></li> <li><a href=#computed-state>Computed state</a></li> <li><a href=#two-way-data-binding>Two-Way Data Binding</a></li> <li><a href=#example-of-making-async-call>Example of making Async call</a></li> <li><a href=#shared-state>Shared state</a></li> </ul> </li> </ul> </div> <p>Data is at the core of the instance's reactivity. Whenever data is changed, it will trigger a re-render (if necessary).</p> <p>Data is usally set during the instance's setup, under the <code>data</code> options.</p> <h4 id=data_1><strong><code>data</code></strong></h4> <p>[object]<br> Is the application state. All data in here are reactive. Whenever a property is added, updated or removed it will trigger the update of the DOM (if necessary).<br> Values are expected to be the type string, number, plain object, boolean, null, undefined or <em>function</em>. <br> In the case of a function, it will become a computed data.</p> <pre><code class=js>reLiftHTML({
   data: {
     firstName: 'Mardix',
     lastName: 'M.',
-    fullName: (state) =&gt; `${state.firstName} ${state.lastName}`
+    fullName: (state) => `${state.firstName} ${state.lastName}`
   }
 })
-</code></pre> <p>Data in reLift-HTML is:</p> <ul> <li><strong>Accessible</strong>: in the template and methods you have direct access to the data </li> <li><strong>Mutable</strong>: in the methods you can mutate the data directly without setters, ie <code>this.data.aNumber = 1;</code> or <code>this.data.someArray.pop();</code></li> <li><strong>Reactive</strong>: whenever <code>this.data</code> is updated it will trigger a re-render (if necessary)</li> <li><strong>Dynamic</strong>: you don't have to pre define properties during the instance setup, you can set new properties in some other places or when needed, and automatically it will be also become reactive.</li> </ul> <h3 id="template">Template</h3> <p>In the template you have access to data via <code>this.#data-property-name</code>, where '#data-property-name' is the property name to access.</p> <pre><code class="html">&lt;script type=&quot;module&quot;&gt;
+</code></pre> <p>Data in reLift-HTML is:</p> <ul> <li><strong>Accessible</strong>: in the template and methods you have direct access to the data </li> <li><strong>Mutable</strong>: in the methods you can mutate the data directly without setters, ie <code>this.data.aNumber = 1;</code> or <code>this.data.someArray.pop();</code></li> <li><strong>Reactive</strong>: whenever <code>this.data</code> is updated it will trigger a re-render (if necessary)</li> <li><strong>Dynamic</strong>: you don't have to pre define properties during the instance setup, you can set new properties in some other places or when needed, and automatically it will be also become reactive.</li> </ul> <h3 id=template>Template</h3> <p>In the template you have access to data via <code>this.#data-property-name</code>, where '#data-property-name' is the property name to access.</p> <pre><code class=html><script type="module">
 
   reLiftHTML({
     el: '#root',
@@ -373,21 +393,21 @@
       this.data.todaysDate = new Date().toLocaleString();
     }
   })
-&lt;/script&gt;
+</script>
 
-&lt;div id=&quot;root&quot;&gt;
-  &lt;p&gt;Hello {this.name}&lt;/p&gt;
-  &lt;p&gt;Date: {this.todaysDate}
-&lt;/div&gt;
+<div id="root">
+  <p>Hello {this.name}</p>
+  <p>Date: {this.todaysDate}
+</div>
 
-</code></pre> <h4 id="what-about-this">What about <strong><code>this</code></strong></h4> <p><code>this</code> in your template indicate the root context of the data. By not putting <code>this</code>, the variable will fall under the global object, which is the <code>window</code> in the browser. With <code>this</code> we keep the data in scope. </p> <pre><code class="js">  &lt;div id=&quot;root&quot;&gt;
-    &lt;!-- use from data --&gt;
+</code></pre> <h4 id=what-about-this>What about <strong><code>this</code></strong></h4> <p><code>this</code> in your template indicate the root context of the data. By not putting <code>this</code>, the variable will fall under the global object, which is the <code>window</code> in the browser. With <code>this</code> we keep the data in scope. </p> <pre><code class=js>  <div id="root">
+    <!-- use from data -->
     {this.firstName}
 
-    &lt;!-- fall under the global object/window --&gt;
+    <!-- fall under the global object/window -->
     {new Date().toLocaleString()}
-  &lt;/div&gt;
-</code></pre> <h3 id="local-state">Local state</h3> <p>Local state is the data that the instance will use. It is set in the <code>data</code>. Whenever it is updated, it will trigger a re-render (if necessary). </p> <p>In the template you have access to it via <code>{this.#data-property-name}</code> and in your methods it's via <code>this.data</code>;</p> <p>The state/data is mutable only in the methods of your instance, which means you can directly update the properties. No need for this.set(key, value) or this.get(key).</p> <p>You can do this: </p> <pre><code class="js">reLiftHTML({
+  </div>
+</code></pre> <h3 id=local-state>Local state</h3> <p>Local state is the data that the instance will use. It is set in the <code>data</code>. Whenever it is updated, it will trigger a re-render (if necessary). </p> <p>In the template you have access to it via <code>{this.#data-property-name}</code> and in your methods it's via <code>this.data</code>;</p> <p>The state/data is mutable only in the methods of your instance, which means you can directly update the properties. No need for this.set(key, value) or this.get(key).</p> <p>You can do this: </p> <pre><code class=js>reLiftHTML({
   el: '#root',
   data: {
     name: 'reLift-HTML',
@@ -400,7 +420,7 @@
     this.data.name = name;
   },
   runCounter(){
-    setInterval(() =&gt; {
+    setInterval(() => {
       this.data.count++;
     }, 1000)
   },
@@ -408,34 +428,34 @@
     this.runCounter();
   }
 })
-</code></pre> <h3 id="computed-state">Computed state</h3> <p>Computed state are data that will be created based on some other input, usually from the reactive <code>data</code>. Whenever the state is updated, the computed data will also be updated. Which makes computed data reactive.</p> <p>Computed data are set as function that returns a value, which will be assigned to the name of the function in the <code>data</code> object. </p> <pre><code class="js">  data: {
+</code></pre> <h3 id=computed-state>Computed state</h3> <p>Computed state are data that will be created based on some other input, usually from the reactive <code>data</code>. Whenever the state is updated, the computed data will also be updated. Which makes computed data reactive.</p> <p>Computed data are set as function that returns a value, which will be assigned to the name of the function in the <code>data</code> object. </p> <pre><code class=js>  data: {
     firstName: 'Mardix',
     lastName: 'M.',
 
     // computed data, will be accessed via '{this.fullName}' or 'this.data.fullName'
-    fullName(state) =&gt; `${state.firstName} ${state.lastName}`
+    fullName(state) => `${state.firstName} ${state.lastName}`
 
     // computed data, will be accessed via '{this.totalChars}' or 'this.data.totalChars'
-    totalChars(state) =&gt; state.fullName.length
+    totalChars(state) => state.fullName.length
   }
-</code></pre> <p>In the example above, we now can access as properties: <code>this.data.fullName</code> and <code>this.data.totalChars</code>. In the template, <code>{this.fullName}</code> and <code>{this.totalChars}</code></p> <p>NOTE 1: You can't access the computed data as functions in your code. <br /> NOTE 2: You can't mutate the state in the computed data funcion, nor access an instance's method in the computed data function.</p> <p>Computed data function accept the current state as the only argument, and must return a value. The value will be assigned in the <code>data</code> with the function name. The data provided in the computed data is not mutable. </p> <pre><code class="html">  &lt;script type=&quot;module&quot;&gt;
+</code></pre> <p>In the example above, we now can access as properties: <code>this.data.fullName</code> and <code>this.data.totalChars</code>. In the template, <code>{this.fullName}</code> and <code>{this.totalChars}</code></p> <p>NOTE 1: You can't access the computed data as functions in your code. <br> NOTE 2: You can't mutate the state in the computed data funcion, nor access an instance's method in the computed data function.</p> <p>Computed data function accept the current state as the only argument, and must return a value. The value will be assigned in the <code>data</code> with the function name. The data provided in the computed data is not mutable. </p> <pre><code class=html>  <script type="module">
 
     reLiftHTML({
       el: '#root',
       data: {
         firstName: 'Mardix',
         lastName: 'M.',
-        fullName: (state) =&gt; `${state.firstName} ${state.lastName}`
+        fullName: (state) => `${state.firstName} ${state.lastName}`
       }
     })
-  &lt;/script&gt;
+  </script>
 
-&lt;div id=&quot;root&quot;&gt;
-  &lt;p&gt;Hello {this.fullName}&lt;/p&gt;
-&lt;/div&gt;
+<div id="root">
+  <p>Hello {this.fullName}</p>
+</div>
 
 
-</code></pre> <h3 id="two-way-data-binding">Two-Way Data Binding</h3> <p>You can use the <code>@bind</code> directive to create two-way data bindings on form input, textarea, and select elements. It automatically picks the correct way to update the element based on the input type. <code>@bind</code> is essentially syntax sugar for updating data on user input events.</p> <pre><code class="html">&lt;script type=&quot;module&quot;&gt;
+</code></pre> <h3 id=two-way-data-binding>Two-Way Data Binding</h3> <p>You can use the <code>@bind</code> directive to create two-way data bindings on form input, textarea, and select elements. It automatically picks the correct way to update the element based on the input type. <code>@bind</code> is essentially syntax sugar for updating data on user input events.</p> <pre><code class=html><script type="module">
   import reLiftHTML from '//unpkg.com/relift-html';
 
   reLiftHTML({
@@ -445,38 +465,38 @@
       salutation: ''
     }
   })
-&lt;/script&gt;
+</script>
 
-&lt;!-- HTML --&gt;
-&lt;div id=&quot;root&quot;&gt;
-  &lt;div&gt;Hello {this.salutation} {this.name}&lt;/div&gt;
+<!-- HTML -->
+<div id="root">
+  <div>Hello {this.salutation} {this.name}</div>
 
-  &lt;!---- Form ----&gt;
+  <!---- Form ---->
 
-  &lt;form&gt;
-    &lt;div&gt;Enter name: &lt;input type=&quot;text&quot; @bind=&quot;name&quot;&gt;&lt;/div&gt;
-    &lt;div&gt;Salutation: 
-      &lt;input type=&quot;radio&quot; name=&quot;salutation&quot; @bind=&quot;salutation&quot; value=&quot;Mr.&quot;&gt; Mr. -
-      &lt;input type=&quot;radio&quot; name=&quot;salutation&quot; @bind=&quot;salutation&quot; value=&quot;Mrs.&quot;&gt; Mrs. 
-    &lt;/div&gt;
-  &lt;/form&gt;
-&lt;/div&gt;
-</code></pre> <h3 id="example-of-making-async-call">Example of making Async call</h3> <p>The example below illustrate how we can make async call and at the same time setting the state to make it reactive.</p> <pre><code class="html">
-&lt;div id=&quot;root&quot;&gt;
+  <form>
+    <div>Enter name: <input type="text" @bind="name"></div>
+    <div>Salutation: 
+      <input type="radio" name="salutation" @bind="salutation" value="Mr."> Mr. -
+      <input type="radio" name="salutation" @bind="salutation" value="Mrs."> Mrs. 
+    </div>
+  </form>
+</div>
+</code></pre> <h3 id=example-of-making-async-call>Example of making Async call</h3> <p>The example below illustrate how we can make async call and at the same time setting the state to make it reactive.</p> <pre><code class=html>
+<div id="root">
 
-  &lt;div v-if=&quot;this.loadingStatus === 'loading'&quot;&gt;Loading...&lt;/div&gt;
+  <div v-if="this.loadingStatus === 'loading'">Loading...</div>
 
-  &lt;div v-if=&quot;this.loadingStatus === 'done'&quot;&gt;
-    &lt;p&gt;Data loading successfully!&lt;/p&gt;
-    &lt;ul&gt;
-      &lt;li r-for=&quot;item in this.myData&quot;&gt;{item}&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/div&gt;
+  <div v-if="this.loadingStatus === 'done'">
+    <p>Data loading successfully!</p>
+    <ul>
+      <li r-for="item in this.myData">{item}</li>
+    </ul>
+  </div>
 
 
-&lt;/div&gt;
+</div>
 
-&lt;script type=&quot;module&quot;&gt;
+<script type="module">
 
   reLiftHTML({
     el: '#root',
@@ -494,9 +514,9 @@
     }
   })
 
-&lt;/script&gt;
+</script>
 
-</code></pre> <h3 id="shared-state">Shared state</h3> <p>To share state with multiple instances, please refer to the <a href="#shared-state">SHARED STATE</a> section in this guide.</p> </section> <hr>  <section class="doc" data-doc="props.md"> <h2 id="props">Props</h2> <div class="toc"> <ul> <li><a href="#props">Props</a></li> </ul> </div> <p>Props are simply attributes that were passed in the Custom Element. They can be retrived in the methods via <code>this.prop</code> or in the template <code>{this.prop}</code></p> <pre><code class="html">  &lt;script type=&quot;module&quot;&gt;
+</code></pre> <h3 id=shared-state>Shared state</h3> <p>To share state with multiple instances, please refer to the <a href=#shared-state>SHARED STATE</a> section in this guide.</p> </section> <hr> <section class=doc data-doc=props.md> <h2 id=props>Props</h2> <div class=toc> <ul> <li><a href=#props>Props</a></li> </ul> </div> <p>Props are simply attributes that were passed in the Custom Element. They can be retrived in the methods via <code>this.prop</code> or in the template <code>{this.prop}</code></p> <pre><code class=html>  <script type="module">
     const template = `counting: {this.count}`;
 
     reLiftHTML({
@@ -507,27 +527,27 @@
       },
       created() {
         this.data.count = this.prop.start || 0;
-        setInterval(() =&gt; {
+        setInterval(() => {
           this.data.count++;
         }, 1000)
       }
     })
-  &lt;/script&gt;
+  </script>
 
-</code></pre> </section> <hr>  <section class="doc" data-doc="methods.md"> <h2 id="methods">Methods</h2> <div class="toc"> <ul> <li><a href="#methods">Methods</a><ul> <li><a href="#properties">Properties</a></li> <li><a href="#defined-method">Defined Method</a></li> <li><a href="#async-method">Async method</a></li> </ul> </li> </ul> </div> <p>You can define your own methods in the instance. </p> <p>Method can be used to be accessed by other methods via <code>this.$method-name(...args)</code>, or can be used as events methods in the instance of <code>@click="$method-name"</code></p> <h4 id="properties">Properties</h4> <p><p>*All methods have access to the following instance's properties:</p> <p><strong><code>this.el</code></strong>: Is the instance root element. It allows you to safely query, manipulate the instance's DOM elements. ie: <code>this.el.querySelector('ul')</code></p> <p><strong><code>this.data</code></strong>: Gives you access to the reactive data. You can get, set and delete properties. Whenever a data is updated it will trigger re-render (if necessary), ie: <code>console.log(this.data.name)</code></p> <p><strong><code>this.prop</code></strong>: Give you access to the properties that were set as attributes in the custom element. </p> <p><strong><code>...this.defined-methods</code></strong> all of the defined methods, ie: <code>this.my-defined-method()</code></p></p> <h3 id="defined-method">Defined Method</h3> <p>The example below showcases how methods can be used.</p> <pre><code class="js">
-&lt;div id=&quot;root&quot;&gt;
-  &lt;a @click=&quot;sayHello&quot; href=&quot;#&quot;&gt;Say Hello!&lt;/a&gt;
+</code></pre> </section> <hr> <section class=doc data-doc=methods.md> <h2 id=methods>Methods</h2> <div class=toc> <ul> <li><a href=#methods>Methods</a><ul> <li><a href=#properties>Properties</a></li> <li><a href=#defined-method>Defined Method</a></li> <li><a href=#async-method>Async method</a></li> </ul> </li> </ul> </div> <p>You can define your own methods in the instance. </p> <p>Method can be used to be accessed by other methods via <code>this.$method-name(...args)</code>, or can be used as events methods in the instance of <code>@click="$method-name"</code></p> <h4 id=properties>Properties</h4> <p><p>*All methods have access to the following instance's properties:</p> <p><strong><code>this.el</code></strong>: Is the instance root element. It allows you to safely query, manipulate the instance's DOM elements. ie: <code>this.el.querySelector('ul')</code></p> <p><strong><code>this.data</code></strong>: Gives you access to the reactive data. You can get, set and delete properties. Whenever a data is updated it will trigger re-render (if necessary), ie: <code>console.log(this.data.name)</code></p> <p><strong><code>this.prop</code></strong>: Give you access to the properties that were set as attributes in the custom element. </p> <p><strong><code>...this.defined-methods</code></strong> all of the defined methods, ie: <code>this.my-defined-method()</code></p></p> <h3 id=defined-method>Defined Method</h3> <p>The example below showcases how methods can be used.</p> <pre><code class=js>
+<div id="root">
+  <a @click="sayHello" href="#">Say Hello!</a>
 
-  &lt;input 
-    type=&quot;text&quot; 
-    name=&quot;color&quot; 
-    @call=&quot;changeColor&quot; 
-    r-value=&quot;this.defaultColor&quot;
-  &gt; 
+  <input 
+    type="text" 
+    name="color" 
+    @call="changeColor" 
+    r-value="this.defaultColor"
+  > 
 
-&lt;/div&gt;
+</div>
 
-&lt;script type=&quot;module&quot;&gt;
+<script type="module">
 
   reLiftHTML({
     el: '#root',
@@ -550,9 +570,9 @@
 
   })
 
-&lt;/script&gt;
+</script>
 
-</code></pre> <h3 id="async-method">Async method</h3> <p>You can also setup Async methods with the <code>async/await</code>. </p> <pre><code class="js">
+</code></pre> <h3 id=async-method>Async method</h3> <p>You can also setup Async methods with the <code>async/await</code>. </p> <pre><code class=js>
   reLiftHTML({
     el: '#root',
 
@@ -570,27 +590,27 @@
   })
 
 
-</code></pre> </section> <hr>  <section class="doc" data-doc="directives.md"> <h2 id="directives">Directives</h2> <div class="toc"> <ul> <li><a href="#directives">Directives</a><ul> <li><a href="#r-if">r-if</a></li> <li><a href="#r-for">r-for</a><ul> <li><a href="#loop">Loop</a></li> <li><a href="#inner-loop">Inner Loop</a></li> <li><a href="#iterate-over-a-range">Iterate over a range</a></li> </ul> </li> </ul> </li> </ul> </div> <p>Directives are special attribute that start with <code>r-</code> that you place in HTML elements as a normal data attribute, ie: <code>&lt;span r-if="this.x === y"&gt;show&lt;/span&gt;</code>. They serve as shorthands to convert to template literals stuff that could be too challenging to write. </p> <pre><code class="js">  // directive
-  &lt;span r-if=&quot;this.index === 5&quot;&gt;Show me&lt;/span&gt;
+</code></pre> </section> <hr> <section class=doc data-doc=directives.md> <h2 id=directives>Directives</h2> <div class=toc> <ul> <li><a href=#directives>Directives</a><ul> <li><a href=#r-if>r-if</a></li> <li><a href=#r-for>r-for</a><ul> <li><a href=#loop>Loop</a></li> <li><a href=#inner-loop>Inner Loop</a></li> <li><a href=#iterate-over-a-range>Iterate over a range</a></li> </ul> </li> </ul> </li> </ul> </div> <p>Directives are special attribute that start with <code>r-</code> that you place in HTML elements as a normal data attribute, ie: <code><span r-if="this.x === y">show</span></code>. They serve as shorthands to convert to template literals stuff that could be too challenging to write. </p> <pre><code class=js>  // directive
+  <span r-if="this.index === 5">Show me</span>
 
   // The code above will be converted to 
-  ${this.index === 5 ? `&lt;span&gt;Show me&lt;/span&gt;` : ``}
+  ${this.index === 5 ? `<span>Show me</span>` : ``}
 
   // Here's how to iterate over a list of items
-  &lt;ul&gt;
-    &lt;li r-for=&quot;item in this.items&quot;&gt;{item}&lt;/li&gt;
-  &lt;/ul&gt;
+  <ul>
+    <li r-for="item in this.items">{item}</li>
+  </ul>
 
-</code></pre> <p>Values can be of any javascript conditional. Values should not be placed in <code>${...}</code> or <code>{...}</code> inside of the directive. It should be written as normal string. </p> <p><strong>DO THIS</strong>: <code>&lt;span r-if="this.index === 5"&gt;show me&lt;/span&gt;</code></p> <p><strong>DON'T DO</strong>: <code>&lt;span r-if="${this.index === 5}"&gt;show me&lt;/span&gt;</code></p> <h3 id="r-if">r-if</h3> <p><code>r-if</code> can be used to conditionally add or remove the elements.The same way you would write your conditional in javascript. </p> <p><code>r-else</code> can also be used to indicate an "else block" for <code>r-if</code>. The element must immediately follow the <code>r-if</code>, or it will not be recognized.</p> <pre><code>  &lt;div id=&quot;root&quot;&gt;
+</code></pre> <p>Values can be of any javascript conditional. Values should not be placed in <code>${...}</code> or <code>{...}</code> inside of the directive. It should be written as normal string. </p> <p><strong>DO THIS</strong>: <code><span r-if="this.index === 5">show me</span></code></p> <p><strong>DON'T DO</strong>: <code><span r-if="${this.index === 5}">show me</span></code></p> <h3 id=r-if>r-if</h3> <p><code>r-if</code> can be used to conditionally add or remove the elements.The same way you would write your conditional in javascript. </p> <p><code>r-else</code> can also be used to indicate an "else block" for <code>r-if</code>. The element must immediately follow the <code>r-if</code>, or it will not be recognized.</p> <pre><code>  <div id="root">
 
-    &lt;div r-if=&quot;this.count !== 5&quot;&gt;The count is not {this.count}&lt;/div&gt;
+    <div r-if="this.count !== 5">The count is not {this.count}</div>
 
-    &lt;div r-if=&quot;this.isTrue&quot;&gt;Show me&lt;/div&gt;
-    &lt;div r-else&gt; Show me ELSE&lt;/div&gt;
+    <div r-if="this.isTrue">Show me</div>
+    <div r-else> Show me ELSE</div>
 
-  &lt;/div&gt;
+  </div>
 
-  &lt;script type=&quot;module&quot;&gt;
+  <script type="module">
     reLiftHTML({
       el: '#root',
       data: {
@@ -598,15 +618,15 @@
         count: 5
       }
     })
-  &lt;/script&gt;
+  </script>
 
-</code></pre> <hr /> <h3 id="r-for">r-for</h3> <p><code>r-for</code> can be used to iterate over a list of items. Underneath it will turn it into <code>map</code>.</p> <p>The <code>r-for</code> directive requires a special syntax in the form of <code>item in items</code>, where <code>items</code> is the source data Array and <code>item</code> is an alias for the Array element being iterated on.</p> <p>You can also have <code>item, index in items</code>, where <code>index</code> is tracking the number.</p> <h4 id="loop">Loop</h4> <pre><code>  &lt;div id=&quot;root&quot;&gt;
-    &lt;ul&gt;
-      &lt;li r-for=&quot;location in this.locations&quot;&gt;{location.name}&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/div&gt;
+</code></pre> <hr> <h3 id=r-for>r-for</h3> <p><code>r-for</code> can be used to iterate over a list of items. Underneath it will turn it into <code>map</code>.</p> <p>The <code>r-for</code> directive requires a special syntax in the form of <code>item in items</code>, where <code>items</code> is the source data Array and <code>item</code> is an alias for the Array element being iterated on.</p> <p>You can also have <code>item, index in items</code>, where <code>index</code> is tracking the number.</p> <h4 id=loop>Loop</h4> <pre><code>  <div id="root">
+    <ul>
+      <li r-for="location in this.locations">{location.name}</li>
+    </ul>
+  </div>
 
-  &lt;script type=&quot;module&quot;&gt;
+  <script type="module">
 
     reLiftHTML({
       el: '#root',
@@ -624,23 +644,23 @@
         ]
       }
     })
-  &lt;/script&gt;
+  </script>
 
-</code></pre> <h4 id="inner-loop">Inner Loop</h4> <pre><code>  &lt;div id=&quot;root&quot;&gt;
-    &lt;ul&gt;
-      &lt;li r-for=&quot;state in this.states&quot;&gt;
+</code></pre> <h4 id=inner-loop>Inner Loop</h4> <pre><code>  <div id="root">
+    <ul>
+      <li r-for="state in this.states">
         {state.name}
 
-        &lt;ul&gt;
-          &lt;li&gt;Cities&lt;/li&gt;
-          &lt;li r-for=&quot;city in state.cities&quot;&gt;{city}&lt;/li&gt;
-        &lt;/ul&gt;
+        <ul>
+          <li>Cities</li>
+          <li r-for="city in state.cities">{city}</li>
+        </ul>
 
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/div&gt;
+      </li>
+    </ul>
+  </div>
 
-  &lt;script type=&quot;module&quot;&gt;
+  <script type="module">
 
     reLiftHTML({
       el: '#root',
@@ -672,16 +692,16 @@
         ]
       }
     })
-  &lt;/script&gt;
-</code></pre> <h4 id="iterate-over-a-range">Iterate over a range</h4> <pre><code>
-  &lt;div r-for=&quot;i in [...Array(5).keys()]&quot;&gt;I'm {i}&lt;/div&gt;
+  </script>
+</code></pre> <h4 id=iterate-over-a-range>Iterate over a range</h4> <pre><code>
+  <div r-for="i in [...Array(5).keys()]">I'm {i}</div>
 
-</code></pre> </section> <hr>  <section class="doc" data-doc="events.md"> <h2 id="events">Events</h2> <div class="toc"> <ul> <li><a href="#events">Events</a><ul> <li><a href="#passing-values">Passing values</a></li> <li><a href="#call">@call</a></li> <li><a href="#events-name-list">Events Name List</a></li> </ul> </li> </ul> </div> <p>You can add event listener to elements by adding the <code>@</code> + the <code>$event-name</code> as attribute, and assign it the name of the method to bind it to: <code>&lt;a @click="sayHello" href="#"&gt;Say Hello!&lt;/a&gt;</code></p> <p>The $event-name must be the name of the event without <code>on</code>, ie: <code>@click</code> is VALID but <code>@onclick</code> is INVALID.</p> <p>The method must be in the context of the instace that's created.</p> <p>When an event is invoked, the <code>Event</code> object is passed to the method as the first and only argument. The <code>Event</code> object can be used to retrieve data attribute of the element, etc.</p> <pre><code class="html">
-&lt;div id=&quot;root&quot;&gt;
-  &lt;a @click=&quot;sayHello&quot; href=&quot;#&quot;&gt;Say Hello!&lt;/a&gt;
-&lt;/div&gt;
+</code></pre> </section> <hr> <section class=doc data-doc=events.md> <h2 id=events>Events</h2> <div class=toc> <ul> <li><a href=#events>Events</a><ul> <li><a href=#passing-values>Passing values</a></li> <li><a href=#call>@call</a></li> <li><a href=#events-name-list>Events Name List</a></li> </ul> </li> </ul> </div> <p>You can add event listener to elements by adding the <code>@</code> + the <code>$event-name</code> as attribute, and assign it the name of the method to bind it to: <code><a @click="sayHello" href="#">Say Hello!</a></code></p> <p>The $event-name must be the name of the event without <code>on</code>, ie: <code>@click</code> is VALID but <code>@onclick</code> is INVALID.</p> <p>The method must be in the context of the instace that's created.</p> <p>When an event is invoked, the <code>Event</code> object is passed to the method as the first and only argument. The <code>Event</code> object can be used to retrieve data attribute of the element, etc.</p> <pre><code class=html>
+<div id="root">
+  <a @click="sayHello" href="#">Say Hello!</a>
+</div>
 
-&lt;script type=&quot;module&quot;&gt;
+<script type="module">
 
   reLiftHTML({
     el: '#root',
@@ -692,14 +712,14 @@
     }
   })
 
-&lt;/script&gt;
+</script>
 
-</code></pre> <p>When the button is clicked it will 'Hello World' will be displayed on the console.</p> <h3 id="passing-values">Passing values</h3> <p>To pass values from the element to the event, we can use html attribute and retrieve the data from there. We can't pass object directly to the method. It has to be done via data attribute. With the data attribute, we can use it to retrieve some more data from some other sources.</p> <pre><code class="html">
-&lt;div id=&quot;root&quot;&gt;
-  &lt;button @click=&quot;sayHello&quot; data-name=&quot;Mardix&quot;&gt;Say Hello!&lt;/button&gt;
-&lt;/div&gt;
+</code></pre> <p>When the button is clicked it will 'Hello World' will be displayed on the console.</p> <h3 id=passing-values>Passing values</h3> <p>To pass values from the element to the event, we can use html attribute and retrieve the data from there. We can't pass object directly to the method. It has to be done via data attribute. With the data attribute, we can use it to retrieve some more data from some other sources.</p> <pre><code class=html>
+<div id="root">
+  <button @click="sayHello" data-name="Mardix">Say Hello!</button>
+</div>
 
-&lt;script type=&quot;module&quot;&gt;
+<script type="module">
 
   reLiftHTML({
     el: '#root',
@@ -710,16 +730,16 @@
       console.log(`Hello ${name}`)
     }
   })
-&lt;/script&gt;
-</code></pre> <p>Will now show <code>Hello Mardix</code></p> <h3 id="call">@call</h3> <p><code>@call</code> is a shorthand key that will assign the right event based on the element type.</p> <p>By default all <code>@call</code> will result into <code>@click</code>, except for the scenarios below:</p> <p><strong>HTMLAnchorElement</strong></p> <p>AHREF <code>@call</code> =&gt; <code>@click</code></p> <pre><code>&lt;a @call=&quot;something&quot;&gt;x&lt;/a&gt; to
-&lt;a href=&quot;javascript:void(0);&quot; @click=&quot;something&quot;&gt;&lt;/a&gt;
-</code></pre> <p><strong>HTMLInputElement &amp; HTMLTextAreaElement</strong></p> <p>FORMS: Input &amp; Textarea <code>@call</code> =&gt; <code>@input + @paste</code></p> <pre><code>&lt;input type=&quot;text&quot; @call=&quot;something&quot;&gt; to
-&lt;input type=&quot;text&quot; @input=&quot;something&quot; @paste=&quot;something&quot;&gt;
-</code></pre> <p><strong>HTMLSelectElement</strong></p> <p>FORMS: Select <code>@call</code> =&gt; <code>@change</code></p> <pre><code>&lt;select @call=&quot;something&quot;&gt;&lt;options...&gt;&lt;/select&gt;
-&lt;select @change=&quot;something&quot;&gt;&lt;options...&gt;&lt;/select&gt;
-</code></pre> <p><strong>HTMLFormElement</strong></p> <p>FORMS: Form <code>@call</code> =&gt; <code>@submit</code></p> <pre><code>&lt;form @call=&quot;something&quot;&gt;&lt;/form&gt;
-&lt;form @submit=&quot;something&quot;&gt;&lt;/form&gt;
-</code></pre> <h3 id="events-name-list">Events Name List</h3> <p>Here is the list of all the events accepted by reLift-HTML </p> <pre><code>@call
+</script>
+</code></pre> <p>Will now show <code>Hello Mardix</code></p> <h3 id=call>@call</h3> <p><code>@call</code> is a shorthand key that will assign the right event based on the element type.</p> <p>By default all <code>@call</code> will result into <code>@click</code>, except for the scenarios below:</p> <p><strong>HTMLAnchorElement</strong></p> <p>AHREF <code>@call</code> => <code>@click</code></p> <pre><code><a @call="something">x</a> to
+<a href="javascript:void(0);" @click="something"></a>
+</code></pre> <p><strong>HTMLInputElement & HTMLTextAreaElement</strong></p> <p>FORMS: Input & Textarea <code>@call</code> => <code>@input + @paste</code></p> <pre><code><input type="text" @call="something"> to
+<input type="text" @input="something" @paste="something">
+</code></pre> <p><strong>HTMLSelectElement</strong></p> <p>FORMS: Select <code>@call</code> => <code>@change</code></p> <pre><code><select @call="something"><options...></select>
+<select @change="something"><options...></select>
+</code></pre> <p><strong>HTMLFormElement</strong></p> <p>FORMS: Form <code>@call</code> => <code>@submit</code></p> <pre><code><form @call="something"></form>
+<form @submit="something"></form>
+</code></pre> <h3 id=events-name-list>Events Name List</h3> <p>Here is the list of all the events accepted by reLift-HTML </p> <pre><code>@call
 @click
 @submit
 @change
@@ -751,7 +771,7 @@
 @copy
 @paste
 
-</code></pre> </section> <hr>  <section class="doc" data-doc="shared-state.md"> <h2 id="shared-state">Shared State</h2> <div class="toc"> <ul> <li><a href="#shared-state">Shared State</a><ul> <li><a href="#state-manager-interface">State Manager Interface</a></li> <li><a href="#setup">Setup</a></li> <li><a href="#in-methods">In Methods</a></li> <li><a href="#in-template">In Template</a></li> <li><a href="#example-with-restated">Example with reStated</a></li> </ul> </li> </ul> </div> <p>To share state with multiple instances, it's recommended to have a state manager such as <a href="https://github.com/mardix/restated" target="_blank"><strong>*RESTATED</strong></a>, Redux, or look through this <a href="https://www.javascriptstuff.com/state-managers/" target="_blank">List of State Managers</a></p> <h3 id="state-manager-interface">State Manager Interface</h3> <p>For the to be hooked in reLift-HTML, it must have the following methods:</p> <p><strong><code>getState()</code></strong> : To return the full state of the store.</p> <p><strong><code>subscribe(callback:function)</code></strong>: A subscription method that will execute each the state is updated.</p> <p>If the state manager doesn't provide these methods by default, you can extend it yourself. </p> <pre><code class="js">  const myStateManager = new somethingSomething()
+</code></pre> </section> <hr> <section class=doc data-doc=shared-state.md> <h2 id=shared-state>Shared State</h2> <div class=toc> <ul> <li><a href=#shared-state>Shared State</a><ul> <li><a href=#state-manager-interface>State Manager Interface</a></li> <li><a href=#setup>Setup</a></li> <li><a href=#in-methods>In Methods</a></li> <li><a href=#in-template>In Template</a></li> <li><a href=#example-with-restated>Example with reStated</a></li> </ul> </li> </ul> </div> <p>To share state with multiple instances, it's recommended to have a state manager such as <a href=https://github.com/mardix/restated target=_blank><strong>*RESTATED</strong></a>, Redux, or look through this <a href=https://www.javascriptstuff.com/state-managers/ target=_blank>List of State Managers</a></p> <h3 id=state-manager-interface>State Manager Interface</h3> <p>For the to be hooked in reLift-HTML, it must have the following methods:</p> <p><strong><code>getState()</code></strong> : To return the full state of the store.</p> <p><strong><code>subscribe(callback:function)</code></strong>: A subscription method that will execute each the state is updated.</p> <p>If the state manager doesn't provide these methods by default, you can extend it yourself. </p> <pre><code class=js>  const myStateManager = new somethingSomething()
 
   // Now the store contains getState() and subscribe(callback)
   const store = {
@@ -764,14 +784,14 @@
     ...myStateManager
   }
 
-</code></pre> <h3 id="setup">Setup</h3> <pre><code class="js">
+</code></pre> <h3 id=setup>Setup</h3> <pre><code class=js>
 reLiftHTML({
   el: '#root',
   data: {},
   $store: STORE_INSTANCE
 })
 
-</code></pre> <h3 id="in-methods">In Methods</h3> <p>The store is exposed in the methods by <code>this.$store</code>, which is the object that was passed. Therefor you can access anything from it.</p> <pre><code class="js">
+</code></pre> <h3 id=in-methods>In Methods</h3> <p>The store is exposed in the methods by <code>this.$store</code>, which is the object that was passed. Therefor you can access anything from it.</p> <pre><code class=js>
 reLiftHTML({
   el: '#root',
   data: {},
@@ -781,18 +801,18 @@ reLiftHTML({
   }
 })
 
-</code></pre> <h3 id="in-template">In Template</h3> <p>To access properties from the store, <code>this.$store</code> is exposed and contain the values from <code>$store.getState()</code>. </p> <pre><code>  &lt;div id=&quot;root&quot;&gt;
+</code></pre> <h3 id=in-template>In Template</h3> <p>To access properties from the store, <code>this.$store</code> is exposed and contain the values from <code>$store.getState()</code>. </p> <pre><code>  <div id="root">
     {this.$store.fullName}
-  &lt;/div&gt;
-</code></pre> <h3 id="example-with-restated">Example with <strong>reStated</strong></h3> <hr /> <p><strong>reStated</strong></p> <p>An ambitiously tiny flux-like library to manage your state.</p> <p>Inspired by Redux and Vuex, <strong>reStated</strong> removes the boilerplate and keep it simple and flat. </p> <p>Unlike Redux, you don't need to return a new immutable object. You can mutate the state in place, and you definitely don't need to define a reducer. The action mutator is both your action and your reducer "at the same damn time" (Future's song)</p> <p>Unlike Vuex, you don't need to have actions and mutations. You can only mutate the state via your actions mutators which are just function that pass as first argument the current state to be mutated.</p> <p>Learn more about <a href="https://github.com/mardix/restated" target="_blank"><strong>RESTATED</strong></a></p> <hr /> <p>This is how we can use shared state with reStated.</p> <pre><code class="html">
-&lt;script type=&quot;module&quot;&gt;
+  </div>
+</code></pre> <h3 id=example-with-restated>Example with <strong>reStated</strong></h3> <hr> <p><strong>reStated</strong></p> <p>An ambitiously tiny flux-like library to manage your state.</p> <p>Inspired by Redux and Vuex, <strong>reStated</strong> removes the boilerplate and keep it simple and flat. </p> <p>Unlike Redux, you don't need to return a new immutable object. You can mutate the state in place, and you definitely don't need to define a reducer. The action mutator is both your action and your reducer "at the same damn time" (Future's song)</p> <p>Unlike Vuex, you don't need to have actions and mutations. You can only mutate the state via your actions mutators which are just function that pass as first argument the current state to be mutated.</p> <p>Learn more about <a href=https://github.com/mardix/restated target=_blank><strong>RESTATED</strong></a></p> <hr> <p>This is how we can use shared state with reStated.</p> <pre><code class=html>
+<script type="module">
   import reLiftHTML from '//unpkg.com/relift-html';
   import reStated from '//unpkg.com/restated-lib';
 
   const store = reStated({
       name: '',
       lastName: '',
-      fullName(state) =&gt; `${state.name} ${state.lastName}`,
+      fullName(state) => `${state.name} ${state.lastName}`,
       accountDetails: []
     }, {
       changeName(state, name) {
@@ -829,19 +849,19 @@ reLiftHTML({
     data: {},
     $store: store
   })
-&lt;/script&gt;
+</script>
 
 
-&lt;div id=&quot;rootA&quot;&gt;
+<div id="rootA">
   Hello {this.$store.fullName}!
 
-  &lt;button @call=&quot;loadAccount&quot;&gt;Load Account&lt;/button&gt;
-&lt;/div&gt;
+  <button @call="loadAccount">Load Account</button>
+</div>
 
-&lt;div id=&quot;rootB&quot;&gt;
-  &lt;ul&gt;
-    &lt;li r-for=&quot;item in this.$store.accountDetails&quot;&gt;{accountName}&lt;/li&gt;
-  &lt;/ul&gt;
-&lt;/div&gt;
+<div id="rootB">
+  <ul>
+    <li r-for="item in this.$store.accountDetails">{accountName}</li>
+  </ul>
+</div>
 
-</code></pre> </section> <hr>  </div> </div> </div> </div>    <link rel="stylesheet" href="https://relift-html.js.org/static/vendor/highlight/styles/nord.css" type="text/css" >     <script type='text/javascript' src="https://relift-html.js.org/static/vendor/highlight/highlight.pack.js"></script>     <script type='text/javascript' src="https://relift-html.js.org/static/main.js"></script>     <script type="module" src="https://relift-html.js.org/static/pages_assets__/guide-index-html_7233665b624947128ee9a7f8dffc250f.js"></script>   <div class="wrapper"> <hr /> <footer class="footer"> <section class="container"> &copy; 2019 reLift-HTML - License: MIT - <a target="_blank" href="https://github.com/mardix/relift-html">Github</a> - <a target="_blank" href="https://github.com/mardix/">Mardix</a> - Thanks to <a target="_blank" href="https://milligram.io/">Milligram CSS</a> </section> </footer> <hr /> </div> 
+</code></pre> </section> <hr> </div> </div> </div> </div> <div class=wrapper> <hr> <footer class=footer> <section class=container> © reLift-HTML - License: MIT - <a target=_blank href=https://github.com/mardix/relift-html>Github</a> - <a target=_blank href=https://github.com/mardix/>Mardix</a> - Thanks to <a target=_blank href=https://milligram.io/>Milligram CSS</a> - Last build: 06/05/2019 12:50 am </section> </footer> <hr> </div> <script type=text/javascript src=https://relift-html.js.org/static/vendor/highlight/highlight.pack.js></script> <script type=text/javascript src=https://relift-html.js.org/static/main.js></script> <script type=module src=https://relift-html.js.org/static/pages_assets__/guide-html_722b49d781184aed90e7faa1e0e54851.js></script> </body> </html> 
