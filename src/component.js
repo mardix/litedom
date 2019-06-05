@@ -4,7 +4,18 @@
 import emerj from './emerj.js';
 import { tokenizeEvents, bindEvents } from './events.js';
 import { parseDirectives } from './directives.js';
-import { computeState, isFn, parseLit, htmlToDom, getAttrs, objectOnChange, set, get, toStrLit } from './utils.js';
+import {
+  computeState,
+  isFn,
+  parseLit,
+  htmlToDom,
+  getAttrs,
+  objectOnChange,
+  set,
+  get,
+  toStrLit,
+  decodeHTMLStringForDirective,
+} from './utils.js';
 
 const RESERVED_KEYS = [
   'data',
@@ -74,7 +85,7 @@ const domConnector = template => {
   const node = htmlToDom(toStrLit(template));
   parseDirectives(node);
   tokenizeEvents(node);
-  const html = node.innerHTML;
+  const html = decodeHTMLStringForDirective(node.innerHTML);
   const lit = parseLit(html);
   return {
     html,

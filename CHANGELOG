@@ -1,3 +1,7 @@
+- 0.10.2
+  - fixed reported issue when using < + >, it changes it into html entities, &lt; &gt;
+    ie 'this.count > 5' should not be 'this.count &gt; 5'. Fixed.
+
 - 0.10.1
   - Fixed rollup bundling error that was redeclaring variable
   

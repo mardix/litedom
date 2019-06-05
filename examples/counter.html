@@ -19,6 +19,8 @@
           <div id="counter" class="column center">
             <div><h4>{this.count}</h4></div>
             <div>
+                ${ (this.count >= 7) ? `More than 7` : `` }
+              <div r-if="this.count > 5">greater than 5</div>
               <button @click="down" class="button-outline">DOWN</button>
               <button @click="up" class="button-outline">UP</button>
             </div>
@@ -26,7 +28,6 @@
         </div>
         
         <div>
-          <my-counter></my-counter>
           <my-counter></my-counter>
         </div>
       </div>

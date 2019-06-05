@@ -1,7 +1,7 @@
 {
   "name": "relift-html",
   "pkgName": "reLift-HTML",
-  "version": "0.10.1",
+  "version": "0.10.2",
   "author": "Mardix",
   "license": "MIT",
   "description": "A blazing fast view library that lets  you put Javascript Template Literals in HTML",

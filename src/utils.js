@@ -1,31 +1,29 @@
 // reLift-HTML
 // @ts-check
 
-
 /**
  * Set a value in an object via dot notation
- * @param {object} obj 
- * @param {string} path 
- * @param {any} value 
+ * @param {object} obj
+ * @param {string} path
+ * @param {any} value
  * @returns {void}
  */
 export const set = (obj, path, value) => {
   let ref = obj;
   const keys = path.split('.');
   while (keys.length) {
-      const key = keys.shift();
-      ref[key] = keys.length ? (ref[key]  ? ref[key] : {}) : value;
-      ref = ref[key];
+    const key = keys.shift();
+    ref[key] = keys.length ? (ref[key] ? ref[key] : {}) : value;
+    ref = ref[key];
   }
-}
+};
 /**
  * Get a value in an object via dot notation
- * @param {object} obj 
- * @param {string} path 
+ * @param {object} obj
+ * @param {string} path
  * @returns {any}
  */
 export const get = (obj, path) => path.split('.').reduce((acc, part) => acc && acc[part], obj);
-
 
 /**
  * isFn isFunction
@@ -36,19 +34,18 @@ export const get = (obj, path) => path.split('.').reduce((acc, part) => acc && a
 export const isFn = (obj, key) => obj && typeof obj[key] === 'function';
 
 /**
- * Return a HTMLElement 
- * @param {any} el 
+ * Return a HTMLElement
+ * @param {any} el
  * @returns {HTMLElement}
  */
-export const selector = (el) => typeof el === 'string' ? document.querySelector(el) : el;
-
+export const selector = el => (typeof el === 'string' ? document.querySelector(el) : el);
 
 /**
  * Turn an HTML string into HTMLElement
- * @param {string} html 
+ * @param {string} html
  * @returns {HTMLElement}
  */
-export const htmlToDom = html => new DOMParser().parseFromString(html, 'text/html').body;//.firstChild;
+export const htmlToDom = html => new DOMParser().parseFromString(html, 'text/html').body; //.firstChild;
 
 /**
  * Get a string and turn it into template literal
@@ -63,49 +60,62 @@ export const parseLit = tpl => state => new Function(`return \`${tpl}\``).call(s
 /**
  * Convert a string that contains {...} to ${...}
  * @param {string} str
- * @returns {string} 
+ * @returns {string}
  */
 export const toStrLit = str => str.replace(/\$?\{([^\;\{]+)\}/g, (_, expression) => `\${${expression}}`);
 
-
 /**
  * Create a function that receive data to create computed state
- * @param {string} key 
- * @param {function} fn 
+ * @param {string} key
+ * @param {function} fn
  * myCs = computeState(('fullName', (state) => return state.name) => )
  * myCs({name: 'Mardix'})
  * myCs.fullName -> Mardix
  */
-export const computeState = (key, fn) => state => state[key] = fn({...state})
+export const computeState = (key, fn) => state => (state[key] = fn({ ...state }));
 
 /**
- * 
- * @param {function} callback 
- * @param {number} time 
- * @param {any} interval 
+ *
+ * @param {function} callback
+ * @param {number} time
+ * @param {any} interval
  * @returns {any}
  */
-export const debounce = (callback, time = 250, interval) => (...args) => clearTimeout(interval, interval = setTimeout(callback, time, ...args));
+export const debounce = (callback, time = 250, interval) => (...args) =>
+  clearTimeout(interval, (interval = setTimeout(callback, time, ...args)));
 
+/**
+ * To decode html string for directive
+ * change &lt; + &gt;  to < + > respectively
+ * @param {string} str
+ * @returns {string}
+ */
+export const decodeHTMLStringForDirective = str => str.replace(/&lt;/g, '<').replace(/&gt;/g, '>');
 /**
  * Returns all attributes into an object
  * @param {HTMLElement} el
- * @returns {object} 
+ * @returns {object}
  */
-export const getAttrs = (el) => Object.freeze(Array.from(el.attributes)
-  .map(e => ({[e.name]: e.value}))
-  .reduce((pV, cK) => ({...pV, ...cK}) , {}));
-
+export const getAttrs = el =>
+  Object.freeze(
+    Array.from(el.attributes)
+      .map(e => ({ [e.name]: e.value }))
+      .reduce((pV, cK) => ({ ...pV, ...cK }), {})
+  );
 
 const proxyTarget = '___target___';
 const isPrimitive = value => value === null || !['function', 'object'].includes(typeof value);
 
 /**
  * Generate random chars. Mainly to use in webcomponent without name
- * @param {number} l the length 
+ * @param {number} l the length
  * @return {string}
  */
-export const randomChars = (l=7) => Math.random().toString(36).substr(2, l).toLowerCase();
+export const randomChars = (l = 7) =>
+  Math.random()
+    .toString(36)
+    .substr(2, l)
+    .toLowerCase();
 
 /**
  * objectOnChange
@@ -186,5 +196,3 @@ export const objectOnChange = (object, onChange) => {
   const proxy = new Proxy(object, handler);
   return proxy;
 };
-
-
