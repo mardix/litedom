@@ -10,8 +10,8 @@
   "scripts": {
     "size": "gzip-size ./dist/relift-html.esm.js",
     "check-js": "tsc --allowJs --checkJs --noEmit --target ES6 src/*.js",
-    "publish-docs-0": "cd ./docs && mambo build && cp ./static/CNAME ./build",
-    "publish-docs": "npm run publish-docs-0 && gh-pages -d build",
+    "publish-docs-0": "cd ./docs && mambo build && cp ./static/CNAME ./.build",
+    "publish-docs": "npm run publish-docs-0 && cd ./docs && gh-pages -d .build",
     "test": "jest ./test/",
     "test-0": "jest --verbose ./test/",
     "bundle-0": "npm run bundle && npm run size",

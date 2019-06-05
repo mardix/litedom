@@ -65,7 +65,7 @@ build:
   # env: The site_env to build. Leave blank to have the option in the command line
   env: prod
   generate_sitemap: True
-  minify_html: True 
+  minify_html: False 
 
 # ------------------------------------------------------------------------------
 # Global settings
