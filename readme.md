@@ -7,7 +7,7 @@
 
 **Full Documentation**: https://relift-html.js.org/ 
 
-Discord/Chat: https://discord.gg/uaRFsT 
+Discord/Chat: https://discord.gg/r3HqNYy
 
 ---
 
