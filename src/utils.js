@@ -12,6 +12,21 @@
 export const kebabCase = s => s.replace(/([a-zA-Z])(?=[A-Z])/g, '$1-').toLowerCase();
 
 /**
+ * Turn an object into a stylemap to be used in inline css
+ * {
+ *  "font-size": "12px",
+ *  backgroundColor: 'purple',
+ *  margin: '0 0 !important'
+ * } => font-size: 12px; background-color: purple; margin: 0 0 !important
+ * @param {object} o
+ * @returns {string}
+ */
+export const styleMap = o =>
+  Object.keys(o)
+    .map(k => `${kebabCase(k)}: ${o[k]};`)
+    .join(' ');
+
+/**
  * Set a value in an object via dot notation
  * @param {object} obj
  * @param {string} path

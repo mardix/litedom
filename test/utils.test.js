@@ -1,4 +1,15 @@
-import { isFn, htmlToDom, parseLit, computeState, set, get, toStrLit, randomChars, kebabCase } from '../src/utils.js';
+import {
+  isFn,
+  htmlToDom,
+  parseLit,
+  computeState,
+  set,
+  get,
+  toStrLit,
+  randomChars,
+  kebabCase,
+  styleMap,
+} from '../src/utils.js';
 
 describe('isFn', () => {
   test('is a function', () => {
@@ -221,5 +232,23 @@ describe('kebabCase', () => {
 
   test('HelloABCWorld', () => {
     expect(kebabCase('HelloABCWorld')).toBe('hello-a-b-c-world');
+  });
+});
+
+describe('styleMap', () => {
+  test('stylemap', () => {
+    const s = {
+      color: 'blue',
+      topLine: 'yellow',
+      'bottom-dash': 'red',
+      'font-size': '12px',
+      backgroundColor: 'purple',
+      textSize: '2em',
+      margin: '0 20 40 30 !important',
+    };
+
+    expect(styleMap(s)).toBe(
+      'color: blue; top-line: yellow; bottom-dash: red; font-size: 12px; background-color: purple; text-size: 2em; margin: 0 20 40 30 !important;'
+    );
   });
 });
