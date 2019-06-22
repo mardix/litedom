@@ -1,0 +1,7 @@
+2019-06-21 22:57:15,501 ERROR mambo.cli '__info__' is undefined
+2019-06-21 22:58:52,236 INFO livereload Serving on http://127.0.0.1:8000
+2019-06-21 22:58:52,239 INFO livereload Start watching changes
+2019-06-21 22:58:52,240 INFO livereload Start detecting changes
+2019-06-21 22:58:54,230 INFO livereload Browser Connected: http://127.0.0.1:8000/
+2019-06-21 22:59:20,845 INFO livereload Browser Connected: http://127.0.0.1:8000/guide/
+2019-06-22 01:56:20,598 INFO livereload Shutting down...

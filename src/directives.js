@@ -4,9 +4,9 @@
 
 /** @type {object} */
 const DIRECTIVES_LIST = {
-  $for: r_for,
-  $if: r_if,
-  //$class: r_class,
+  $for: _for,
+  $if: _if,
+  $class: _class,
 };
 
 /**
@@ -29,12 +29,12 @@ export function parseDirectives(el, customDirectives = {}) {
   return el;
 }
 
-const md = dir => `r-${dir}`;
+const md = dir => `:${dir}`;
 const has_d = (el, dir) => el.hasAttribute(md(dir));
 const get_d = (el, dir) => el.getAttribute(md(dir));
 const rm_d = (el, dir) => el.removeAttribute(md(dir));
-const q_d = (el, dir) => el.querySelector(`[${md(dir)}]`);
-const qall_d = (el, dir) => el.querySelectorAll(`[${md(dir)}]`);
+const q_d = (el, dir) => el.querySelector(`[\\${md(dir)}]`);
+const qall_d = (el, dir) => el.querySelectorAll(`[\\${md(dir)}]`);
 const beforeText = (el, text) => el.insertAdjacentText('beforebegin', text);
 const afterText = (el, text) => el.insertAdjacentText('afterend', text);
 const wrapAround = (el, before, after) => {
@@ -43,13 +43,13 @@ const wrapAround = (el, before, after) => {
 };
 
 /**
- * r-if directive
+ * :if directive
  * @param {HTMLElement} el
  * @param {string} value
  * @param {string} directive
  * @returns {void}
  */
-function r_if(el, value, directive) {
+function _if(el, value, directive) {
   rm_d(el, directive);
   beforeText(el, `\${${value} ? `);
   const rElse = el.nextElementSibling;
@@ -63,14 +63,14 @@ function r_if(el, value, directive) {
 }
 
 /**
- * r-for director
+ * :for director
  * @todo: add for else => r-else for for, it's an if condition that test the length,
  * @param {HTMLElement} el
  * @param {string} value
  * @param {string} directive
  * @returns {void}
  */
-function r_for(el, value, directive) {
+function _for(el, value, directive) {
   const groups = /(.*)\s+(in)\s+(.*)$/.exec(value);
   if (groups.length === 4) {
     const sel = groups[1].replace('(', '').replace(')', '');
@@ -81,7 +81,7 @@ function r_for(el, value, directive) {
 }
 
 /**
- * r-class directive
+ * :class directive
  * <div r-class="clsName:condition; clsName2: condition2"></div>
  * <div r-class="hide: this.item > 5; show-my-ownclass: x === y"></div>
  * @param {HTMLElement} el
@@ -89,7 +89,7 @@ function r_for(el, value, directive) {
  * @param {string} directive
  * @returns {void}
  */
-function r_class(el, value, directive) {
+function _class(el, value, directive) {
   const klass = value
     .split(';')
     .map(v => v.split(':', 2).map(e => e.trim()))

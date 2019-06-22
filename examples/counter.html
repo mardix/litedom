@@ -9,6 +9,15 @@
 </head>
 
 <body>
+  <style>
+    .blue {
+      color: blue;
+      font-weight: bold;
+    }
+    .purple {
+      color: orange;
+    }
+  </style>
     <div class="container">
         <div class="row">
           <div class="column center">
@@ -20,10 +29,15 @@
             <div><h4>{this.count}</h4></div>
             <div>
                 ${ (this.count >= 7) ? `More than 7` : `` }
-              <div r-if="this.count > 5">greater than 5</div>
+              <div :if="this.count > 5">greater than 5</div>
               <button @click="down" class="button-outline">DOWN</button>
               <button @click="up" class="button-outline">UP</button>
             </div>
+
+            <div :class="blue:this.count % 2 === 0; purple: this.count % 2 !== 0">Text</div>
+            <ul>
+              <li :for="color in this.colors">{color}</li>
+            </ul>
           </div>
         </div>
         
@@ -42,7 +56,8 @@
         asTemplate: true,
         isShadow: false,
         data: {
-          count: 0
+          count: 0,
+          colors: ['blue', 'red', 'white']
         },
         up() {
           this.data.count++;
