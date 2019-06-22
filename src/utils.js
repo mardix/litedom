@@ -2,6 +2,16 @@
 // @ts-check
 
 /**
+ * Turn camelCase to kebab-case
+ * kebabCase('userId') => "user-id"
+ * kebabCase('waitAMoment') => "wait-a-moment"
+ * kebabCase('TurboPascal') => "turbo-pascal"
+ * @param {string} s
+ * @returns {string}
+ */
+export const kebabCase = s => s.replace(/([a-zA-Z])(?=[A-Z])/g, '$1-').toLowerCase();
+
+/**
  * Set a value in an object via dot notation
  * @param {object} obj
  * @param {string} path
