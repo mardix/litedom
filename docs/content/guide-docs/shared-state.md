@@ -150,7 +150,7 @@ This is how we can use shared state with reStated.
 
 <div id="rootB">
   <ul>
-    <li r-for="item in this.$store.accountDetails">{accountName}</li>
+    <li $for="item in this.$store.accountDetails">{accountName}</li>
   </ul>
 </div>
 

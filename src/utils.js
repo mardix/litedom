@@ -12,6 +12,17 @@
 export const kebabCase = s => s.replace(/([a-zA-Z])(?=[A-Z])/g, '$1-').toLowerCase();
 
 /**
+ * Convert string to camelCase
+ * user-id => userId
+ * wait-a-moment => waitAMoment
+ * wait a moment => waitAMoment
+ * wait_a_moment => waitAMoment
+ * @param {string} s
+ * @returns {string}
+ */
+export const camelCase = s => s.replace(/[-_\s+]([a-z])/g, g => g[1].toUpperCase());
+
+/**
  * Turn an object into a stylemap to be used in inline css
  * {
  *  "font-size": "12px",
@@ -57,6 +68,13 @@ export const get = (obj, path) => path.split('.').reduce((acc, part) => acc && a
  * @returns {boolean}
  */
 export const isFn = (obj, key) => obj && typeof obj[key] === 'function';
+
+/**
+ * check if an object is HTMLElement
+ * @param {any} obj
+ * @returns
+ */
+export const isElement = obj => obj instanceof HTMLElement;
 
 /**
  * Return a HTMLElement
@@ -116,15 +134,17 @@ export const debounce = (callback, time = 250, interval) => (...args) =>
  * @returns {string}
  */
 export const decodeHTMLStringForDirective = str => str.replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+
 /**
  * Returns all attributes into an object
  * @param {HTMLElement} el
+ * @param {boolean} camelCaseIt
  * @returns {object}
  */
-export const getAttrs = el =>
+export const getAttrs = (el, camelCaseIt = false) =>
   Object.freeze(
     Array.from(el.attributes)
-      .map(e => ({ [e.name]: e.value }))
+      .map(e => ({ [camelCaseIt ? camelCase(e.name) : e.name]: e.value }))
       .reduce((pV, cK) => ({ ...pV, ...cK }), {})
   );
 
@@ -221,3 +241,23 @@ export const objectOnChange = (object, onChange) => {
   const proxy = new Proxy(object, handler);
   return proxy;
 };
+
+function deepCopy(obj) {
+  if (obj === null || typeof obj !== 'object') return obj;
+  var temp = obj.constructor();
+  for (const key in obj) {
+    if (Object.prototype.hasOwnProperty.call(obj, key)) temp[key] = immu(obj[key]);
+  }
+  return temp;
+}
+
+function deepFreeze(obj) {
+  if (obj === null || typeof obj !== 'object') return obj;
+  Object.keys(obj).forEach(function(name) {
+    const prop = obj[name];
+    if (prop !== null && typeof prop === 'object') deepFreeze(prop);
+  });
+  return Object.freeze(obj);
+}
+
+export const immu = obj => deepFreeze(deepCopy(obj));

@@ -21,43 +21,62 @@ const genRandomCustomElementTagName = () => `relift-ce-${randomChars()}`;
  */
 function reLift(options) {
   const opt = {
-    /** @type {HTMLElement | string} a string or a html for query selector. Place holder of the component when inline */
+    /**
+     * el
+     * @type {HTMLElement | string}
+     * The target element for inplace element where it will be displayed at.
+     * If $template is null, it will use the el#innerHTML as template.
+     * To select in-place element, provide $refId which can be retrieved using
+     * document.querySelector('[ref-id="the-refId-provided"]')
+     * */
     el: null,
-    /** @type {boolean} when true it will use the el.innerHTML as the template */
-    asTemplate: false,
-    /** @type {string} */
-    tagName: null,
-    /** @type {boolean|null} */
-    isShadow: null,
-    /** @type {string} the template string to use to create the component */
+    /**
+     * refId
+     * @type {string | null}
+     * A unique identifier to allow us to select the in-place element.
+     * Only when using $el for in-place element. Custom element won't have it
+     * To select in-place element, provide $refId which can be retrieve using
+     * document.querySelector('[ref-id="the-refId-provided"]')
+     *  */
+    refId: null,
+    /**
+     * template
+     * @type {string}
+     * the template if the template string to use to create the component.
+     * If it exists along with $el, $el will be the target, but use $template as template
+     * This take precedence over $el#innerHTML */
     template: null,
+    /**
+     * tagName
+     * @type {string}
+     * The tagname leave as null for in-place element.
+     * A string for custom element */
+    tagName: null,
+    /**
+     * shadowDOM
+     * @type {boolean}
+     * To indicate this element is self-contained as shadow dom */
+    shadowDOM: false,
     ...options,
   };
   let el = null;
 
-  /**
-   * Create the template string
-   */
-
-  opt.isShadow = opt.isShadow === null ? opt.asTemplate : opt.isShadow;
+  const hasTagName = !!opt.tagName;
+  opt.tagName = opt.tagName || genRandomCustomElementTagName();
 
   if (opt.el) {
     el = selector(opt.el);
     el.style.display = 'block';
-    opt.tagName = opt.tagName || (opt.asTemplate ? el.getAttribute('tag-name') : genRandomCustomElementTagName());
-    if (!opt.template) {
-      opt.template = opt.asTemplate ? el.innerHTML : el.outerHTML;
-    }
-    if (opt.asTemplate) {
-      el.innerHTML = '';
-    } else {
-      el.parentNode.replaceChild(document.createElement(opt.tagName), el);
+    if (!opt.template) opt.template = el.innerHTML;
+    el.innerHTML = '';
+    if (!hasTagName) {
+      const tagEl = document.createElement(opt.tagName);
+      if (opt.refId) tagEl.setAttribute('ref-id', opt.refId);
+      el.parentNode.replaceChild(tagEl, el);
     }
   }
-  opt.tagName = opt.tagName || genRandomCustomElementTagName();
 
   if (!opt.template) throw error(`missing 'template' option or 'el' are not valid elements`);
-  if (!opt.tagName) throw error(`missing 'tagName'`);
   Component(opt);
 }
 

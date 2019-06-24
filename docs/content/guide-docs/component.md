@@ -2,11 +2,11 @@
 
 [TOC]
 
-**reLift-HTML** turns your application into smaller composable fully compliant **Web Component** (Custom Element + Shadow DOM), which can be used as  embeddable elements or Custom Elements with Custom Tags to be reused.
+**reLift-HTML** turns your application into smaller composable fully compliant **Web Component** (Custom Element + Shadow DOM), which can be used as  In-Place elements or Custom Elements with Custom Tags to be reused.
 
-### Embeddable Elements
+### In-Place Elements
 
-*Embeddable Elements* is set in place by using the current DOM element section to turn it into reactive. An emebeddable element is not intended to be reused. It also requires the `el` to be set.
+*In-Place Elements* is set in place by using the current DOM element section to turn it into reactive. An emebeddable element is not intended to be reused. It also requires the `el` to be set, and `tagName` to be omitted. 
 
 ```html
 
@@ -31,7 +31,7 @@
 
 *Custom Element* is set using a Custom Tag, which can be reused in multiple places. And also, as Custom Element, it allows you to place your component in an external JS file.
 
-Unlike embeddable element, Custom Element requires a `tagName` and a `template` to
+Unlike In-Place element, Custom Element requires a `tagName` and a `template` to
 
 
 ```html
@@ -115,7 +115,7 @@ reLiftHTML({
 
 #### **`el`**:
 [*string|HTMLElement*] 
-To be used mainly when creating Embeddable Elements. 
+To be used mainly when creating In-Place Elements. 
 
 This is where the view instance will be created and rendered. By default, it will use the innerHTML of the element as `template`.
 This can be html selector , ie `#someId`, `[some-data-attribute]`. Or a query selector `document.querySelector('#myId')`. 
@@ -151,9 +151,9 @@ A string/text for the body of the element. It contains all the markup to be disp
 [*boolean:false*]
 To be used along with `el`, when set to `true` it will turn the component into the Custom Tag to be used.
 
-#### **`isShadow`**:
+#### **`shadowDOM`**:
 [*boolean:false*]
-By default elements are created as normal Custom Element. To set the web component as Shadow Dom, set `isShadow` to `true`.
+By default elements are created as normal Custom Element. To set the web component as Shadow Dom, set `shadowDOM` to `true`.
 
 
 #### **`$store`**: 

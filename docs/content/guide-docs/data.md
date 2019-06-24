@@ -196,12 +196,12 @@ The example below illustrate how we can make async call and at the same time set
 
 <div id="root">
   
-  <div v-if="this.loadingStatus === 'loading'">Loading...</div>
+  <div $if="this.loadingStatus === 'loading'">Loading...</div>
 
-  <div v-if="this.loadingStatus === 'done'">
+  <div $if="this.loadingStatus === 'done'">
     <p>Data loading successfully!</p>
     <ul>
-      <li r-for="item in this.myData">{item}</li>
+      <li $for="item in this.myData">{item}</li>
     </ul>
   </div>
 

@@ -24,7 +24,7 @@ The example below showcases how methods can be used.
     type="text" 
     name="color" 
     @call="changeColor" 
-    r-value="this.defaultColor"
+    $value="this.defaultColor"
   > 
 
 </div>

@@ -1,10 +1,23 @@
 
 - 0.11.0
-  - change r-* to :*, ie: r-for = :for, kinda similar to vuejs
-  - Added :class
-    <div :class="clsName:condition; clsName2: condition2"></div>
-    <div :class="hide: this.item > 5; show-my-ownclass: x === y"></div>
-
+    - rename reliftHTML to Vuelite
+    - change r-* to :*, ie: r-for = :for, kinda similar to vuejs
+    - Added :class
+        <div :class="clsName:condition; clsName2: condition2"></div>
+        <div :class="hide: this.item > 5; show-my-ownclass: x === y"></div>
+    - changed options: 
+        - if template is provided, it will take precedence over el.innerHTML
+        - if tagName provided, it will make it automatically Custom Element 
+        - if template is not provided, el.innerHTML will be used
+        - rename isShadow to shadowDOM
+        - added refId: when doing in place element, it will allow to id the element
+        - removed asTemplate
+    - Add el#.data on the component to expose data
+        <my-counter id=""></my-counter>
+        document.querySelector('#id').data ;
+    - Methods are public now in the element when doing document.querySelector('element-something'). 
+        To make a method private prefix it with _ underscore.
+    - 
 - 0.10.2
   - fixed reported issue when using < + >, it changes it into html entities, &lt; &gt;
     ie 'this.count > 5' should not be 'this.count &gt; 5'. Fixed.

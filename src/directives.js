@@ -7,6 +7,7 @@ const DIRECTIVES_LIST = {
   $for: _for,
   $if: _if,
   $class: _class,
+  $style: _style,
 };
 
 /**
@@ -29,7 +30,7 @@ export function parseDirectives(el, customDirectives = {}) {
   return el;
 }
 
-const md = dir => `:${dir}`;
+const md = dir => `\:${dir}`;
 const has_d = (el, dir) => el.hasAttribute(md(dir));
 const get_d = (el, dir) => el.getAttribute(md(dir));
 const rm_d = (el, dir) => el.removeAttribute(md(dir));
@@ -98,4 +99,8 @@ function _class(el, value, directive) {
   const classList = el.getAttribute('class') || '' + ` ${klass}`;
   el.setAttribute('class', classList);
   rm_d(el, directive);
+}
+
+function _style(el, value, directive) {
+  `function(value){ return this.___$globals.styleMap(key)}.bind(this)`;
 }

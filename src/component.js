@@ -14,19 +14,20 @@ import {
   set,
   get,
   toStrLit,
+  styleMap,
+  immu,
   decodeHTMLStringForDirective,
 } from './utils.js';
 
 const RESERVED_KEYS = [
   'data',
   'el',
-  'isShadow',
+  'shadowDOM',
   'template',
   'created',
   'updated',
   'removed',
   '$store',
-  'props',
   'prop',
   'tagName',
 ];
@@ -77,6 +78,19 @@ const storeConnector = store => data => {
 };
 
 /**
+ * Bind public methods to the element context
+ * @param {object} context
+ * @param {object} methods
+ * @param {object} contextState
+ * @returns {void}
+ */
+const bindPublicMethodsToContext = (context, methods, contextState) => {
+  Object.keys(methods)
+    .filter(k => !k.startsWith('_'))
+    .map(k => (context[k] = methods[k].bind(contextState)));
+};
+
+/**
  * Receiving a template it
  * @param {string} template
  * @returns {{html: string, render: function }}
@@ -103,7 +117,7 @@ const domConnector = template => {
  * @returns {void}
  */
 function __$bindInput(e) {
-  /** @type {HTMLElement} el */
+  /** @type {HTMLInputElement|any} el */
   const el = e.target;
   const key = el.getAttribute('r-data-key');
   if (el.type === 'checkbox') {
@@ -118,23 +132,41 @@ function __$bindInput(e) {
 
 export default function Component(options = {}) {
   const opt = {
-    /** @type {boolean} if false Web Component will be custom element, else shadow dom*/
-    isShadow: false,
-    /** @type {string} the element tag name */
+    /**
+     * @type {boolean}
+     * if false Web Component will be custom element, else shadow dom*/
+    shadowDOM: false,
+    /**
+     * @type {string}
+     * the element tag name */
     tagName: null,
-    /** @type {object} local state data */
+    /**
+     * @type {object}
+     * local state data */
     data: {},
-    /** @type {string} */
+    /**
+     * @type {string}
+     * The template*/
     template: null,
-    /** @type {{getState: function, subscribe: function }} for global store/state manager */
+    /**
+     * @type {{getState: function, subscribe: function }}
+     * for global store/state manager */
     $store: { getState: () => {}, subscribe: () => () => {} },
-    /** @type {function} lifecycle */
+    /**
+     * @type {function}
+     * lifecycle */
     created() {},
-    /** @type {function} lifecycle */
+    /**
+     * @type {function}
+     * lifecycle */
     updated() {},
-    /** @type {function} lifecycle */
+    /**
+     * @type {function}
+     * lifecycle */
     removed() {},
-    /** @type {any} */
+    /**
+     * @type {any}
+     * */
     ...options,
   };
 
@@ -156,8 +188,10 @@ export default function Component(options = {}) {
       constructor() {
         super();
         // with Shadow dom or leave as CUSTOM ELEMENT
-        /** @type {HTMLElement|ShadowRoot} */
-        this.$root = opt.isShadow ? this.attachShadow({ mode: 'open' }) : this;
+        /**
+         * @type {Element|ShadowRoot}
+         * use a custom element or shadow dom */
+        this.$root = opt.shadowDOM ? this.attachShadow({ mode: 'open' }) : this;
       }
 
       /**
@@ -165,7 +199,7 @@ export default function Component(options = {}) {
        * @returns {void}
        */
       connectedCallback() {
-        this.state = { ...this.state, ...initialState, prop: getAttrs(this) };
+        this.state = { ...this.state, ...initialState, prop: getAttrs(this, true) };
         const data = objectOnChange(this.state, () => {
           updateComputedState(this.state);
           if (dom.render(this.$root, this.state)) {
@@ -177,10 +211,20 @@ export default function Component(options = {}) {
         this.$root.innerHTML = dom.html;
 
         // context contains methods and properties to work on the element
-        this.context = { ...methods, data, el: this.$root, prop: this.state.prop, $store: opt.$store };
+        this.context = {
+          ...methods,
+          data,
+          el: this.$root,
+          prop: this.state.prop,
+          $store: opt.$store,
+          ___$globals: { styleMap },
+        };
 
         // Bind events
         bindEvents(this.$root, { ...this.context, __$bindInput });
+
+        // Bind all the exports methods so it can be accessed in the element
+        bindPublicMethodsToContext(this, methods, this.context);
 
         // Initial setup + first rendering
         updateComputedState(this.state);
@@ -195,6 +239,14 @@ export default function Component(options = {}) {
       disconnectedCallback() {
         opt.removed.call(this.context);
         this.disconnectStore();
+      }
+
+      /**
+       * Getter data
+       * @returns {object}
+       */
+      get data() {
+        return immu(this.state);
       }
     }
   );
