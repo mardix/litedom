@@ -1,7 +1,7 @@
 # Litedom
 
 
-![npm (tag)](https://img.shields.io/npm/v/litedom/latest.svg?style=flat-square) ![Travis (.org) branch](https://img.shields.io/travis/mardix/litedom/master.svg?style=flat-square) [![gzip bundle size](http://img.badgesize.io/https://unpkg.com/litedom@latest/dist/litedom.esm.js?compression=gzip&style=flat-square)](https://unpkg.com/litedom) ![NPM](https://img.shields.io/npm/l/litedom.svg?style=flat-square)
+![npm (tag)](https://img.shields.io/npm/v/litedom/latest.svg?style=flat-square) ![Travis (.org) branch](https://img.shields.io/travis/mardix/litedom/master.svg?style=flat-square) [![gzip bundle size](http://img.badgesize.io/https://unpkg.com/litedom@latest/dist/litedom.es.js?compression=gzip&style=flat-square)](https://unpkg.com/litedom) ![NPM](https://img.shields.io/npm/l/litedom.svg?style=flat-square)
 
 ---
 
@@ -11,21 +11,21 @@ Discord/Chat: https://discord.gg/r3HqNYy
 
 ---
 
-**Litedom** is a small Web Component library. 
+**Litedom** is an elegant Web Component library. 
 
-At ~3kb, it allows you to create Web Component/Custom Element easily. It works well with exitsing HTML page, without the need to bring in the bloat of big frameworks.
+At ~3.5kb gzip, it allows you to create Web Component/Custom Element easily. Litedom can effortlessy be added in exitsing HTML page, without the need to bring in the bloat of big frameworks.
 
-**Litedom** can be used in any HTML pages using custom tags. 
+With Litedom, you can create your own custom tag element, to be reused throughout the application. 
 
-Components created with Litedom are also reactive. It contains an internal state management, as templating language it leverages Javascript Template Literals.
+Components created with Litedom are reactive. Litedom provides an internal state manager, a simple progressive templating language by leveraging Javascript Template Literals, provides a one way data flow, has two-way data biding and events handling, lifecycle, directives, stylemaps. It has no dependecies, no virtual DOM, no JSX, No build tool.
 
-**Litedom** is a very small (~3kb) view library that allows you to create Web Component/Custom Element, and can turn an new or existing HTML page reactive without the bloat of big frameworks. 
+**Litedom** follows the Web Component V1 specs, which allows you to have Shadow Dom Spec, Custom Element Spec, HTML Template Spec and ES Module Spec. It is compatible with all modern browsers that support ES2015 (ES6), ESM (ES Module), Proxy, etc. 
 
-**Litedom** is reactive.
+Litedom is meant to be easy, straight forward and simple. 
 
-**Litedom** is very close to standard, uses Javascript Template Literals as the template and is compatible with all modern browsers that support ES2015 (ES6), ESM (ES Module), Proxy etc.
+---
 
-#### Example 1: Simple 
+#### Example 1
 
 A simple example that showcases how quick a custom element can be created with full reactivity.
 
@@ -41,12 +41,12 @@ A simple example that showcases how quick a custom element can be created with f
 </script>
 
 
-<!-- Will display 'Hello Mardix' -->
+<!-- Will display 'Hello Mardix!' -->
 <hello-world name="Mardix"></hello-world>
 
 ```
 
-#### Example 2: 
+#### Example 2
 
 This example showcases a counter which contains a lifecycle.
 
@@ -110,9 +110,9 @@ In place template uses the content of the HTML Element as the template, and will
 
 ```
 
-#### Example 4: 
+#### Example 4
 
-This demostrate how we can interact with an element externally with javascript by using normal query selector.
+This demostrates how we can interact with an element externally with javascript by using normal query selector.
 
 ```html
 
@@ -262,9 +262,97 @@ This demostrate how we can interact with an element externally with javascript b
 
 #### Example 7: Event Handling
 
+```html
+<script type="module">
+  import Litedom from '//unpkg.com/litedom';
+  
+  Litedom({
+    el: '#counterWidget',
+    data: {
+      count: 0
+    },
+    up() {
+      this.data.count++;
+    },
+    down() {
+      this.data.count--;
+    }
+  });
+
+</script>
+
+
+
+<div id="counterWidget">
+  <h4>{this.count}</h4>
+
+  <div>
+    <button @click="down" class="button-outline">DOWN</button>
+    <button @click="up" class="button-outline">UP</button>
+  </div>
+
+</div>
+
+
+
+```
+
 
 #### Example 8: Components in component
 
+This is a more advanced example that showcases the usage of components in component. Also includes a for-loop
+
+```html
+
+<style style type="text/css">
+  .circle {           
+    border: thin solid black;
+    border-radius: 60px;
+    width:100px;
+    height:100px;
+  }
+</style>
+
+<script type="module">
+  import Litedom from '//unpkg.com/litedom';
+  
+  const circleComponent = {
+    tagName: 'comp-circle',
+    template: `
+      <div class="circle">
+        <span>Hi!</span>
+      </div>
+    `,
+    created() {
+      this.el.style.backgroundColor = this.prop.color;
+    }
+  }
+
+  const mainComponent = {
+    el: '#mainComponent',
+    data: {
+      colors: [
+        '#ff0000',
+        '#00ff00',
+        '#ffff00'
+      ]
+    }
+  }
+
+  // Initialize all in one call
+  Litedom([mainComponent, circleComponent]);
+
+</script>
+
+<div id="mainComponent">
+  <comp-circle 
+    :for="color, index in this.colors" 
+    :key="{index}" 
+    color="{color}">
+  </comp-circle>
+</div>
+
+```
 
 ---
 
@@ -365,7 +453,7 @@ The script above shows how easy it is to create a counter that goes UP or DOWN e
 
 Please refer to the full documentation site:
 
-https://mardix.github.com/litedom 
+https://litedom.js.org 
 
 ---
 
@@ -374,12 +462,12 @@ https://mardix.github.com/litedom
 
 #### How big is Litedom?
 
-Litedom is very small. gzip: **~3kb**
+Litedom is very small. gzip: **~3.5kb**
 
 
 #### Why yet another JavaScript library?
 
-I'm an UI Tech Lead Application Engineer at Bank of America, NA, who deals with many static sites, and see how stuff can sometimes be frustrating for team members when it come to choices. 
+I'm an UI Tech Lead Application Engineer at Bank of America, who deals with many static sites, and see how stuff can sometimes be frustrating for team members when it come to choices. 
 
 So, one week-end afternoon (4/20 weekend 2019 :), while working on a personal project using a static site generator, I thought it was way too much of an overhead to bring in something like Vue, React or Angular, just to make a small piece reactive on the personal static site. 
 
@@ -417,6 +505,7 @@ It follows the same paradigm as the big ones, just on a smaller scale.
 - Event Handling
 - Lifecycle
 - State management
+- Stylemap
 - HTML stays as is
 - No JSX 
 - No dependencies
@@ -447,4 +536,4 @@ https://github.com/sindresorhus/on-change
 
 License: MIT
 
-Copyright (c) 2019 Mardix
+Copyright (c) 2019-Forever Mardix
