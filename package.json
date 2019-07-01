@@ -10,7 +10,7 @@
   "scripts": {
     "size": "gzip-size ./dist/litedom.es.js",
     "check-ts": "tsc",
-    "publish-docs-0": "cd ./docs && mambo build && cp ./static/CNAME ./.build",
+    "publish-docs-0": "cd ./docs && mambo build",
     "publish-docs": "npm run publish-docs-0 && cd ./docs && gh-pages -d .build",
     "test": "jest ./test/",
     "test-0": "jest --verbose ./test/",
