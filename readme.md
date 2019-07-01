@@ -303,13 +303,14 @@ This demostrates how we can interact with an element externally with javascript 
 This is a more advanced example that showcases the usage of components in component. Also includes a for-loop
 
 ```html
-
 <style style type="text/css">
   .circle {           
     border: thin solid black;
     border-radius: 60px;
     width:100px;
     height:100px;
+    text-align: center;
+    margin-bottom: 10px;
   }
 </style>
 
@@ -320,11 +321,11 @@ This is a more advanced example that showcases the usage of components in compon
     tagName: 'comp-circle',
     template: `
       <div class="circle">
-        <span>Hi!</span>
+        <span></span>
       </div>
     `,
     created() {
-      this.el.style.backgroundColor = this.prop.color;
+      this.el.querySelector('div').style.backgroundColor = this.prop.color;
     }
   }
 
