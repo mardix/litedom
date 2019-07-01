@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 	<url>
-		<loc>https://relift-html.js.org/</loc>
-		<lastmod>2019-06-05</lastmod>
+		<loc>https://litedom.js.org/</loc>
+		<lastmod>2019-07-01</lastmod>
 		<changefreq>monthly</changefreq>
 		<priority>0.7</priority>
 	</url>
 	<url>
-		<loc>https://relift-html.js.org/guide/</loc>
-		<lastmod>2019-06-05</lastmod>
+		<loc>https://litedom.js.org/guide/</loc>
+		<lastmod>2019-07-01</lastmod>
 		<changefreq>monthly</changefreq>
 		<priority>0.7</priority>
 	</url>
 	<url>
-		<loc>https://relift-html.js.org/demo/</loc>
-		<lastmod>2019-06-05</lastmod>
+		<loc>https://litedom.js.org/demo/</loc>
+		<lastmod>2019-07-01</lastmod>
 		<changefreq>monthly</changefreq>
 		<priority>0.7</priority>
 	</url>
 	<url>
-		<loc>https://relift-html.js.org/error.html</loc>
-		<lastmod>2019-06-05</lastmod>
+		<loc>https://litedom.js.org/error.html</loc>
+		<lastmod>2019-07-01</lastmod>
 		<changefreq>monthly</changefreq>
 		<priority>0.7</priority>
 	</url>

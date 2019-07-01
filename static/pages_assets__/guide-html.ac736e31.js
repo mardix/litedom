@@ -1,9 +1,8 @@
-    import reLiftHTML from '//unpkg.com/relift-html';
+    import Litedom from '//unpkg.com/relift-html';
     const debounce = (callback, time = 250, interval) => (...args) => clearTimeout(interval, interval = setTimeout(callback, time, ...args));
 
-    reLiftHTML({
+    Litedom({
       el: '#sideMenu',
-      isShadow: false,
       data: {
         menu: []
       },
@@ -118,10 +117,4 @@
         this.el.querySelector('#content-side-affix').classList.toggle('show')
       }
     });
-
-
-
-
-    
-    
 
