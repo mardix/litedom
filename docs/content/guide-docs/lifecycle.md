@@ -79,13 +79,13 @@ It is also the place to initialize some async call, ajax etc.
 
 ### removed
 
-`removed` runs **once** when the Custom Element is removed from the page. At the time of running, the DOM is ready, you can query elements. 
+`removed` runs **once** when the Custom Element is removed from the page.
 
 It is also the place to do some cleanup, remove intervals etc.
 
 ```js
   Litedom({
-    created() {
+    removed() {
       //... code here
     }
   })

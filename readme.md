@@ -13,7 +13,7 @@ Discord/Chat: https://discord.gg/r3HqNYy
 
 **Litedom** is an elegant Web Component library. 
 
-At ~3.5kb gzip, it allows you to create Web Component/Custom Element easily. Litedom can effortlessy be added in exitsing HTML page, without the need to bring in the bloat of big frameworks.
+At ~3.5kb gzip, it allows you to create Web Component/Custom Element easily. Litedom can effortlessy be added into exitsing HTML page, without the need to bring in the bloat of big frameworks.
 
 With Litedom, you can create your own custom tag element, to be reused throughout the application. 
 
@@ -21,7 +21,7 @@ Components created with Litedom are reactive. Litedom provides an internal state
 
 **Litedom** follows the Web Component V1 specs, which allows you to have Shadow Dom Spec, Custom Element Spec, HTML Template Spec and ES Module Spec. It is compatible with all modern browsers that support ES2015 (ES6), ESM (ES Module), Proxy, etc. 
 
-Litedom is meant to be easy, straight forward and simple. 
+**Litedom** is set to be easy, simple and straight forward.
 
 ---
 

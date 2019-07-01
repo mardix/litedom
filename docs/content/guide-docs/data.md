@@ -30,47 +30,32 @@ Data in Litedom is:
 - **Reactive**: whenever `this.data` is updated it will trigger a re-render (if necessary)
 - **Dynamic**: you don't have to pre define properties during the instance setup, you can set new properties in some other places or when needed, and automatically it will be also become reactive.
 
+### Props
 
-### Template
-
-In the template you have access to data via `this.#data-property-name`, where '#data-property-name' is the property name to access.
+Props are simply attributes that were passed in the Custom Element. They can be retrived in the methods via `this.prop` or in the template `{this.prop}`
 
 ```html
-<script type="module">
+  <script type="module">
+    const template = `counting: {this.count}`;
 
-  Litedom({
-    el: '#root',
-    data: {
-      name: 'Litedom'
-    },
-    created() {
-      // Dynamically added
-      this.data.todaysDate = new Date().toLocaleString();
-    }
-  })
-</script>
+    Litedom({
+      template,
+      tagName: 'my-counter',
+      data: {
+        count: 0
+      },
+      created() {
+        this.data.count = this.prop.start || 0;
+        setInterval(() => {
+          this.data.count++;
+        }, 1000)
+      }
+    })
+  </script>
 
-<div id="root">
-  <p>Hello {this.name}</p>
-  <p>Date: {this.todaysDate}
-</div>
+  <my-counter start=5></my-counter>
 
 ```
-
-#### What about **`this`**
-
-`this` in your template indicate the root context of the data. By not putting `this`, the variable will fall under the global object, which is the `window` in the browser. With `this` we keep the data in scope. 
-
-```js
-  <div id="root">
-    <!-- use from data -->
-    {this.firstName}
-
-    <!-- fall under the global object/window -->
-    {new Date().toLocaleString()}
-  </div>
-```
-
 
 ### Local state
 
@@ -119,10 +104,10 @@ Computed data are set as function that returns a value, which will be assigned t
     lastName: 'M.',
 
     // computed data, will be accessed via '{this.fullName}' or 'this.data.fullName'
-    fullName(state) => `${state.firstName} ${state.lastName}`
+    fullName: (state) => `${state.firstName} ${state.lastName}`,
 
     // computed data, will be accessed via '{this.totalChars}' or 'this.data.totalChars'
-    totalChars(state) => state.fullName.length
+    totalChars: (state) => state.fullName.length
   }
 ```
 

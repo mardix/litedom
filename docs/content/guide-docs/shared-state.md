@@ -7,7 +7,7 @@ To share state with multiple instances, it's recommended to have a state manager
 
 ### State Manager Interface
 
-For the  to be hooked in Litedom, it must have the following methods:
+For the store to be hooked into Litedom, it must have the following methods:
 
 **`getState()`** : To return the full state of the store.
 
@@ -97,60 +97,57 @@ This is how we can use shared state with reStated.
 
 <script type="module">
   import Litedom from '//unpkg.com/litedom';
-  import reStated from '//unpkg.com/restated-lib';
+  import reStated from '//unpkg.com/restatedjs';
 
   const store = reStated({
+    state: {
       name: '',
       lastName: '',
-      fullName(state) => `${state.name} ${state.lastName}`,
+      fullName: (state) => `${state.name} ${state.lastName}`,
       accountDetails: []
-    }, {
-      changeName(state, name) {
-        state.name = name;
-      },
-      changeLastName(state, lastName) {
-        state.lastName = lastName;
-      },
-      async loadAccount(state) {
-        state.status = 'loading';
-        const resp = await fetch(url);
-        const data = await resp.json();
+    },
+    changeName(state, name) {
+      state.name = name;
+    },
+    changeLastName(state, lastName) {
+      state.lastName = lastName;
+    },
+    async loadAccount(state) {
+      state.status = 'loading';
+      const resp = await fetch(url);
+      const data = await resp.json();
 
-        // will be shared as this.$store.accountDetails
-        state.accountDetails = data;
+      // will be shared as this.$store.accountDetails
+      state.accountDetails = data;
 
-        state.status = 'done';
-      }
-    });
-
-  // #rootA
-  Litedom({
-    el: '#rootA',
-    data: {},
-    $store: store,
-    loadAccount() {
-      this.$store.doSomething();
+      state.status = 'done';
     }
-  })
+  });
 
-  // #rootB
-  Litedom({
-    el: '#rootB',
-    data: {},
-    $store: store
-  })
+  Litedom([
+    {
+      el: '#rootA',
+      $store: store,
+      loadAccount() {
+        this.$store.doSomething();
+      }
+    },
+    {
+      el: '#rootB',
+      $store: store
+    }
+  ]);
 </script>
 
 
 <div id="rootA">
   Hello {this.$store.fullName}!
-
   <button @call="loadAccount">Load Account</button>
 </div>
 
 <div id="rootB">
   <ul>
-    <li $for="item in this.$store.accountDetails">{accountName}</li>
+    <li :for="item in this.$store.accountDetails">{accountName}</li>
   </ul>
 </div>
 

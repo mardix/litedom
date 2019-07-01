@@ -111,9 +111,9 @@ Expression are placed within `{...}` and are updated whenever the `data` values 
 
 
 
-### If/Else Conditional: r-if
+### If/Else Conditional
 
-For conditional use `r-if` and `r-else`
+For conditional use `:if` and `:else`
 
 ```html
 
@@ -137,16 +137,16 @@ For conditional use `r-if` and `r-else`
 <div id="root">
   Hello I'm inline and counting: {this.count}
 
-  <span r-if="this.count % 2 === 0">This Even</span>
-  <span r-else>This Odd</span>
+  <span :if="this.count % 2 === 0">This Even</span>
+  <span :else>This Odd</span>
 
 </div>
 
 ```
 
-### For loop: r-for
+### For loop
 
-For For-loop use `r-for`
+For For-loop use `:for`
 
 ```html
 <script type="module">
@@ -171,7 +171,7 @@ For For-loop use `r-for`
   <h2>This is the list</h2>
 
   <ul>
-    <li r-for="item in this.items">I want {item}</li>
+    <li :for="item in this.items">I want {item}</li>
   </ul>
 
 </div>

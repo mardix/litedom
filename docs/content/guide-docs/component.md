@@ -4,9 +4,9 @@
 
 **Litedom** turns your application into smaller composable fully compliant **Web Component** (Custom Element + Shadow DOM), which can be used as  In-Place elements or Custom Elements with Custom Tags to be reused.
 
-### In-Place Elements
+### In-Place Element
 
-*In-Place Elements* is set in place by using the current DOM element section to turn it into reactive. An emebeddable element is not intended to be reused. It also requires the `el` to be set, and `tagName` to be omitted. 
+*In-Place Elements* is set in place by using the current DOM element section to turn it into reactive. An in-place element is not intended to be reused. It also requires the `el` to be set, and `tagName` to be omitted. 
 
 ```html
 
@@ -31,16 +31,17 @@
 
 *Custom Element* is set using a Custom Tag, which can be reused in multiple places. And also, as Custom Element, it allows you to place your component in an external JS file.
 
-Unlike In-Place element, Custom Element requires a `tagName` and a `template` to
+Unlike In-Place element, Custom Element requires a `tagName` and a `template`.
 
 
 ```html
 
 <script type="module">
   import Litedom from '//unpkg.com/litedom';
+
   Litedom({
-    template: `Hello {this.world} {this.prop.name}!`,
     tagName: 'hello-world',
+    template: `Hello {this.world} {this.prop.name}!`,
     data: {
       world: 'World'
     }
@@ -91,8 +92,8 @@ or
 ```js
 
 Litedom({
-  template: '...',
-  tagName: 'component-x'
+  tagName: 'component-x',
+  template: '...'
 })
 ```
 
@@ -115,21 +116,26 @@ Litedom({
 
 #### **`el`**:
 [*string|HTMLElement*] 
+
 To be used mainly when creating In-Place Elements. 
 
-This is where the view instance will be created and rendered. By default, it will use the innerHTML of the element as `template`.
+This is where the view instance will be created and rendered. It will use thee innerHTML of the element as template. 
+
 This can be html selector , ie `#someId`, `[some-data-attribute]`. Or a query selector `document.querySelector('#myId')`. 
 
 
 #### **`tagName`**:
 [*string*]
+
 Name for the new custom element. Note that custom element names must contain a hyphen. `my-counter` will be used as `<my-counter></my-counter>`
+By having a tagName it will automatically turn the component into a Custom Element.
 
 ####  **`data`**:
 [*object*]
+
 Is the application state. All data in here are reactive. Whenever a property is added, updated or removed it will trigger the update of the DOM (if necessary).
-Values are expected to be the type string, number, plain object, boolean, null, undefined or *function*. 
-In the case of a function, it will become a computated data.
+Values are expected to be the type string, number, plain object, array, boolean, null, undefined or *function*. 
+In the case of a function, it will become a computed data.
 
 #### **`created`**
 [*function*]
@@ -150,7 +156,7 @@ A string/text for the body of the element. It contains all the markup to be disp
 
 #### **`shadowDOM`**:
 [*boolean:false*]
-By default elements are created as normal Custom Element. To set the web component as Shadow Dom, set `shadowDOM` to `true`.
+By default elements are created as normal Custom Element. To set the web component as ShadowDOM, set `shadowDOM` to `true`.
 
 
 #### **`$store`**: 
@@ -160,7 +166,7 @@ Unlike `data` store is where to hook a shared store manager, ie: reStated, Redux
 
 ### Methods
 
-Along the lifecycle methods `created` and `mounted`, you have the ability to define your own methods.
+Along the lifecycle methods `created`, `updated` and `mounted`, you have the ability to define your own methods.
 
 The defined methods are set with the rest of the options.
 
@@ -249,18 +255,6 @@ Props are the attributes that were set during initialization
   <my-counter start=5></my-counter>
 ```
 
-
-#### **`this.render`**
-A function to manually re-render.
-
-```js
-  Litedom({
-    methodA() {
-      /* do something, then... */
-      this.render();
-    }
-  })
-```
 
 #### **`...this.$defined-methods`** 
 

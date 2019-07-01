@@ -19,10 +19,10 @@ site:
   # static_url: **REQUIRE - Site static. If static files are placed somewhere else, you can put the path there
   static_url: /static/
 
-  app_name: Compolite
+  app_name: Litedom
   
   # Site name
-  name: "Compolite"
+  name: Litedom
 
   # The site url
   url: 
@@ -46,8 +46,8 @@ site:
 # At build: 'mambo build prod', or serve 'mambo serve --env prod'
 env: 
   prod:
-    base_url: 'https://compolite.js.org/'
-    static_url: 'https://compolite.js.org/static/'
+    base_url: 'https://litedom.js.org/'
+    static_url: 'https://litedom.js.org/static/'
 
 # ------------------------------------------------------------------------------
 # Configuration when serving locally
