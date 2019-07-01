@@ -2,7 +2,7 @@
 
 [TOC]
 
-**reLift-HTML** turns your application into smaller composable fully compliant **Web Component** (Custom Element + Shadow DOM), which can be used as  In-Place elements or Custom Elements with Custom Tags to be reused.
+**Litedom** turns your application into smaller composable fully compliant **Web Component** (Custom Element + Shadow DOM), which can be used as  In-Place elements or Custom Elements with Custom Tags to be reused.
 
 ### In-Place Elements
 
@@ -11,9 +11,9 @@
 ```html
 
 <script type="module">
-  import reLiftHTML from '//unpkg.com/relift-html';
+  import Litedom from '//unpkg.com/litedom';
 
-  reLiftHTML({
+  Litedom({
     el: '#root',
     data: {
       world: 'World'
@@ -37,8 +37,8 @@ Unlike In-Place element, Custom Element requires a `tagName` and a `template` to
 ```html
 
 <script type="module">
-  import reLiftHTML from '//unpkg.com/relift-html';
-  reLiftHTML({
+  import Litedom from '//unpkg.com/litedom';
+  Litedom({
     template: `Hello {this.world} {this.prop.name}!`,
     tagName: 'hello-world',
     data: {
@@ -60,7 +60,7 @@ Unlike In-Place element, Custom Element requires a `tagName` and a `template` to
 
 ### Initialize
 
-The recommended way to import **reLift-HTML** is via ESM javascript, where we specify the type `module` in the script tag, and we import it from **unpkg.com** 
+The recommended way to import **Litedom** is via ESM javascript, where we specify the type `module` in the script tag, and we import it from **unpkg.com** 
 
 Make sure `type="module"` exists in the script tag (`<script type="module">`).
 
@@ -68,9 +68,9 @@ Make sure `type="module"` exists in the script tag (`<script type="module">`).
 ```html
 
 <script type="module">
-  import reLiftHTML from '//unpkg.com/relift-html';
+  import Litedom from '//unpkg.com/litedom';
 
-  reLiftHTML(options=object|array)
+  Litedom(options=object|array)
 </script>
 
 ```
@@ -84,13 +84,13 @@ or
 
 ### Configurations
 
-`reLiftHTML` function accepts one argument which can be of:
+`Litedom` function accepts one argument which can be of:
 
 **Object**: as a plain object, it contains the config to create and initialize the element.
 
 ```js
 
-reLiftHTML({
+Litedom({
   template: '...',
   tagName: 'component-x'
 })
@@ -108,7 +108,7 @@ reLiftHTML({
     tagName: 'component-b'
   };
 
-  reLiftHTML([componentA, componentB]);
+  Litedom([componentA, componentB]);
 ```
 
 #### Config Properties
@@ -147,9 +147,6 @@ This is a lifecycle hook method. It runs once the component is removed from the 
 [*string*] 
 A string/text for the body of the element. It contains all the markup to be displayed. When creating Custom Element. 
 
-#### **`asTemplate`**:
-[*boolean:false*]
-To be used along with `el`, when set to `true` it will turn the component into the Custom Tag to be used.
 
 #### **`shadowDOM`**:
 [*boolean:false*]
@@ -173,13 +170,13 @@ When creating methods don't use arrow functions such as `created: () => this.say
 ```html
 
 <script type="module">
-  import reLiftHTML from '//unpkg.com/relift-html';
+  import Litedom from '//unpkg.com/litedom';
 
-  reLiftHTML({
+  Litedom({
     el: '#root',
     data: {},
     created() {
-      this.sayHello('reLiftHTML');
+      this.sayHello('Litedom');
     },
     sayHello(name) {
       console.log(`Hello ${name}`)
@@ -200,7 +197,7 @@ Inside of the lifecycle and defined methods, you have access to the following pr
 Is the instance root element. It allows you to safely query, manipulate the instance's DOM elements.
 
 ```js
-  reLiftHTML({
+  Litedom({
     // will run each time there is a re-render
     updated() {
       const allLis = this.el.querySelectorAll('li');
@@ -215,7 +212,7 @@ Whenever a `data` is updated it will trigger re-render (if necessary). You don't
 
 
 ```js
-  reLiftHTML({
+  Litedom({
     data: {
       name: ''
     },
@@ -235,7 +232,7 @@ Props are the attributes that were set during initialization
 
 ```html
   <script>
-    reLiftHTML({
+    Litedom({
       tagName: `my-counter`,
       template: `Counting: {this.count}`
       data: {
@@ -257,7 +254,7 @@ Props are the attributes that were set during initialization
 A function to manually re-render.
 
 ```js
-  reLiftHTML({
+  Litedom({
     methodA() {
       /* do something, then... */
       this.render();
@@ -270,7 +267,7 @@ A function to manually re-render.
 The other methods you have defined
 
 ```js
-  reLiftHTML({
+  Litedom({
     methodA() {
       this.methodB();
     },

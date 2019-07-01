@@ -1,13 +1,30 @@
 /**
- * reLift-HTML
+ * Litedom
  */
 
-/** @type {object} */
+/**
+ * The order is important, specially for :for and :if
+ * @type {object}
+ * */
 const DIRECTIVES_LIST = {
-  $for: _for,
-  $if: _if,
+  $key: _key,
   $class: _class,
   $style: _style,
+  $for: _for,
+  $if: _if,
+};
+
+const md = dir => `\:${dir}`;
+const has = (el, dir) => el.hasAttribute(md(dir));
+const get = (el, dir) => el.getAttribute(md(dir));
+const remove = (el, dir) => el.removeAttribute(md(dir));
+const query = (el, dir) => el.querySelector(`[\\${md(dir)}]`);
+const queryAll = (el, dir) => el.querySelectorAll(`[\\${md(dir)}]`);
+const beforeText = (el, text) => el.insertAdjacentText('beforebegin', text);
+const afterText = (el, text) => el.insertAdjacentText('afterend', text);
+const wrapAround = (el, before, after) => {
+  beforeText(el, before);
+  afterText(el, after);
 };
 
 /**
@@ -20,28 +37,15 @@ export function parseDirectives(el, customDirectives = {}) {
   const directives = { ...customDirectives, ...DIRECTIVES_LIST };
   for (const $dir in directives) {
     const directive = $dir.replace('$', '');
-    for (const el2 of qall_d(el, directive)) {
-      if (has_d(el2, directive)) {
-        const value = get_d(el2, directive);
+    for (const el2 of queryAll(el, directive)) {
+      if (has(el2, directive)) {
+        const value = get(el2, directive);
         directives[$dir](el2, value, directive);
       }
     }
   }
   return el;
 }
-
-const md = dir => `\:${dir}`;
-const has_d = (el, dir) => el.hasAttribute(md(dir));
-const get_d = (el, dir) => el.getAttribute(md(dir));
-const rm_d = (el, dir) => el.removeAttribute(md(dir));
-const q_d = (el, dir) => el.querySelector(`[\\${md(dir)}]`);
-const qall_d = (el, dir) => el.querySelectorAll(`[\\${md(dir)}]`);
-const beforeText = (el, text) => el.insertAdjacentText('beforebegin', text);
-const afterText = (el, text) => el.insertAdjacentText('afterend', text);
-const wrapAround = (el, before, after) => {
-  beforeText(el, before);
-  afterText(el, after);
-};
 
 /**
  * :if directive
@@ -51,12 +55,12 @@ const wrapAround = (el, before, after) => {
  * @returns {void}
  */
 function _if(el, value, directive) {
-  rm_d(el, directive);
+  remove(el, directive);
   beforeText(el, `\${${value} ? `);
   const rElse = el.nextElementSibling;
-  if (rElse && has_d(rElse, 'else')) {
+  if (rElse && has(rElse, 'else')) {
     wrapAround(el, `\``, `\``);
-    rm_d(rElse, 'else');
+    remove(rElse, 'else');
     wrapAround(rElse, `:\``, `\`}`);
   } else {
     wrapAround(el, `\``, `\`:\`\`}`);
@@ -65,7 +69,7 @@ function _if(el, value, directive) {
 
 /**
  * :for director
- * @todo: add for else => r-else for for, it's an if condition that test the length,
+ * @todo: add for else => :else for for, it's an if condition that test the length,
  * @param {HTMLElement} el
  * @param {string} value
  * @param {string} directive
@@ -77,14 +81,14 @@ function _for(el, value, directive) {
     const sel = groups[1].replace('(', '').replace(')', '');
     const query = groups[3];
     wrapAround(el, `\${${query}.map(function(${sel}) { return \``, `\`}.bind(this)).join('')}`);
-    rm_d(el, directive);
+    remove(el, directive);
   }
 }
 
 /**
  * :class directive
- * <div r-class="clsName:condition; clsName2: condition2"></div>
- * <div r-class="hide: this.item > 5; show-my-ownclass: x === y"></div>
+ * <div :class="clsName:condition; clsName2: condition2"></div>
+ * <div :class="hide: this.item > 5; show-my-ownclass: x === y"></div>
  * @param {HTMLElement} el
  * @param {string} value
  * @param {string} directive
@@ -98,9 +102,26 @@ function _class(el, value, directive) {
     .join(' ');
   const classList = el.getAttribute('class') || '' + ` ${klass}`;
   el.setAttribute('class', classList);
-  rm_d(el, directive);
+  remove(el, directive);
+}
+
+/**
+ * :key directive
+ * <div :key="{index}"></div> will be change to <div ref-key="{index}">
+ * to make sure iteration is rendered properly
+ * @param {HTMLElement} el
+ * @param {string} value
+ * @param {string} directive
+ * @returns {void}
+ */
+function _key(el, value, directive) {
+  el.setAttribute('ref-key', value);
+  remove(el, directive);
 }
 
 function _style(el, value, directive) {
-  `function(value){ return this.___$globals.styleMap(key)}.bind(this)`;
+  const oStyle = el.getAttribute('style') || '';
+  const style = `\${function() { return this.__$styleMap(${value});}.call(this)}`;
+  el.setAttribute('style', (oStyle ? oStyle + '; ' : '') + style);
+  remove(el, directive);
 }

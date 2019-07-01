@@ -1,26 +1,30 @@
 /**
- * emerj 
+ * emerj
  * https://github.com/bryhoyt/emerj
  */
 
-import { getAttrs } from './utils.js';
+import { getAttrs, isElement } from './utils.js';
 
+const getNodesByKey = (parent, makeKey) =>
+  Array.from(parent.childNodes)
+    .filter(e => makeKey(e))
+    .map(e => ({ [makeKey(e)]: e }))
+    .reduce((pV, cK) => ({ ...pV, ...cK }), {});
 
-const getNodesByKey = (parent, makeKey) => Array.from(parent.childNodes)
-  .filter(e => makeKey(e))
-  .map(e => ({[makeKey(e)]: e}))
-  .reduce((pV, cK) => ({...pV, ...cK}) , {});
+/**
+ *
+ * @param {HTMLElement} node
+ */
+const nodeRefKey = node => (isElement(node) && node.hasAttribute('ref-key') ? node.getAttribute('ref-key') : node.id);
 
-const isCE = (el) => el.nodeName.includes('-');
-
-export default function merge (base, modified, opts={}) {
-  opts = {key: node => node.id, ...opts}
+export default function merge(base, modified, opts = {}) {
+  opts = { key: node => nodeRefKey(node), ...opts };
   if (typeof modified === 'string') {
     const html = modified;
     modified = document.createElement(base.nodeName);
     modified.innerHTML = html;
   }
-  const nodesByKeyOld = getNodesByKey(base, opts.key)
+  const nodesByKeyOld = getNodesByKey(base, opts.key);
   let idx;
   for (idx = 0; modified.firstChild; idx++) {
     const newNode = modified.removeChild(modified.firstChild);
@@ -56,4 +60,3 @@ export default function merge (base, modified, opts={}) {
   }
   return true;
 }
-

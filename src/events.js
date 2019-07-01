@@ -1,7 +1,9 @@
 /**
- * reLift-HTML
+ * Litedom
  */
 // @ts-check
+
+import { isFn } from './utils.js';
 
 /**
  * Holds all the browser's event list, ie: click, mouseover, keyup
@@ -10,22 +12,22 @@
 
 const EVENTS_LIST = [];
 for (const key in document) {
-  const isEvent = document[key] === null || typeof document[key] === 'function';
+  const isEvent = document[key] === null || isFn(document[key]);
   if (key.startsWith('on') && isEvent) EVENTS_LIST.push(key.substring(2));
 }
 
 /** @type {string} attribute to hold all events name */
-const ATTR_EVENTS_LIST = 'r-e-list';
+const ATTR_EVENTS_LIST = 'ld--elist';
 
 /**
  * Make an event name
  * @param {string} e the event name
  * @returns {string}
  */
-const mkEventName = e => `r-on-${e}`;
+const mkEventName = e => `ld-on-${e}`;
 
 /**
- * Tokenize all the events, change @* to r-on-*
+ * Tokenize all the events, change @* to ld-on-*
  * @param {HTMLElement} selector
  * @returns {void}
  */
@@ -33,15 +35,18 @@ export function tokenizeEvents(selector) {
   /**
    * '@call'
    * Wildcard events, base of the type of the element it will assign the right event name
-   * ie: on input element, '@call' will turn into 'r-on-input' and 'r-on-paste'
-   * on AHREF, '@call' will turn into 'r-on-click'
+   * ie: on input element, '@call' will turn into 'ld-on-input' and 'ld-on-paste'
+   * on AHREF, '@call' will turn into 'ld-on-click'
+   *
+   * '@bind'
+   * For two way data binding in input elements
    */
   for (const el of selector.querySelectorAll('[\\@call], [\\@bind]')) {
     let method = el.getAttribute('@call');
     const isBind = el.hasAttribute('@bind');
     el.removeAttribute('@call');
     if (isBind) {
-      el.setAttribute('r-data-key', el.getAttribute('@bind'));
+      el.setAttribute('ld--bind', el.getAttribute('@bind'));
       el.removeAttribute('@bind');
       method = '__$bindInput';
     }

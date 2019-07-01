@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Vuelit Demo</title>
+    <title>Litedom Demo</title>
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic" />
     <link rel="stylesheet" href="//cdn.rawgit.com/necolas/normalize.css/master/normalize.css" />
     <link rel="stylesheet" href="//cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css" />
@@ -26,18 +26,23 @@
       </div>
 
       <template id="counter-template">
-          <div><h4>{this.count}</h4></div>
-          <div> 
-            ${ (this.count >= 7) ? `More than 7` : `` }
-            <div :if="this.count > 5">greater than 5</div>
-            <button @click="down" class="button-outline">DOWN</button>
-            <button @click="up" class="button-outline">UP</button>
-          </div>
+        <div><h4>{this.count}</h4></div>
+        <div :style="this.style" style="font-weight:bold">This is something</div>
+        <div>
+          ${ (this.count >= 7 && this.count < 11) ? `More than 7 & less than 11` : `` }
+          <div :if="this.count > 5">greater than 5</div>
+          <button @click="down" class="button-outline">DOWN</button>
+          <button @click="up" class="button-outline">UP</button>
+        </div>
 
-          <div :class="blue:this.count % 2 === 0; purple: this.count % 2 !== 0">Text</div>
-          <ul>
-            <li :for="color in this.colors">{color}</li>
-          </ul>        
+        <div :class="blue:this.count % 2 === 0; purple: this.count % 2 !== 0">Text</div>
+        <ul>
+          <li :for="color in this.colors" :key="hello-{color}">{color}</li>
+        </ul>
+        <hr>
+        <ul>
+          <li :for="color in this.colorsStyle" :style="color.style">{color.color}</li>
+        </ul>
       </template>
 
       <div class="row">
@@ -51,22 +56,67 @@
       <div>
         <my-counter id="counter1"></my-counter>
         <my-counter id="counter2"></my-counter>
+
+        <form-2wdb></form-2wdb>
       </div>
     </div>
 
     <script type="module">
-      import Vuelite from '../src/index.js';
+      //import Litedom from '../src/index.js';
+      import Litedom from '../dist/litedom.es.js';
 
-      Vuelite({
+      Litedom({
         //tagName: 'my-counter',
         el: '#counter',
         refId: 'my-counter',
         //template: 'Hi {this.count}',
         template: document.querySelector('#counter-template').innerHTML,
-        shadomDOM: false,
+        shadowDOM: false,
         data: {
+          style: {
+            color: 'blue',
+            background: 'red',
+
+          },
           count: 0,
           colors: ['blue', 'red', 'white'],
+          colorsStyle: [
+            {
+              color: 'blue',
+              style: {
+                color: 'blue',
+                background: 'white',              
+              }
+            },
+            {
+              color: 'red',
+              style: {
+                color: 'red',
+                background: 'white',              
+              }
+            },
+            {
+              color: 'brown',
+              style: {
+                color: 'brown',
+                background: 'white',              
+              }
+            },
+
+          ]
+        },
+        changeStyle() {
+          if (this.data.count === 5) {
+            this.data.style = {
+              color: 'purple',
+              background: 'yellow',
+            };
+          } else if (this.data.count === 10) {
+            this.data.style = {
+              color: 'green',
+              background: 'pink',
+            };
+          }
         },
         up() {
           this.data.count++;
@@ -80,12 +130,9 @@
         getCount() {
           return this.data.count;
         },
-        getData() {
-          return this.data.count;
-        },
       });
 
-      Vuelite({
+      Litedom({
         tagName: 'x-timer',
 
         template: `
@@ -103,17 +150,27 @@
       const el = document.querySelector('[ref-id="my-counter"]');
       //const el = document.querySelector('#counter1');
       setTimeout(() => {
-        console.log('IN');
-        console.log('E', el.getCount());
+        //console.log('IN');
+        //console.log('E', el.getCount());
         // el.remove();
-      }, 2000);
+      }, 15000);
       setInterval(() => {
         el.up();
+        console.log(el)
         //el.state.count = el.state.count * 2
         //console.log(el.state)
 
-        console.log(el.data);
+        //console.log(el.data);
+
+       // el.$on('updated', () => {
+         // console.log('HELLO')
+        //})
+        //el.$on('removed', () => {
+          //console.log('It has been removed')
+        //})
+        el.changeStyle();
       }, 1000);
     </script>
+    <script src="./tag.form-2wdb.js" type="module"></script>
   </body>
 </html>

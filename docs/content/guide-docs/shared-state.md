@@ -7,7 +7,7 @@ To share state with multiple instances, it's recommended to have a state manager
 
 ### State Manager Interface
 
-For the  to be hooked in reLift-HTML, it must have the following methods:
+For the  to be hooked in Litedom, it must have the following methods:
 
 **`getState()`** : To return the full state of the store.
 
@@ -36,7 +36,7 @@ If the state manager doesn't provide these methods by default, you can extend it
 
 ```js
 
-reLiftHTML({
+Litedom({
   el: '#root',
   data: {},
   $store: STORE_INSTANCE
@@ -50,7 +50,7 @@ The store is exposed in the methods by `this.$store`, which is the object that w
 
 ```js
 
-reLiftHTML({
+Litedom({
   el: '#root',
   data: {},
   $store: STORE_INSTANCE,
@@ -96,7 +96,7 @@ This is how we can use shared state with reStated.
 ```html
 
 <script type="module">
-  import reLiftHTML from '//unpkg.com/relift-html';
+  import Litedom from '//unpkg.com/litedom';
   import reStated from '//unpkg.com/restated-lib';
 
   const store = reStated({
@@ -124,7 +124,7 @@ This is how we can use shared state with reStated.
     });
 
   // #rootA
-  reLiftHTML({
+  Litedom({
     el: '#rootA',
     data: {},
     $store: store,
@@ -134,7 +134,7 @@ This is how we can use shared state with reStated.
   })
 
   // #rootB
-  reLiftHTML({
+  Litedom({
     el: '#rootB',
     data: {},
     $store: store

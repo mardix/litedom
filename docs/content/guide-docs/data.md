@@ -14,7 +14,7 @@ Values are expected to be the type string, number, plain object, boolean, null, 
 In the case of a function, it will become a computed data.
 
 ```js
-reLiftHTML({
+Litedom({
   data: {
     firstName: 'Mardix',
     lastName: 'M.',
@@ -23,7 +23,7 @@ reLiftHTML({
 })
 ```
 
-Data in reLift-HTML is:
+Data in Litedom is:
   
 - **Accessible**: in the template and methods you have direct access to the data 
 - **Mutable**: in the methods you can mutate the data directly without setters, ie `this.data.aNumber = 1;` or `this.data.someArray.pop();`
@@ -38,10 +38,10 @@ In the template you have access to data via `this.#data-property-name`, where '#
 ```html
 <script type="module">
 
-  reLiftHTML({
+  Litedom({
     el: '#root',
     data: {
-      name: 'reLift-HTML'
+      name: 'Litedom'
     },
     created() {
       // Dynamically added
@@ -83,10 +83,10 @@ The state/data is mutable only in the methods of your instance, which means you 
 You can do this: 
 
 ```js
-reLiftHTML({
+Litedom({
   el: '#root',
   data: {
-    name: 'reLift-HTML',
+    name: 'Litedom',
     count: 0
   },
   sayHello() {
@@ -136,7 +136,7 @@ Computed data function accept the current state as the only argument, and must r
 ```html
   <script type="module">
 
-    reLiftHTML({
+    Litedom({
       el: '#root',
       data: {
         firstName: 'Mardix',
@@ -160,9 +160,9 @@ You can use the `@bind` directive to create two-way data bindings on form input,
 
 ```html
 <script type="module">
-  import reLiftHTML from '//unpkg.com/relift-html';
+  import Litedom from '//unpkg.com/litedom';
 
-  reLiftHTML({
+  Litedom({
     el: `#root`,
     data: {
       name: '',
@@ -210,7 +210,7 @@ The example below illustrate how we can make async call and at the same time set
 
 <script type="module">
 
-  reLiftHTML({
+  Litedom({
     el: '#root',
     data: {
       loadingStatus: null,

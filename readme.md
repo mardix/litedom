@@ -1,37 +1,78 @@
-# reLift-HTML
+# Litedom
 
 
-![npm (tag)](https://img.shields.io/npm/v/relift-html/latest.svg?style=flat-square) ![Travis (.org) branch](https://img.shields.io/travis/mardix/relift-html/master.svg?style=flat-square) [![gzip bundle size](http://img.badgesize.io/https://unpkg.com/relift-html@latest/dist/relift-html.esm.js?compression=gzip&style=flat-square)](https://unpkg.com/relift-html) ![NPM](https://img.shields.io/npm/l/relift-html.svg?style=flat-square)
+![npm (tag)](https://img.shields.io/npm/v/litedom/latest.svg?style=flat-square) ![Travis (.org) branch](https://img.shields.io/travis/mardix/litedom/master.svg?style=flat-square) [![gzip bundle size](http://img.badgesize.io/https://unpkg.com/litedom@latest/dist/litedom.esm.js?compression=gzip&style=flat-square)](https://unpkg.com/litedom) ![NPM](https://img.shields.io/npm/l/litedom.svg?style=flat-square)
 
 ---
 
-**Full Documentation**: https://relift-html.js.org/ 
+**Full Documentation**: https://litedom.js.org/ 
 
 Discord/Chat: https://discord.gg/r3HqNYy
 
 ---
 
-**reLift-HTML** is very small (3kb) view library that allows you to create Web Component, Custom Element, and helps you make any HTML page reactive without the bloat of big frameworks. 
+**Litedom** is a small Web Component library. 
 
-**reLift-HTML** is very close to standard, uses Javascript Template Literals as the template and is compatible with all modern browsers that support ES2015 (ES6), ESM (ES Module), Proxy etc.
+At ~3kb, it allows you to create Web Component/Custom Element easily. It works well with exitsing HTML page, without the need to bring in the bloat of big frameworks.
+
+**Litedom** can be used in any HTML pages using custom tags. 
+
+Components created with Litedom are also reactive. It contains an internal state management, as templating language it leverages Javascript Template Literals.
+
+**Litedom** is a very small (~3kb) view library that allows you to create Web Component/Custom Element, and can turn an new or existing HTML page reactive without the bloat of big frameworks. 
+
+**Litedom** is reactive.
+
+**Litedom** is very close to standard, uses Javascript Template Literals as the template and is compatible with all modern browsers that support ES2015 (ES6), ESM (ES Module), Proxy etc.
+
+#### Example 1: Simple 
+
+A simple example that showcases how quick a custom element can be created with full reactivity.
 
 ```html
 
 <script type="module">
-  import reLiftHTML from '//unpkg.com/relift-html';
-  reLiftHTML({
+  import Litedom from '//unpkg.com/litedom';
+  
+  Litedom({
+    tagName: 'hello-world',
+    template: 'Hello {this.prop.name}!'
+  });
+</script>
+
+
+<!-- Will display 'Hello Mardix' -->
+<hello-world name="Mardix"></hello-world>
+
+```
+
+#### Example 2: 
+
+This example showcases a counter which contains a lifecycle.
+
+```html
+
+<script type="module">
+  import Litedom from '//unpkg.com/litedom';
+
+  Litedom({
+    // custom tag name
+    tagName: 'my-counter',
+    // template
     template: `Counting: {this.count}`,
-    tagName: 'my-counter', // custom tag
+    // reactive data
     data: {
       count: 0
     },
+    // lifecycle method
     created(){
+      // this.prop.start, properties from the element
       this.data.count = this.prop.start || 0;
       setInterval(_=> {
         this.data.count++;
       }, 1000)
     }
-  })
+  });
 </script>
 
 
@@ -43,47 +84,204 @@ Discord/Chat: https://discord.gg/r3HqNYy
 
 ```
 
-**reLift-HTML** has no dependencies, no virtual DOM, and build tool; Which will fit best with developers who want something small, light, and simple but still follow the paradigm of the major libraries; With developers working on simple but dynamic static site; When having React/Vuejs/Angular/(etc) is too much or when you just want to progressively upgrade your site without changing too much.
+#### Example 3: Using in-place template
 
-**Features**: Web Components, Custom Element, Template Literals, Reactive, Data Binding, One Way Data Flow, Two-way data binding, Event Handling, Props, Lifecycle, State Management, Computed Properties, Directives and more.
-
-
-**reLift-HTML** turns the template into template string literal and doesn't have a virtual DOM, therefor it doesn't keep a DOM tree in memory. Instead it relies on the real DOM, and only mutates it in place whenever there is change. This tends to be memory efficient, and also reduces GC activities
-
-
----
-
-### Second Example, Inline Element
-
+In place template uses the content of the HTML Element as the template, and will create the Component in place to be used. Usually if you have existing section on the HTML page and want to make it reactive. 
 
 ```html
+
+<script type="module">
+  import Litedom from '//unpkg.com/litedom';
+
+  Litedom({
+    // The target element
+    el: '#helloWidget', 
+    // The reactive data
+    data: {
+      name: 'Litedom'
+    }
+  });
+</script>
 
 <div id="helloWidget">
   <div>Hello {this.name}</div>
   <div>Today's date: {new Date().toISOString().slice(0, 10)}</div>
 </div>
 
-<script type="module">
-  import reLiftHTML from '//unpkg.com/relift-html';
-
-  reLiftHTML({
-    el: '#helloWidget',
-    data: {
-      name: 'reLiftHTML'
-    }
-  });
-</script>
 ```
 
-Please notice the `type="module"` in the script tag, it is required when using ES Module.
+#### Example 4: 
+
+This demostrate how we can interact with an element externally with javascript by using normal query selector.
+
+```html
+
+
+<!-- the count will start at 5 for this custom element -->
+<my-counter id="myCounter1" start=5></my-counter>
+
+<script type="module">
+  import Litedom from '//unpkg.com/litedom';
+
+  Litedom({
+    // custom tag name
+    tagName: 'my-counter',
+    // template
+    template: `Counting: {this.count}`,
+    // reactive data
+    data: {
+      count: 0
+    },
+    increment() {
+      this.data.count++;
+    },
+    decrement() {
+      this.data.count--;
+    },
+    // Lifecycle, when element is removed this method will be executed
+    removed() {
+      console.log('Element is removed')
+    }
+  });
+
+  const el = document.querySelector('#myCounter1');
+
+  // #data shows the data
+  console.log('Show Data', el.data);
+
+  // execute #increment() method, to increment the count
+  el.increment();
+
+  // execute #decrement() method, to decrement the count
+  el.decrement();
+
+  // remove the element off the page, the #removed method will be executed
+  el.remove();
+
+</script>
+
+```
+
+
+#### Example 5 - Directives: If/Else, For, Style, Class
+
+```html
+
+<style>
+  .somAClass {
+    color: blue
+  }
+  .myClassB {
+    color: red
+  }
+</style>
+
+<script type="module">
+  import Litedom from '//unpkg.com/litedom';
+
+  Litedom({
+    el: '#myContainer',
+    // reactive data
+    data: {
+      count: 0,
+      carsList: ['BMW', 'Mercedes', 'Audi', 'Tesla'],
+      myStyle: {
+        color: 'red',
+        background: 'yellow'
+      }
+    },
+    // lifecycle method
+    created(){
+      // this.prop.start, properties from the element
+      this.data.count = this.prop.start || 0;
+      setInterval(_=> {
+        this.data.count++;
+      }, 1000)
+    }
+  });
+
+</script>
+
+<div id="myContainer">
+
+  <div>Counting {this.count}</div>
+
+  <!-- if/else -->
+  <div :if="this.count > 10">The count is greater than 10</div>
+  <div :else>At least 10</div>
+
+  <!-- for loop -->
+  <ul>
+    <li :for="car in this.carsList">{car}</li>
+  </ul>
+
+  <!-- style map -->
+  <div :style="this.myStyle">
+    The background will be yellow, the font will be red
+  </div>
+
+  <!-- Class -->
+  <div :class="someClassA: this.count === 7; myClassB: this.count === 10">
+    Will have .someClassA if count is 7, 
+    will then have .myClassB when count is 10
+  </div>
+</div>
+
+```
+
+#### Example 6 - Two Way Data Binding + Computed Data
+
+```html
+
+<script type="module">
+  import Litedom from '//unpkg.com/litedom';
+
+  Litedom({
+    el: '#myContainer',
+    data: {
+      name: '',
+      lastName: '',
+      fullName(state) {
+        return `${state.name} ${state.lastName}`
+      }
+    }
+  });
+
+</script>
+
+<div id="myContainer">
+  Hello {this.name}. Your fullname is {this.fullName}
+
+  <!-- as you type it will update #data.name -->
+  <div><input type="text" @bind="name"></div>
+  <div><input type="text" @bind="lastName"></div>
+
+</div>
+
+```
+
+#### Example 7: Event Handling
+
+
+#### Example 8: Components in component
+
+
+---
+
+**Litedom** has no dependencies, no virtual DOM, and build tool; Which will fit best with developers who want something small, light, and simple but still follow the paradigm of the major libraries; With developers working on simple but dynamic static site; When having React/Vuejs/Angular/(etc) is too much or when you just want to progressively upgrade your site without changing too much.
+
+**Features**: Web Components, Custom Element, Template Literals, Reactive, Data Binding, One Way Data Flow, Two-way data binding, Event Handling, Props, Lifecycle, State Management, Computed Properties, Directives, Style Map and more.
+
+
+**Litedom** turns the template into template string literal and doesn't have a virtual DOM, therefor it doesn't keep a DOM tree in memory. Instead it relies on the real DOM, and only mutates it in place whenever there is change. This tends to be memory efficient, and also reduces GC activities
 
 ---
 
 ## Compatibility
 
-**reLift-HTML** is a modern library for moden browsers that support ES2015 (ES6), Template Literals, Proxy, and all the fun stuff.
+**Litedom** is a modern library for moden browsers that support ES2015 (ES6), Template Literals, Proxy, and all the fun stuff.
 
-The library is written in ES2015, and will be delivered to you as such. To keep it small reLift-HTML doesn't have any polyfills nor extra code to make new ES20xx features available in non modern browsers, therefor it will not work with browsers that don't support ES6, Template Literals, Proxy, etc. 
+The library is written in ES2015, and will be delivered to you as such. To keep it small Litedom doesn't have any polyfills nor extra code to make new ES20xx features available in non modern browsers, therefor it will not work with browsers that don't support ES6, Template Literals, Proxy, etc. 
 
 https://caniuse.com/#feat=es6
 
@@ -93,13 +291,13 @@ https://caniuse.com/#search=proxy
 
 ## Installation
 
-The best way to import **reLift-HTML** is via ESM JavaScript, where we specify the type as module, and we import it from **unpkg.com** 
+The best way to import **Litedom** is via ESM JavaScript, where we specify the type as module, and we import it from **unpkg.com** 
 
 Make sure `type="module"` exists in the script tag.
 
 ```html
 <script type="module">
-  import reLiftHTML from '//unpkg.com/relift-html';
+  import Litedom from '//unpkg.com/litedom';
   
   ...
 </script>
@@ -108,11 +306,11 @@ Make sure `type="module"` exists in the script tag.
 Or by installing in your project
 
 ```
-npm install relift-html
+npm install litedom
 ```
 
 ```js
-import reLiftHTML from 'relift-html';
+import Litedom from 'litedom';
 ```
 
 ---
@@ -123,9 +321,9 @@ We will be using the ESM way, but the same applied if you were to install it via
 
 ```html
   <script type="module">
-    import reLiftHTML from '//unpkg.com/relift-html';
+    import Litedom from '//unpkg.com/litedom';
     
-    reLiftHTML({
+    Litedom({
       el: '#counterWidget',
       data: {
         count: 0
@@ -167,16 +365,16 @@ The script above shows how easy it is to create a counter that goes UP or DOWN e
 
 Please refer to the full documentation site:
 
-https://mardix.github.com/relift-html 
+https://mardix.github.com/litedom 
 
 ---
 
 
 ## FAQ
 
-#### How big is reLift-HTML?
+#### How big is Litedom?
 
-reLift-HTML is very small. gzip: **~3kb**
+Litedom is very small. gzip: **~3kb**
 
 
 #### Why yet another JavaScript library?
@@ -185,7 +383,7 @@ I'm an UI Tech Lead Application Engineer at Bank of America, NA, who deals with 
 
 So, one week-end afternoon (4/20 weekend 2019 :), while working on a personal project using a static site generator, I thought it was way too much of an overhead to bring in something like Vue, React or Angular, just to make a small piece reactive on the personal static site. 
 
-So I decided to create reLift-HTML, to just be a simple drop-in view library that can make any sections of the site reactive without the overhead. I wanted my HTML to stay as is. No React, No Vue, just my HTML and me.
+So I decided to create Litedom, to just be a simple drop-in view library that can make any sections of the site reactive without the overhead. I wanted my HTML to stay as is. No React, No Vue, just my HTML and me.
 
 (BTW, See how many days since the last JavaScript framework: https://dayssincelastjavascriptframework.com/)
 
@@ -200,9 +398,9 @@ So I decided to create reLift-HTML, to just be a simple drop-in view library tha
 
 #### Is it here to replace or does it compete with React, Vue etc?
 
-Not at all. **reLift-HTML** is targeting a different set of applications. Most of the time, specially when dealing with static site, you just want a little bit of stuff to be reactive, it could be something from or to an API, it could be something to manage application state or events.
+Not at all. **Litedom** is targeting a different set of applications. Most of the time, specially when dealing with static site, you just want a little bit of stuff to be reactive, it could be something from or to an API, it could be something to manage application state or events.
 
-reLift-HTML wants to be your gateway to more advanced frameworks.
+Litedom wants to be your gateway to more advanced frameworks.
 
 It follows the same paradigm as the big ones, just on a smaller scale.  
 
@@ -239,7 +437,7 @@ If you have any suggestions, questions or anything, please don't hesitate to rea
 
 ### Shout Out!
 
-reLift-HTML is using some of the work of these great libraries:
+Litedom is using some of the work of these great libraries:
 
 https://github.com/bryhoyt/emerj 
 

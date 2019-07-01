@@ -5,3 +5,46 @@
 2019-06-21 22:58:54,230 INFO livereload Browser Connected: http://127.0.0.1:8000/
 2019-06-21 22:59:20,845 INFO livereload Browser Connected: http://127.0.0.1:8000/guide/
 2019-06-22 01:56:20,598 INFO livereload Shutting down...
+2019-06-29 16:57:36,829 INFO livereload Serving on http://127.0.0.1:8000
+2019-06-29 16:57:36,833 INFO livereload Start watching changes
+2019-06-29 16:57:36,833 INFO livereload Start detecting changes
+2019-06-29 16:57:38,821 INFO livereload Browser Connected: http://127.0.0.1:8000/
+2019-06-29 16:57:45,013 INFO livereload Browser Connected: http://127.0.0.1:8000/
+2019-06-29 16:58:37,703 INFO livereload Reload 1 waiters: /Users/Mardix/Dropbox/Projects/JS/relift/docs/static/_root/CNAME
+2019-06-29 16:58:37,851 INFO livereload Browser Connected: http://127.0.0.1:8000/
+2019-06-29 16:58:41,928 INFO livereload Shutting down...
+2019-06-30 16:39:22,516 INFO livereload Serving on http://127.0.0.1:8000
+2019-06-30 16:39:22,520 INFO livereload Start watching changes
+2019-06-30 16:39:22,520 INFO livereload Start detecting changes
+2019-06-30 16:39:24,592 INFO livereload Browser Connected: http://127.0.0.1:8000/
+2019-06-30 16:40:33,558 INFO livereload Browser Connected: http://127.0.0.1:8000/demo/
+2019-06-30 16:40:37,708 INFO livereload Browser Connected: http://127.0.0.1:8000/guide/
+2019-06-30 17:24:02,535 INFO livereload Shutting down...
+2019-06-30 17:24:04,946 INFO livereload Serving on http://127.0.0.1:8000
+2019-06-30 17:24:04,949 INFO livereload Start watching changes
+2019-06-30 17:24:04,949 INFO livereload Start detecting changes
+2019-06-30 17:24:07,092 INFO livereload Browser Connected: http://127.0.0.1:8000/guide/
+2019-06-30 17:24:07,162 INFO livereload Browser Connected: http://127.0.0.1:8000/
+2019-06-30 17:28:23,583 INFO livereload Shutting down...
+2019-06-30 17:28:26,033 INFO livereload Serving on http://127.0.0.1:8000
+2019-06-30 17:28:26,037 INFO livereload Start watching changes
+2019-06-30 17:28:26,037 INFO livereload Start detecting changes
+2019-06-30 17:28:28,087 INFO livereload Browser Connected: http://127.0.0.1:8000/guide/
+2019-06-30 17:28:28,137 INFO livereload Browser Connected: http://127.0.0.1:8000/
+2019-06-30 17:28:28,159 INFO livereload Browser Connected: http://127.0.0.1:8000/
+2019-06-30 17:28:33,549 INFO livereload Shutting down...
+2019-06-30 17:29:23,990 INFO livereload Serving on http://127.0.0.1:8000
+2019-06-30 17:29:23,993 INFO livereload Start watching changes
+2019-06-30 17:29:23,993 INFO livereload Start detecting changes
+2019-06-30 17:29:26,074 INFO livereload Browser Connected: http://127.0.0.1:8000/
+2019-06-30 17:29:37,042 INFO livereload Browser Connected: http://127.0.0.1:8000/
+2019-06-30 17:29:42,034 INFO livereload Browser Connected: http://127.0.0.1:8000/
+2019-06-30 17:29:42,077 INFO livereload Browser Connected: http://127.0.0.1:8000/guide/
+2019-06-30 20:01:40,127 INFO livereload Reload 2 waiters: /Users/Mardix/Dropbox/Projects/JS/relift/docs/pages/guide.html
+2019-06-30 20:01:40,720 INFO livereload Browser Connected: http://127.0.0.1:8000/
+2019-06-30 20:01:41,284 INFO livereload Browser Connected: http://127.0.0.1:8000/guide/
+2019-06-30 21:10:53,738 INFO livereload Reload 2 waiters: /Users/Mardix/Dropbox/Projects/JS/relift/docs/content/guide-docs/directives.md
+2019-06-30 21:10:54,519 INFO livereload Browser Connected: http://127.0.0.1:8000/
+2019-06-30 21:10:54,543 INFO livereload Browser Connected: http://127.0.0.1:8000/guide/
+2019-06-30 21:11:03,590 INFO livereload Browser Connected: http://127.0.0.1:8000/guide/
+2019-06-30 21:19:02,772 INFO livereload Shutting down...

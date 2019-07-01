@@ -10,13 +10,13 @@ Custom Element create reusable element by specifying a `tagName` (custom tag).
 
 ```html
 <script type="module">
-  import reLiftHTML from '//unpkg.com/relift-html';
+  import Litedom from '//unpkg.com/litedom';
 
   const template = `
     Counting {this.count}
   `;
 
-  reLiftHTML({
+  Litedom({
     template,
     tagName: `my-counter`,
     data: {
@@ -49,9 +49,9 @@ Inline element gets created if a `tagName` was not provided, and the `el` is ref
 
 ```html
 <script type="module">
-  import reLiftHTML from '//unpkg.com/relift-html';
+  import Litedom from '//unpkg.com/litedom';
 
-  reLiftHTML({
+  Litedom({
     el: `#root`,
     data: {
       count: 0
@@ -79,12 +79,12 @@ Expression are placed within `{...}` and are updated whenever the `data` values 
 ```html
 
 <script type="module">
-  import reLiftHTML from '//unpkg.com/relift-html';
+  import Litedom from '//unpkg.com/litedom';
 
-  reLiftHTML({
+  Litedom({
     el: `#root`,
     data: {
-      name: 'reLift-HTML',
+      name: 'Litedom',
       license: 'MIT',
       timestamp: Date.now()
     }
@@ -118,9 +118,9 @@ For conditional use `r-if` and `r-else`
 ```html
 
 <script type="module">
-  import reLiftHTML from '//unpkg.com/relift-html';
+  import Litedom from '//unpkg.com/litedom';
 
-  reLiftHTML({
+  Litedom({
     el: `#root`,
     data: {
       count: 0
@@ -150,9 +150,9 @@ For For-loop use `r-for`
 
 ```html
 <script type="module">
-  import reLiftHTML from '//unpkg.com/relift-html';
+  import Litedom from '//unpkg.com/litedom';
 
-  reLiftHTML({
+  Litedom({
     el: `#root`,
     data: {
       items: [
@@ -185,9 +185,9 @@ To create an event listener, use `@$event-name` as an attribute in the element.
 
 ```html
 <script type="module">
-  import reLiftHTML from '//unpkg.com/relift-html';
+  import Litedom from '//unpkg.com/litedom';
 
-  reLiftHTML({
+  Litedom({
     el: `#root`,
     sayHello(event) {
       console.log('Hello World!')
@@ -208,9 +208,9 @@ Two-way data binding is set on form elements, with `@bind` pointing to the data 
 
 ```html
 <script type="module">
-  import reLiftHTML from '//unpkg.com/relift-html';
+  import Litedom from '//unpkg.com/litedom';
 
-  reLiftHTML({
+  Litedom({
     el: `#root`,
     data: {
       name: ''
@@ -234,13 +234,13 @@ Lifecycle put some hooks on the component and get executed based on what happens
 
 ```html
 <script type="module">
-  import reLiftHTML from '//unpkg.com/relift-html';
+  import Litedom from '//unpkg.com/litedom';
 
   const template = `
     Counting {this.count || 'no count'}
   `;
 
-  reLiftHTML({
+  Litedom({
     template,
     tagName: `my-counter`,
     created() {

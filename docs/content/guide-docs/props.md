@@ -9,7 +9,7 @@ Props are simply attributes that were passed in the Custom Element. They can be 
   <script type="module">
     const template = `counting: {this.count}`;
 
-    reLiftHTML({
+    Litedom({
       template,
       tagName: 'my-counter',
       data: {

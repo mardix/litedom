@@ -3,7 +3,7 @@
 
 [TOC]
 
-For every instance that gets created, reLift-HTML provides two lifecycle methods that get added during the initialization.
+For every instance that gets created, Litedom provides two lifecycle methods that get added during the initialization.
 
 All lifecycle methods have:
 
@@ -18,7 +18,7 @@ All lifecycle methods have:
 It is also the place to initialize some async call, ajax etc.
 
 ```js
-  reLiftHTML({
+  Litedom({
     created() {
       //... code here
     }
@@ -28,7 +28,7 @@ It is also the place to initialize some async call, ajax etc.
 #### Example with async
 
 ```js
-  reLiftHTML({
+  Litedom({
     el: '#root',
     data: {
       loading: false,
@@ -56,7 +56,7 @@ It is also the place to initialize some async call, ajax etc.
 `updated` runs only each time the state updates the DOM. This is a place to do any computations after an update.
 
 ```js
-  reLiftHTML({
+  Litedom({
     updated() {
       //... code 
     }
@@ -66,7 +66,7 @@ It is also the place to initialize some async call, ajax etc.
 #### Example of count LI
 
 ```js
-  reLiftHTML({
+  Litedom({
     data: {
       totalLis: 0
     },
@@ -84,7 +84,7 @@ It is also the place to initialize some async call, ajax etc.
 It is also the place to do some cleanup, remove intervals etc.
 
 ```js
-  reLiftHTML({
+  Litedom({
     created() {
       //... code here
     }

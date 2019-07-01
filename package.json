@@ -1,23 +1,23 @@
 {
-  "name": "relift-html",
-  "pkgName": "reLift-HTML",
+  "name": "litedom",
+  "pkgName": "Litedom",
   "version": "0.11.0",
   "author": "Mardix",
   "license": "MIT",
-  "description": "A blazing fast view library that lets  you put Javascript Template Literals in HTML",
-  "main": "dist/relift-html.esm.js",
-  "module": "dist/relift-html.esm.js",
+  "description": "A blazing fast view library to create Web Components and use Javascript Template Literals in HTML",
+  "main": "dist/litedom.es.js",
+  "module": "dist/litedom.es.js",
   "scripts": {
-    "size": "gzip-size ./dist/relift-html.esm.js",
+    "size": "gzip-size ./dist/litedom.es.js",
     "check-ts": "tsc",
     "publish-docs-0": "cd ./docs && mambo build && cp ./static/CNAME ./.build",
     "publish-docs": "npm run publish-docs-0 && cd ./docs && gh-pages -d .build",
     "test": "jest ./test/",
     "test-0": "jest --verbose ./test/",
-    "bundle-n-size": "npm run bundle && npm run size",
+    "bundlesize": "npm run bundle && npm run size",
     "bundle": "rollup -c ",
     "commit-publish-tag": "cross-var git commit -am '$npm_package_version' && git tag $npm_package_version && git push && git push --tags",
-    "publish": "cross-var npm run test && npm run bundle && npm run commit-publish-tag && npm publish && npm run size",
+    "publishx": "cross-var npm run test && npm run bundle && npm run commit-publish-tag && npm publish && npm run size",
     "test-publish": "cross-var npm run test && npm run bundle && npm run commit-publish-tag && npm run size"
   },
   "jest": {
@@ -25,12 +25,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mardix/relift-html.git"
+    "url": "git+https://github.com/mardix/litedom.git"
   },
   "bugs": {
-    "url": "https://github.com/mardix/relift-html/issues"
+    "url": "https://github.com/mardix/litedom/issues"
   },
-  "homepage": "https://github.com/mardix/relift-html",
+  "homepage": "https://github.com/mardix/litedom",
   "devDependencies": {
     "@babel/core": "^7.4.3",
     "@babel/preset-env": "^7.4.3",

@@ -12,15 +12,15 @@
   <div class="wrapper">
     <header class="header">
       <div class="container">
-        <h1 class="title">reLiftHTML</h1>
+        <h1 class="title">Compolite</h1>
         <p class="description">A simple view library</p>
-        <a class="button" target="_blank" href="https://relift-html.js.org/guide/" title="Getting Started"
+        <a class="button" target="_blank" href="https://compolite.js.org/guide/" title="Getting Started"
           >Documentation</a
         >
         <a
           class="button button-outlined"
           target="_blank"
-          href="https://relift-html.js.org/demo/"
+          href="https://compolite.js.org/demo/"
           title="Getting Started"
           >Demo</a
         >
@@ -60,8 +60,8 @@
           <div><h4>{this.count} with {this.countNum}</h4></div>
           <div>
             <input type="text" r-bind="text">
-            <textarea r-value="this.countNum"></textarea>
-            <input type="checkbox"  r-value="5">
+            <textarea>{this.countNum}</textarea>
+            <input type="checkbox"  :value="5">
             <div>Date:  {new Date().toISOString().slice(0, 10)}</div>
            
             
@@ -100,7 +100,7 @@
           </div>
           <div>
             <ul>
-              <li r-for="(item,i) in this.todos">{item} <a @click="remove" data-index="{i}">Remove</a></li>
+              <li :for="(item,i) in this.todos" :key="{i}">{item} <a @click="remove" data-index="{i}">Remove</a></li>
             </ul>
           </div>
         </div>
@@ -125,12 +125,12 @@
           </div>
           <div class="column" id="starWarsWidget">
             <div class="center">
-              <span r-if="(this.loadingStatus === 'pending')"><div class="spinner"></div></span>
-              <h4 r-else>Welcome to Star Wars</h4>
+              <span :if="(this.loadingStatus === 'pending')"><div class="spinner"></div></span>
+              <h4 :else>Welcome to Star Wars</h4>
             </div>
             <div>
               <ul>
-                <li r-for="(item,i) in this.peopleList">{item.name} [<a @click="remove" data-index="{i}">+</a>]</li>
+                <li :for="(item,i) in this.peopleList">{item.name} [<a @click="remove" data-index="{i}">+</a>]</li>
               </ul>
             </div>
           </div>
@@ -145,10 +145,10 @@
   <script type="module" src="./tag.count-up.js"></script>
   <script type="module" src="./tag.form-2wdb.js"></script>
   <script type="module">
-    import reLiftHTML from '../src/index.js';
+    import Compolite from '../src/index.js';
 
     // COUNTER
-    reLiftHTML({
+    Compolite({
       el: '#counterWidget',
       tagName: 'kobra-kai',
       data: {
@@ -172,14 +172,13 @@
     });
 
     // TODO APP
-    reLiftHTML({
+    Compolite({
       el: '#todoAppWidget',
       data: {
         count: 0,
         todos: ['Take dog to school', 'Eat dinner', 'Code more'],
       },
       add() {
-        console.log('EL', this.el)
         const input = this.el.querySelector('#todo-input');
         if (input.value) {
           this.data.todos.push(input.value);
@@ -194,7 +193,7 @@
     // STAR WARS
     const STARS_WARS_BASE_API = 'https://swapi.co/api';
     const delay = ms => new Promise(res => setTimeout(res, ms))
-    reLiftHTML({
+    Compolite({
       el: '#starWarsWidget',
       data: {
         peopleList: [],
@@ -207,7 +206,6 @@
         const data = await resp.json();
         this.data.peopleList = data.results;
         this.data.loadingStatus = 'done';
-        console.log('data', this.data.peopleList)
       },
       created() {
         this.loadPeople();

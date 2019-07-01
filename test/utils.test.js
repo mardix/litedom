@@ -1,5 +1,6 @@
 import {
   isFn,
+  isObjKeyFn,
   htmlToDom,
   parseLit,
   computeState,
@@ -8,22 +9,31 @@ import {
   toStrLit,
   randomChars,
   kebabCase,
+  camelCase,
   styleMap,
+  immu,
 } from '../src/utils.js';
 
 describe('isFn', () => {
+  test('isFn', () => {
+    const fn = () => {};
+    expect(isFn(fn)).toBe(true);
+  });
+});
+
+describe('isObjKeyFn', () => {
   test('is a function', () => {
     const o = {
       fn: () => {},
     };
-    expect(isFn(o, 'fn')).toBe(true);
+    expect(isObjKeyFn(o, 'fn')).toBe(true);
   });
 
   test('not a function', () => {
     const o = {
       fn: 1,
     };
-    expect(isFn(o, 'fn')).toBe(false);
+    expect(isObjKeyFn(o, 'fn')).toBe(false);
   });
 });
 
@@ -232,6 +242,28 @@ describe('kebabCase', () => {
 
   test('HelloABCWorld', () => {
     expect(kebabCase('HelloABCWorld')).toBe('hello-a-b-c-world');
+  });
+});
+
+describe('camelCase', () => {
+  test('hello', () => {
+    expect(camelCase('hello')).toBe('hello');
+  });
+
+  test('hello-world', () => {
+    expect(camelCase('hello-world')).toBe('helloWorld');
+  });
+
+  test('hello_world', () => {
+    expect(camelCase('hello_world')).toBe('helloWorld');
+  });
+
+  test('hello world', () => {
+    expect(camelCase('hello world')).toBe('helloWorld');
+  });
+
+  test('hello my world', () => {
+    expect(camelCase('hello my world')).toBe('helloMyWorld');
   });
 });
 

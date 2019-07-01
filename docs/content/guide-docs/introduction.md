@@ -2,14 +2,14 @@
 
 [TOC]
 
-### What is reLift-HTML?
+### What is Litedom?
 
-{% include "content/guide-docs/about-relift-html.md" %}
+{% include "content/guide-docs/about.md" %}
 
 
 ### Features
 
-reLift-HTML aims to be simple, easy to use and helps you do much more. 
+Litedom aims to be simple, easy to use and helps you do much more. 
 
 - Very small
 - Web Components

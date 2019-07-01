@@ -8,17 +8,17 @@ function createHTML(text) {
 }
 
 test('r-if', () => {
-  const root = createHTML(`<body><div id='root'><span r-if='this.a === b'>Hello</span></div></body>`);
+  const root = createHTML(`<body><div id='root'><span :if='this.a === b'>Hello</span></div></body>`);
   parseDirectives(root);
   const result = '<div id="root">${this.a === b ? `<span>Hello</span>`:``}</div>';
   expect(root.innerHTML).toBe(result);
 });
 
 test('greater & lesser than', () => {
-  const root = createHTML(`<body><div id='root'><span r-if='this.a > b'>Hello</span></div></body>`);
-  const rootB = createHTML(`<body><div id='root'><span r-if='this.a < b'>Hello</span></div></body>`);
-  const rootC = createHTML(`<body><div id='root'><span r-if='this.a >= b'>Hello</span></div></body>`);
-  const rootD = createHTML(`<body><div id='root'><span r-if='this.a <= b'>Hello</span></div></body>`);
+  const root = createHTML(`<body><div id='root'><span :if='this.a > b'>Hello</span></div></body>`);
+  const rootB = createHTML(`<body><div id='root'><span :if='this.a < b'>Hello</span></div></body>`);
+  const rootC = createHTML(`<body><div id='root'><span :if='this.a >= b'>Hello</span></div></body>`);
+  const rootD = createHTML(`<body><div id='root'><span :if='this.a <= b'>Hello</span></div></body>`);
   parseDirectives(root);
   parseDirectives(rootB);
   parseDirectives(rootC);
@@ -31,10 +31,10 @@ test('greater & lesser than', () => {
 });
 
 test('greater & lesser than when decoded', () => {
-  const root = createHTML(`<body><div id='root'><span r-if='this.a > b'>Hello</span></div></body>`);
-  const rootB = createHTML(`<body><div id='root'><span r-if='this.a < b'>Hello</span></div></body>`);
-  const rootC = createHTML(`<body><div id='root'><span r-if='this.a >= b'>Hello</span></div></body>`);
-  const rootD = createHTML(`<body><div id='root'><span r-if='this.a <= b'>Hello</span></div></body>`);
+  const root = createHTML(`<body><div id='root'><span :if='this.a > b'>Hello</span></div></body>`);
+  const rootB = createHTML(`<body><div id='root'><span :if='this.a < b'>Hello</span></div></body>`);
+  const rootC = createHTML(`<body><div id='root'><span :if='this.a >= b'>Hello</span></div></body>`);
+  const rootD = createHTML(`<body><div id='root'><span :if='this.a <= b'>Hello</span></div></body>`);
   parseDirectives(root);
   parseDirectives(rootB);
   parseDirectives(rootC);
@@ -56,7 +56,7 @@ test('greater & lesser than when decoded', () => {
 
 test('r-if else', () => {
   const root = createHTML(
-    `<body><div id='root'><span r-if='this.a === b'>Hello</span><span r-else>World</span></div></body>`
+    `<body><div id='root'><span :if='this.a === b'>Hello</span><span :else>World</span></div></body>`
   );
   parseDirectives(root);
   const result = '<div id="root">${this.a === b ? `<span>Hello</span>`:`<span>World</span>`}</div>';
@@ -65,7 +65,7 @@ test('r-if else', () => {
 
 test('r-if no immidiate else', () => {
   const root = createHTML(
-    `<body><div id='root'><span r-if='this.a === b'>Hello</span><span>Something Else</span><span r-else>World</span></div></body>`
+    `<body><div id='root'><span :if='this.a === b'>Hello</span><span>Something Else</span><span r-else>World</span></div></body>`
   );
   parseDirectives(root);
   const result =
@@ -74,7 +74,7 @@ test('r-if no immidiate else', () => {
 });
 
 test('for', () => {
-  const root = createHTML(`<body><div id='root'><ul><li r-for="item in this.items">{item}</li></ul></div></body>`);
+  const root = createHTML(`<body><div id='root'><ul><li :for="item in this.items">{item}</li></ul></div></body>`);
   parseDirectives(root);
   const result =
     '<div id="root"><ul>${this.items.map(function(item) { return `<li>{item}</li>`}.bind(this)).join(\'\')}</ul></div>';
@@ -83,7 +83,7 @@ test('for', () => {
 
 test('inner for', () => {
   const root = createHTML(
-    `<body><div id='root'><ul><li r-for="item in this.items"><ul><li r-for="item2 in item">{item2}</li></ul></li></ul></div></body>`
+    `<body><div id='root'><ul><li :for="item in this.items"><ul><li :for="item2 in item">{item2}</li></ul></li></ul></div></body>`
   );
   parseDirectives(root);
   const result =
@@ -93,7 +93,7 @@ test('inner for', () => {
 
 test('for with if', () => {
   const root = createHTML(
-    `<body><div id='root'><ul><li r-for="item in this.items">{item} <span r-if="x === y">Yes</span></li></ul></div></body>`
+    `<body><div id='root'><ul><li :for="item in this.items">{item} <span :if="x === y">Yes</span></li></ul></div></body>`
   );
   parseDirectives(root);
   const result =

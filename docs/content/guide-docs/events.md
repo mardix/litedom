@@ -20,7 +20,7 @@ When an event is invoked, the `Event` object is passed to the method as the firs
 
 <script type="module">
 
-  reLiftHTML({
+  Litedom({
     el: '#root',
     data: {},
 
@@ -49,7 +49,7 @@ To pass values from the element to the event, we can use html attribute and retr
 
 <script type="module">
 
-  reLiftHTML({
+  Litedom({
     el: '#root',
     data: {},
 
@@ -75,7 +75,7 @@ By default all `@call` will result into `@click`, except for the scenarios below
 
 AHREF `@call` => `@click`
 
-```
+```html
 <a @call="something">x</a> to
 <a href="javascript:void(0);" @click="something"></a>
 ```
@@ -84,7 +84,7 @@ AHREF `@call` => `@click`
 
 FORMS: Input & Textarea `@call` => `@input + @paste`
 
-```
+```html
 <input type="text" @call="something"> to
 <input type="text" @input="something" @paste="something">
 ```
@@ -93,7 +93,7 @@ FORMS: Input & Textarea `@call` => `@input + @paste`
 
 FORMS: Select `@call` => `@change`
 
-```
+```html
 <select @call="something"><options...></select>
 <select @change="something"><options...></select>
 ```
@@ -102,7 +102,7 @@ FORMS: Select `@call` => `@change`
 
 FORMS: Form `@call` => `@submit`
 
-```
+```html
 <form @call="something"></form>
 <form @submit="something"></form>
 ```
@@ -110,9 +110,10 @@ FORMS: Form `@call` => `@submit`
 
 ### Events Name List
 
-Here is the list of all the events accepted by reLift-HTML 
+Here is the list of all the events accepted by Litedom 
 
-```
+```html
+
 @call
 @click
 @submit

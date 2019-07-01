@@ -1,10 +1,10 @@
 
-# reLift-HTML Doc Site
+# Compolite Doc Site
 
 
-For reLift-HTML docs, please go 
+For Compolite docs, please go 
 
-https://relift-html.js.org/
+https://compolite.js.org/
 
 ---
 

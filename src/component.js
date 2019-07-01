@@ -1,134 +1,25 @@
-/** reLift-HTML */
+/** Litedom */
 // @ts-check
 
-import emerj from './emerj.js';
-import { tokenizeEvents, bindEvents } from './events.js';
-import { parseDirectives } from './directives.js';
+import { bindEvents } from './events.js';
+import { getAttrs, objectOnChange, styleMap, immu } from './utils.js';
 import {
-  computeState,
-  isFn,
-  parseLit,
-  htmlToDom,
-  getAttrs,
-  objectOnChange,
-  set,
-  get,
-  toStrLit,
-  styleMap,
-  immu,
-  decodeHTMLStringForDirective,
-} from './utils.js';
-
-const RESERVED_KEYS = [
-  'data',
-  'el',
-  'shadowDOM',
-  'template',
-  'created',
-  'updated',
-  'removed',
-  '$store',
-  'prop',
-  'tagName',
-];
+  filterMethods,
+  filterComputedState,
+  filterInitialState,
+  storeConnector,
+  bindPublicMethodsToContext,
+  domConnector,
+  __$bindInput,
+} from './component-helpers.js';
 
 /**
- * Filter all methods from the initial object
- * @param {object} obj
- * @returns {object}
+ * Private context included data and functions
+ * to exist only in the render function
  */
-const filterMethods = obj =>
-  Object.keys(obj)
-    .filter(k => !RESERVED_KEYS.includes(k))
-    .filter(k => isFn(obj, k))
-    .reduce((pV, cK) => ({ ...pV, [cK]: obj[cK] }), {});
-
-/**
- * Filter initial state
- * @param {Object} obj
- * @return {object} initial state
- */
-const filterInitialState = obj =>
-  Object.keys(obj)
-    .filter(k => !isFn(obj, k))
-    .reduce((pV, cK) => ({ ...pV, [cK]: obj[cK] }), {});
-
-/**
- *
- * @param {object} obj
- * @returns {function[]}
- */
-const filterComputedState = obj =>
-  Object.keys(obj)
-    .filter(k => isFn(obj, k))
-    .map(k => computeState(k, obj[k]));
-
-/**
- * @typedef {Object} StateManagementType - The state management definition
- * @property {function} getState - a function that returns the current state
- * @property {function} subscribe - function to subscribe that returns a function
- *
- * Connect to an external store to share state
- * @param {StateManagementType} store store Instance, must have getState() and subscribe()
- * @return {function} to create an instance of the store to react on the element
- */
-const storeConnector = store => data => {
-  data.$store = store.getState();
-  return store.subscribe(x => (data.$store = { ...store.getState() }));
+const renderContext = {
+  __$styleMap: styleMap,
 };
-
-/**
- * Bind public methods to the element context
- * @param {object} context
- * @param {object} methods
- * @param {object} contextState
- * @returns {void}
- */
-const bindPublicMethodsToContext = (context, methods, contextState) => {
-  Object.keys(methods)
-    .filter(k => !k.startsWith('_'))
-    .map(k => (context[k] = methods[k].bind(contextState)));
-};
-
-/**
- * Receiving a template it
- * @param {string} template
- * @returns {{html: string, render: function }}
- */
-const domConnector = template => {
-  const node = htmlToDom(toStrLit(template));
-  parseDirectives(node);
-  tokenizeEvents(node);
-  const html = decodeHTMLStringForDirective(node.innerHTML);
-  const lit = parseLit(html);
-  return {
-    html,
-    render: (target, state) => {
-      const newNode = htmlToDom(lit(state));
-      return !target.isEqualNode(newNode) ? emerj(target, newNode) : false;
-    },
-  };
-};
-
-/**
- * For two-way data binding
- * This is an internal function to be used
- * @param {Event} e
- * @returns {void}
- */
-function __$bindInput(e) {
-  /** @type {HTMLInputElement|any} el */
-  const el = e.target;
-  const key = el.getAttribute('r-data-key');
-  if (el.type === 'checkbox') {
-    const obj = get(this.data, key) || [];
-    set(this.data, key, el.checked ? obj.concat(el.value) : obj.filter(v => v != el.value));
-  } else if (el.options && el.multiple) {
-    set(this.data, key, [].reduce.call(el, (v, o) => (o.selected ? v.concat(o.value) : v), []));
-  } else {
-    set(this.data, key, el.value);
-  }
-}
 
 export default function Component(options = {}) {
   const opt = {
@@ -151,7 +42,7 @@ export default function Component(options = {}) {
     /**
      * @type {{getState: function, subscribe: function }}
      * for global store/state manager */
-    $store: { getState: () => {}, subscribe: () => () => {} },
+    $store: { getState: () => undefined, subscribe: () => () => {} },
     /**
      * @type {function}
      * lifecycle */
@@ -199,11 +90,18 @@ export default function Component(options = {}) {
        * @returns {void}
        */
       connectedCallback() {
-        this.state = { ...this.state, ...initialState, prop: getAttrs(this, true) };
-        const data = objectOnChange(this.state, () => {
-          updateComputedState(this.state);
-          if (dom.render(this.$root, this.state)) {
+        this.$eventHooks = {
+          updated: [],
+          removed: [],
+        };
+
+        this._state = { ...this._state, ...initialState, prop: getAttrs(this, true) };
+
+        const data = objectOnChange(this._state, () => {
+          updateComputedState(this._state);
+          if (dom.render(this.$root, { ...this._state, ...renderContext })) {
             opt.updated.call(this.context);
+            //this._dispatchEventHooks('updated');
           }
         });
 
@@ -215,9 +113,8 @@ export default function Component(options = {}) {
           ...methods,
           data,
           el: this.$root,
-          prop: this.state.prop,
+          prop: this._state.prop,
           $store: opt.$store,
-          ___$globals: { styleMap },
         };
 
         // Bind events
@@ -227,8 +124,8 @@ export default function Component(options = {}) {
         bindPublicMethodsToContext(this, methods, this.context);
 
         // Initial setup + first rendering
-        updateComputedState(this.state);
-        dom.render(this.$root, this.state);
+        updateComputedState(this._state);
+        dom.render(this.$root, { ...this._state, ...renderContext });
         opt.created.call(this.context);
       }
 
@@ -239,15 +136,26 @@ export default function Component(options = {}) {
       disconnectedCallback() {
         opt.removed.call(this.context);
         this.disconnectStore();
+        //this._dispatchEventHooks('removed');
+        this.$eventHooks = [];
       }
 
       /**
        * Getter data
-       * @returns {object}
+       * @returns {object} immutable object
        */
       get data() {
-        return immu(this.state);
+        return immu(this._state);
       }
+
+      // $on(hook, callback) {
+      //   this.$eventHooks[hook].push(callback);
+      //   return () => this.$eventHooks[hook].splice(this.$eventHooks[hook].indexOf(callback), 1);
+      // }
+
+      // _dispatchEventHooks(hook) {
+      //   if (hook in this.$eventHooks) this.$eventHooks[hook].forEach(s => s(this.data));
+      // }
     }
   );
 }

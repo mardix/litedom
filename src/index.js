@@ -1,5 +1,5 @@
 /**
- * reLift-HTML
+ * Litedom
  */
 
 // @ts-check
@@ -7,25 +7,25 @@
 import Component from './component.js';
 import { randomChars, selector } from './utils.js';
 
-const error = msg => new Error(`reLift-HTML Error: ${msg}`);
+const error = msg => new Error(`Litedom Error: ${msg}`);
 
 /**
  * Generate random custom element tag
  * @returns {string}
  */
-const genRandomCustomElementTagName = () => `relift-ce-${randomChars()}`;
+const genRandomCustomElementTagName = () => `litedom-${randomChars()}`;
 
 /**
- * reLiftHTML default function initializer
- * @params {object} the configuration
+ * Litedom default function initializer
+ * @param {object} options the configuration
  */
-function reLift(options) {
+function Litedom(options) {
   const opt = {
     /**
      * el
      * @type {HTMLElement | string}
      * The target element for inplace element where it will be displayed at.
-     * If $template is null, it will use the el#innerHTML as template.
+     * If $template is omitted or null, it will use the el#innerHTML as template.
      * To select in-place element, provide $refId which can be retrieved using
      * document.querySelector('[ref-id="the-refId-provided"]')
      * */
@@ -42,9 +42,10 @@ function reLift(options) {
     /**
      * template
      * @type {string}
-     * the template if the template string to use to create the component.
-     * If it exists along with $el, $el will be the target, but use $template as template
-     * This take precedence over $el#innerHTML */
+     * the template is the template string to use to create the component.
+     * If it exists along with $el, $el will be the target, but it will use $template as template
+     * This take precedence over $el#innerHTML
+     * Omit $template to use $el#innerHTML as template*/
     template: null,
     /**
      * tagName
@@ -82,9 +83,9 @@ function reLift(options) {
 
 /**
  *
- * @param {object|array} config object of reLift options or array of relift options
+ * @param {object|array} config object of Litedom options or array of options
  */
-export default function(config) {
-  if (Array.isArray(config)) config.map(o => reLift(o));
-  else reLift(config);
-}
+export default config => {
+  if (Array.isArray(config)) config.map(o => Litedom(o));
+  else Litedom(config);
+};

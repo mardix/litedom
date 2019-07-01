@@ -31,7 +31,7 @@ The example below showcases how methods can be used.
 
 <script type="module">
 
-  reLiftHTML({
+  Litedom({
     el: '#root',
     data: {
       defaultColor: '#FFFFFF'
@@ -64,7 +64,7 @@ You can also setup Async methods with the `async/await`.
 
 ```js
 
-  reLiftHTML({
+  Litedom({
     el: '#root',
     
     async loadData() {

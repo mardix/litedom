@@ -1,10 +1,9 @@
-
-import reLiftHTML from '../src/index.js';
+import Compolite from '../src/index.js';
 
 const template = `
   <div>Text: {this.form.text}</div>
   <div>Radio: {this.form.radio}</div>
-  <div>Select {this.form.city || 'Charlotter'}</div>
+  <div>Select {this.form.city || 'Charlotte'}</div>
   <div>Check: {this.form.checks} </div>
   <hr>
   <div>Input text: <input type="text" @bind="form.text"></div>
@@ -21,8 +20,7 @@ const template = `
   </select></div>
 `;
 
-
-export default reLiftHTML({
+export default Compolite({
   template,
   tagName: 'my-counter',
   data: {
@@ -30,7 +28,7 @@ export default reLiftHTML({
       text: '',
       radio: '',
       checks: [],
-      city: ''
-    } 
-  } 
-})
+      city: '',
+    },
+  },
+});

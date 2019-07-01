@@ -1,4 +1,4 @@
-// reLift-HTML
+// Litedom
 // @ts-check
 
 /**
@@ -62,12 +62,19 @@ export const set = (obj, path, value) => {
 export const get = (obj, path) => path.split('.').reduce((acc, part) => acc && acc[part], obj);
 
 /**
- * isFn isFunction
+ * Check if an object is a function
+ * @param {object} o
+ * @returns {boolean}
+ */
+export const isFn = o => typeof o === 'function';
+
+/**
+ * isObjKeyFn isFunction
  * @param {object} obj
  * @param {string} key
  * @returns {boolean}
  */
-export const isFn = (obj, key) => obj && typeof obj[key] === 'function';
+export const isObjKeyFn = (obj, key) => obj && isFn(obj[key]);
 
 /**
  * check if an object is HTMLElement
@@ -128,12 +135,18 @@ export const debounce = (callback, time = 250, interval) => (...args) =>
   clearTimeout(interval, (interval = setTimeout(callback, time, ...args)));
 
 /**
+ * @type {array}
+ */
+const decodeHTMLList = [['&lt;', '<'], ['&gt;', '>'], ['&amp;', '&']];
+
+/**
  * To decode html string for directive
  * change &lt; + &gt;  to < + > respectively
  * @param {string} str
  * @returns {string}
  */
-export const decodeHTMLStringForDirective = str => str.replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+export const decodeHTMLStringForDirective = str =>
+  decodeHTMLList.reduce((pV, cK) => pV.replace(new RegExp(cK[0], 'g'), cK[1]), str);
 
 /**
  * Returns all attributes into an object
@@ -148,7 +161,7 @@ export const getAttrs = (el, camelCaseIt = false) =>
       .reduce((pV, cK) => ({ ...pV, ...cK }), {})
   );
 
-const proxyTarget = '___target___';
+const proxyTarget = '#';
 const isPrimitive = value => value === null || !['function', 'object'].includes(typeof value);
 
 /**
@@ -242,6 +255,11 @@ export const objectOnChange = (object, onChange) => {
   return proxy;
 };
 
+/**
+ * Deep copy object
+ * @param {object} obj
+ * @returns {object}
+ */
 function deepCopy(obj) {
   if (obj === null || typeof obj !== 'object') return obj;
   var temp = obj.constructor();
@@ -251,6 +269,11 @@ function deepCopy(obj) {
   return temp;
 }
 
+/**
+ * Deep freezes object
+ * @param {object} obj
+ * @returns {object}
+ */
 function deepFreeze(obj) {
   if (obj === null || typeof obj !== 'object') return obj;
   Object.keys(obj).forEach(function(name) {
@@ -260,4 +283,9 @@ function deepFreeze(obj) {
   return Object.freeze(obj);
 }
 
+/**
+ * Creates a deep immutable object
+ * @param {object} obj
+ * @returns {object}
+ */
 export const immu = obj => deepFreeze(deepCopy(obj));

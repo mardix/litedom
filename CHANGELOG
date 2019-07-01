@@ -1,7 +1,8 @@
 
-- 0.11.0
-    - rename reliftHTML to Vuelite
-    - change r-* to :*, ie: r-for = :for, kinda similar to vuejs
+- 1.0.0
+    - *rename reliftHTML to Litedom
+    - Directives use color, instead of r-*. :for, :if, :else, :class, :key
+    - remove r-* directives
     - Added :class
         <div :class="clsName:condition; clsName2: condition2"></div>
         <div :class="hide: this.item > 5; show-my-ownclass: x === y"></div>
@@ -15,8 +16,13 @@
     - Add el#.data on the component to expose data
         <my-counter id=""></my-counter>
         document.querySelector('#id').data ;
-    - Methods are public now in the element when doing document.querySelector('element-something'). 
+    - Open custom methods to be public in the element when doing document.querySelector('element-something'). 
         To make a method private prefix it with _ underscore.
+    - added :key to uniquely identify an element for reordering when looping
+    - added :style to dynamically pass inline styling as an object for stylemap
+    - Fixed other special characters in conditionals
+    - Update docs
+
     - 
 - 0.10.2
   - fixed reported issue when using < + >, it changes it into html entities, &lt; &gt;
