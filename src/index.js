@@ -5,7 +5,7 @@
 // @ts-check
 
 import Component from './component.js';
-import { randomChars, selector } from './utils.js';
+import { randomChars, selector, isDisplayNone, isVisibilityHidden } from './utils.js';
 
 const error = msg => new Error(`Litedom Error: ${msg}`);
 
@@ -67,7 +67,16 @@ function Litedom(options) {
 
   if (opt.el) {
     el = selector(opt.el);
-    el.style.display = 'block';
+
+    /**
+     * To prevent the flickering of the element or showing placeholders,
+     * it's recommended to set
+     * visibility:hidden or display:none to hide before rendering
+     * This will make sure it's removed
+     */
+    if (isVisibilityHidden(el)) el.style.visibility = 'visible';
+    if (isDisplayNone(el)) el.style.display = '';
+
     if (!opt.template) opt.template = el.innerHTML;
     el.innerHTML = '';
     if (!hasTagName) {

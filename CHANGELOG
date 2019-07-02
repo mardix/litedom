@@ -1,4 +1,8 @@
 
+- 0.11.1
+    - fixed removal of visibility/display if it exist in el. 
+      To prevent flickering of placeholders
+
 - 0.11.0
     - *rename reliftHTML to Litedom
     - Directives use color, instead of r-*. :for, :if, :else, :class, :key

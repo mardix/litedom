@@ -1,7 +1,7 @@
 {
   "name": "litedom",
   "pkgName": "Litedom",
-  "version": "0.11.0",
+  "version": "0.11.1",
   "author": "Mardix",
   "license": "MIT",
   "description": "A blazing fast view library to create Web Components and use Javascript Template Literals in HTML",

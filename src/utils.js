@@ -90,6 +90,22 @@ export const isElement = obj => obj instanceof HTMLElement;
  */
 export const selector = el => (typeof el === 'string' ? document.querySelector(el) : el);
 
+const windowStyle = el => window.getComputedStyle(el);
+
+/**
+ * Check if an element has visibility:hidden
+ * @param {HTMLElement} el
+ * @returns {boolean}
+ */
+export const isVisibilityHidden = el => windowStyle(el).visibility === 'hidden';
+
+/**
+ * Check if an element has display:none
+ * @param {HTMLElement} el
+ * @returns {boolean}
+ */
+export const isDisplayNone = el => windowStyle(el).display === 'none';
+
 /**
  * Turn an HTML string into HTMLElement
  * @param {string} html
