@@ -17,8 +17,8 @@
     "bundlesize": "npm run bundle && npm run size",
     "bundle": "rollup -c ",
     "commit-publish-tag": "cross-var git commit -am '$npm_package_version' && git tag $npm_package_version && git push && git push --tags",
-    "publish": "cross-var npm run test && npm run bundle && npm run commit-publish-tag && npm publish && npm run size",
-    "test-publish": "cross-var npm run test && npm run bundle && npm run commit-publish-tag && npm run size"
+    "publish-pkg": "cross-var npm run test && npm run bundle && npm run commit-publish-tag && npm publish && npm run size",
+    "test-publish-pkg": "cross-var npm run test && npm run bundle && npm run commit-publish-tag && npm run size"
   },
   "jest": {
     "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.jsx?$"
