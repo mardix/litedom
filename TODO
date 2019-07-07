@@ -1,5 +1,9 @@
 ## Wish list / todos / brainwashing
 
+recommendation:
+State management: reStated 
+Router: https://github.com/vaadin/vaadin-router 
+
 - [DONE 0.10.0] make reliftHTML to also accept array config -> reLiftHTML([{}, {}])
   to allow multiple setup at once.
 

@@ -71,7 +71,9 @@ export const filterComputedState = obj =>
  */
 export const storeConnector = store => data => {
   data.$store = store.getState();
-  return store.subscribe(x => (data.$store = { ...store.getState() }));
+  return store.subscribe(x =>
+    setTimeout(_ => (data.$store = { ...store.getState() }), 0)
+  );
 };
 
 /**

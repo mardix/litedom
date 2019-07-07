@@ -1,4 +1,7 @@
 
+- 0.11.2
+    - Fixed race condition in component-helpers.storeConnector. 
+
 - 0.11.1
     - fixed removal of visibility/display if it exist in el. 
       To prevent flickering of placeholders
