@@ -168,7 +168,7 @@ This demostrates how we can interact with an element externally with javascript 
 ```html
 
 <style>
-  .somAClass {
+  .someClassA {
     color: blue
   }
   .myClassB {
