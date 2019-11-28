@@ -102,12 +102,16 @@ export function bindEvents(selector, context) {
   // set initial values
   Array.from(selector.querySelectorAll(`[ld--bind]`)).map(el => {
     const value = get(context.data, el.getAttribute('ld--bind'));
-    if (el.tagName === 'INPUT' && ['radio', 'checkbox'].includes(el.type)) {
-      if (value.includes(el.value)) {
-        el.checked = true;
+    try {
+      if (el.tagName === 'INPUT' && ['radio', 'checkbox'].includes(el.type)) {
+        if (value.includes(el.value)) {
+          el.checked = true;
+        }
+      } else {
+        el.value = value;
       }
-    } else {
-      el.value = value;
+    } catch (e) {
+      //
     }
   });
 

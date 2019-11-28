@@ -1,4 +1,7 @@
 
+- 0.12.1
+  - Add try/catch to fix wrong type
+  
 - 0.12.0
   - Fixed two way databa binding to set initial value
   
