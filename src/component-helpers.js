@@ -37,6 +37,7 @@ const RESERVED_KEYS = [
 export const filterMethods = obj =>
   Object.keys(obj)
     .filter(k => !RESERVED_KEYS.includes(k))
+    .filter(k => !k.startsWith('$'))
     .filter(k => isObjKeyFn(obj, k))
     .reduce((pV, cK) => ({ ...pV, [cK]: obj[cK] }), {});
 
@@ -61,6 +62,17 @@ export const filterComputedState = obj =>
     .map(k => computeState(k, obj[k]));
 
 /**
+ * Filter all global objects with `$` prefix.
+ * @param {object} obj
+ * @returns {object}
+ */
+export const filterGlobal$Object = obj =>
+  Object.keys(obj)
+    .filter(k => k.startsWith('$'))
+    .filter(k => !RESERVED_KEYS.includes(k))
+    .reduce((pV, cK) => ({ ...pV, [cK]: obj[cK] }), {});
+
+/**
  * @typedef {Object} StateManagementType - The state management definition
  * @property {function} getState - a function that returns the current state
  * @property {function} subscribe - function to subscribe that returns a function
@@ -71,9 +83,7 @@ export const filterComputedState = obj =>
  */
 export const storeConnector = store => data => {
   data.$store = store.getState();
-  return store.subscribe(x =>
-    setTimeout(_ => (data.$store = { ...store.getState() }), 0)
-  );
+  return store.subscribe(x => (data.$store = { ...store.getState() }));
 };
 
 /**
@@ -121,9 +131,17 @@ export function __$bindInput(e) {
   const key = el.getAttribute('ld--bind');
   if (el.type === 'checkbox') {
     const obj = get(this.data, key) || [];
-    set(this.data, key, el.checked ? obj.concat(el.value) : obj.filter(v => v != el.value));
+    set(
+      this.data,
+      key,
+      el.checked ? obj.concat(el.value) : obj.filter(v => v != el.value)
+    );
   } else if (el.options && el.multiple) {
-    set(this.data, key, [].reduce.call(el, (v, o) => (o.selected ? v.concat(o.value) : v), []));
+    set(
+      this.data,
+      key,
+      [].reduce.call(el, (v, o) => (o.selected ? v.concat(o.value) : v), [])
+    );
   } else {
     set(this.data, key, el.value);
   }

@@ -17,6 +17,7 @@ const template = `
   <div>Select: <select name="city" @bind="form.city">
     <option value="Charlotte">Charlotte</option>
     <option value="Concord">Concord</option>
+    <option value="Atlanta">Atlanta</option>
   </select></div>
 `;
 
@@ -26,7 +27,7 @@ export default Compolite({
   data: {
     form: {
       text: '',
-      radio: '',
+      radio: 'Mr',
       checks: [],
       city: '',
     },

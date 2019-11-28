@@ -7,6 +7,7 @@ import {
   filterMethods,
   filterComputedState,
   filterInitialState,
+  filterGlobal$Object,
   storeConnector,
   bindPublicMethodsToContext,
   domConnector,
@@ -66,6 +67,7 @@ export default function Component(options = {}) {
   const methods = filterMethods(opt);
   const initialState = filterInitialState(opt.data);
   const computedState = filterComputedState(opt.data);
+  const gobal$Object = filterGlobal$Object(opt);
 
   /** @type {function} update the computed states */
   const updateComputedState = state => computedState.forEach(s => s(state));
@@ -95,7 +97,11 @@ export default function Component(options = {}) {
           removed: [],
         };
 
-        this._state = { ...this._state, ...initialState, prop: getAttrs(this, true) };
+        this._state = {
+          ...this._state,
+          ...initialState,
+          prop: getAttrs(this, true),
+        };
 
         const data = objectOnChange(this._state, () => {
           updateComputedState(this._state);
@@ -111,6 +117,7 @@ export default function Component(options = {}) {
         // context contains methods and properties to work on the element
         this.context = {
           ...methods,
+          ...gobal$Object,
           data,
           el: this.$root,
           prop: this._state.prop,

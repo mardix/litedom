@@ -153,7 +153,11 @@ export const debounce = (callback, time = 250, interval) => (...args) =>
 /**
  * @type {array}
  */
-const decodeHTMLList = [['&lt;', '<'], ['&gt;', '>'], ['&amp;', '&']];
+const decodeHTMLList = [
+  ['&lt;', '<'],
+  ['&gt;', '>'],
+  ['&amp;', '&'],
+];
 
 /**
  * To decode html string for directive

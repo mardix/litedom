@@ -3,7 +3,7 @@
  */
 // @ts-check
 
-import { isFn } from './utils.js';
+import { isFn, get } from './utils.js';
 
 /**
  * Holds all the browser's event list, ie: click, mouseover, keyup
@@ -40,6 +40,7 @@ export function tokenizeEvents(selector) {
    *
    * '@bind'
    * For two way data binding in input elements
+   *
    */
   for (const el of selector.querySelectorAll('[\\@call], [\\@bind]')) {
     let method = el.getAttribute('@call');
@@ -97,6 +98,18 @@ export function bindEvents(selector, context) {
         });
     });
   }
+
+  // set initial values
+  Array.from(selector.querySelectorAll(`[ld--bind]`)).map(el => {
+    const value = get(context.data, el.getAttribute('ld--bind'));
+    if (el.tagName === 'INPUT' && ['radio', 'checkbox'].includes(el.type)) {
+      if (value.includes(el.value)) {
+        el.checked = true;
+      }
+    } else {
+      el.value = value;
+    }
+  });
 
   const mutationsObserver = new MutationObserver(mutations => {
     [...mutations]

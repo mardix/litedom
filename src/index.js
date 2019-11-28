@@ -5,7 +5,12 @@
 // @ts-check
 
 import Component from './component.js';
-import { randomChars, selector, isDisplayNone, isVisibilityHidden } from './utils.js';
+import {
+  randomChars,
+  selector,
+  isDisplayNone,
+  isVisibilityHidden,
+} from './utils.js';
 
 const error = msg => new Error(`Litedom Error: ${msg}`);
 
@@ -86,15 +91,18 @@ function Litedom(options) {
     }
   }
 
-  if (!opt.template) throw error(`missing 'template' option or 'el' are not valid elements`);
+  if (!opt.template)
+    throw error(`missing 'template' option or 'el' are not valid elements`);
   Component(opt);
 }
 
 /**
  *
  * @param {object|array} config object of Litedom options or array of options
+ * @param {object} sharedOptions, to share global options, ie: $store, $router, $events
  */
-export default config => {
-  if (Array.isArray(config)) config.map(o => Litedom(o));
-  else Litedom(config);
+export default (options, sharedOptions = {}) => {
+  if (Array.isArray(options))
+    options.map(o => Litedom({ ...sharedOptions, ...o }));
+  else Litedom(options);
 };
