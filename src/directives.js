@@ -100,7 +100,7 @@ function _class(el, value, directive) {
     .map(v => v.split(':', 2).map(e => e.trim()))
     .map(v => `\${${v[1]} ? '${v[0]}': ''}`)
     .join(' ');
-  const classList = el.getAttribute('class') || '' + ` ${klass}`;
+  const classList = (el.getAttribute('class') || '') + ` ${klass}`;
   el.setAttribute('class', classList);
   remove(el, directive);
 }
