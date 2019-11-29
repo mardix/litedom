@@ -224,7 +224,7 @@ It is recommended to provide an `:key` directive or `id` attribute with `:for` w
 ```html
 
 <style>
-  .somAClass {
+  .someClassA {
     color: blue
   }
   .myClassB {
