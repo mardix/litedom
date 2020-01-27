@@ -13,21 +13,21 @@ Discord/Chat: https://discord.gg/r3HqNYy
 
 **Litedom** is an elegant Web Component library. 
 
-At ~3.5kb gzip, it allows you to create Web Component/Custom Element easily. Litedom can effortlessy be added into exitsing HTML page, without the need to bring in the bloat of big frameworks.
+At ~3.5kb gzip, it allows you to create Web Components/Custom Elements easily. Litedom can effortlessly be added into exitsing HTML page without the need to bring in the bloat of big frameworks.
 
-With Litedom, you can create your own custom tag element, to be reused throughout the application. 
+With Litedom, you can create your own custom tag element to be reused throughout the application. 
 
 Components created with Litedom are reactive. Litedom provides an internal state manager, a simple progressive templating language by leveraging Javascript Template Literals, provides a one way data flow, has two-way data biding and events handling, lifecycle, directives, stylemaps. It has no dependecies, no virtual DOM, no JSX, No build tool.
 
 **Litedom** follows the Web Component V1 specs, which allows you to have Shadow Dom Spec, Custom Element Spec, HTML Template Spec and ES Module Spec. It is compatible with all modern browsers that support ES2015 (ES6), ESM (ES Module), Proxy, etc. 
 
-**Litedom** is set to be easy, simple and straight forward.
+**Litedom** is set to be easy, simple, and straightforward.
 
 ---
 
 #### Example 1
 
-A simple example that showcases how quick a custom element can be created with full reactivity.
+A simple example that showcases how quickly a custom element can be created with full reactivity.
 
 ```html
 
@@ -86,7 +86,7 @@ This example showcases a counter which contains a lifecycle.
 
 #### Example 3: Using in-place template
 
-In place template uses the content of the HTML Element as the template, and will create the Component in place to be used. Usually if you have existing section on the HTML page and want to make it reactive. 
+An in-place template uses the content of the HTML Element as the template and will create the Component in place to be used. Use this if you have existing section on the HTML page and want to make it reactive. 
 
 ```html
 
@@ -112,7 +112,7 @@ In place template uses the content of the HTML Element as the template, and will
 
 #### Example 4
 
-This demostrates how we can interact with an element externally with javascript by using normal query selector.
+This demonstrates how we can interact with an element externally with javascript by using normal query selector.
 
 ```html
 
@@ -357,7 +357,7 @@ This is a more advanced example that showcases the usage of components in compon
 
 ---
 
-**Litedom** has no dependencies, no virtual DOM, and build tool; Which will fit best with developers who want something small, light, and simple but still follow the paradigm of the major libraries; With developers working on simple but dynamic static site; When having React/Vuejs/Angular/(etc) is too much or when you just want to progressively upgrade your site without changing too much.
+**Litedom** has no dependencies, no virtual DOM, and build tool; It suits developers who want something small, light, and simple but still follow the paradigm of the major libraries; For developers working on simple but dynamic static sites; When having React/Vuejs/Angular/(etc) is too much or when you just want to progressively upgrade your site without changing too much.
 
 **Features**: Web Components, Custom Element, Template Literals, Reactive, Data Binding, One Way Data Flow, Two-way data binding, Event Handling, Props, Lifecycle, State Management, Computed Properties, Directives, Style Map and more.
 
@@ -370,7 +370,7 @@ This is a more advanced example that showcases the usage of components in compon
 
 **Litedom** is a modern library for moden browsers that support ES2015 (ES6), Template Literals, Proxy, and all the fun stuff.
 
-The library is written in ES2015, and will be delivered to you as such. To keep it small Litedom doesn't have any polyfills nor extra code to make new ES20xx features available in non modern browsers, therefor it will not work with browsers that don't support ES6, Template Literals, Proxy, etc. 
+The library is written in ES2015, and will be delivered to you as such. To keep it small Litedom doesn't have any polyfills nor extra code to make new ES20xx features available in non modern browsers and will not work with browsers that don't support ES6, Template Literals, Proxy, etc. 
 
 https://caniuse.com/#feat=es6
 
