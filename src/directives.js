@@ -12,6 +12,7 @@ const DIRECTIVES_LIST = {
   $style: _style,
   $for: _for,
   $if: _if,
+  $text: _text,
 };
 
 const md = dir => `\:${dir}`;
@@ -123,5 +124,19 @@ function _style(el, value, directive) {
   const oStyle = el.getAttribute('style') || '';
   const style = `\${function() { return this.__$styleMap(${value});}.call(this)}`;
   el.setAttribute('style', (oStyle ? oStyle + '; ' : '') + style);
+  remove(el, directive);
+}
+
+/**
+ * :text directive
+ * <div :text="{dataState}"></div>
+ * <div>{dataState value}</div>
+ * @param {HTMLElement} el
+ * @param {string} value
+ * @param {string} directive
+ * @returns {void}
+ */
+function _text(el, value, directive) {
+  el.textContent = value;
   remove(el, directive);
 }
