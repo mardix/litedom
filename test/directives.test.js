@@ -100,3 +100,12 @@ test('for with if', () => {
     '<div id="root"><ul>${this.items.map(function(item) { return `<li>{item} ${x === y ? `<span>Yes</span>`:``}</li>`}.bind(this)).join(\'\')}</ul></div>';
   expect(root.innerHTML).toBe(result);
 });
+
+test('textContent with text', () => {
+  const root = createHTML(
+    `<body><div id='root'><p :text="{this.a}"></p></div>`
+  );
+  parseDirectives(root);
+  const result = '<div id="root"><p>{this.a}</p></div>';
+  expect(root.innerHTML).toBe(result);
+});
